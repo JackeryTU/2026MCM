@@ -1,0 +1,38 @@
+# LaTeX 临时文件
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+*.blg
+*.bbl
+
+# 常见 LaTeX 构建目录
+paper/build/
+参考初稿-LaTeX/build/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 临时与备份文件
+*.tmp
+*.bak
+~$*
+
+# 注意：不要全局忽略 *.pdf；参考初稿和提交 PDF 需要纳入版本管理。
+# 大体积附件是否使用 Git LFS，应在确认实际文件大小后决定。
+
