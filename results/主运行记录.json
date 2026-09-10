@@ -1,0 +1,99 @@
+{
+  "command": "python run_all.py --project-root . --alpha 0.8",
+  "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "packages": {
+    "numpy": "2.4.1",
+    "pandas": "3.0.0",
+    "scipy": "1.17.0",
+    "sklearn": "1.8.0"
+  },
+  "seed": 2026,
+  "parameters": {
+    "alpha": 0.8,
+    "eta_charge": 0.9,
+    "eta_discharge": 0.9,
+    "soc_min_kwh": 1200,
+    "soc_max_kwh": 10800,
+    "power_limit_kw": 5000
+  },
+  "input_files": [
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\data\\C题.pdf",
+      "size_bytes": 354389,
+      "modified_time_ns": 1789037892594912000
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\data\\附件\\附件1.xlsx",
+      "size_bytes": 16003,
+      "modified_time_ns": 1789037892616492800
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\data\\附件\\附件2.xlsx",
+      "size_bytes": 907128,
+      "modified_time_ns": 1789037892643719300
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\data\\附件\\附件3.xlsx",
+      "size_bytes": 293526,
+      "modified_time_ns": 1789037892659510500
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\data\\附件\\附件4.xlsx",
+      "size_bytes": 409790,
+      "modified_time_ns": 1789037892675557100
+    }
+  ],
+  "hash_checks": "omitted per explicit user request; no hashes calculated or compared",
+  "outputs": [
+    "results\\experiments",
+    "results\\p1_cold_start.json",
+    "results\\p1_regression.json",
+    "results\\p1_smoke.json",
+    "results\\q2_每日汇总.csv",
+    "results\\q2_逐时结果.csv",
+    "results\\q3_每日汇总.csv",
+    "results\\q3_逐时结果.csv",
+    "results\\q4_2_每日汇总.csv",
+    "results\\q4_2_逐时结果.csv",
+    "results\\q4_3_每日汇总.csv",
+    "results\\q4_3_逐时结果.csv",
+    "results\\README.md",
+    "results\\result1.xlsx",
+    "results\\result2.xlsx",
+    "results\\result3.xlsx",
+    "results\\result4-2.xlsx",
+    "results\\result4-3.xlsx",
+    "results\\代表日历次更新.csv",
+    "results\\典型日汇总.csv",
+    "results\\原始数据剖析.csv",
+    "results\\图表统计.csv",
+    "results\\复现清单.json",
+    "results\\核心指标.json",
+    "results\\表1_代表日购电.csv",
+    "results\\表2_代表日储能.csv",
+    "results\\表3_代表日应急.csv",
+    "results\\问题1_四小时汇总.csv",
+    "results\\问题1_逐时结果.csv",
+    "results\\预测误差指标.csv"
+  ],
+  "runtime_seconds": 109.83923983573914,
+  "source_files": [
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\microgrid_core.py",
+      "size_bytes": 30664,
+      "modified_time_ns": 1789052606567416200
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\run_all.py",
+      "size_bytes": 23063,
+      "modified_time_ns": 1789054603289886100
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\evaluate_results.py",
+      "size_bytes": 6679,
+      "modified_time_ns": 1789053724492337600
+    }
+  ],
+  "validation": "every simulated day checked for physical feasibility, LP residuals, simultaneous flow and SOC continuity"
+}

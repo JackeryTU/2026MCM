@@ -1,0 +1,230 @@
+[
+  {
+    "step": "environment",
+    "command": [
+      "C:\\Program Files\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\references\\roles\\编程手\\scripts\\check_env.py",
+      "--features",
+      "data",
+      "visualization",
+      "optimization",
+      "excel",
+      "machine-learning"
+    ],
+    "exit_code": 0,
+    "runtime_seconds": 0.17651669999759179,
+    "log": "results\\reproduction_logs\\environment.log"
+  },
+  {
+    "step": "core_tests",
+    "command": [
+      "C:\\Program Files\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\test_core.py",
+      "--project-root",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol"
+    ],
+    "exit_code": 0,
+    "runtime_seconds": 15.119877100001759,
+    "log": "results\\reproduction_logs\\core_tests.log"
+  },
+  {
+    "step": "evaluation_tests",
+    "command": [
+      "C:\\Program Files\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\test_evaluation.py"
+    ],
+    "exit_code": 0,
+    "runtime_seconds": 7.250127399998746,
+    "log": "results\\reproduction_logs\\evaluation_tests.log"
+  },
+  {
+    "step": "workbook_audit",
+    "command": [
+      "C:\\Program Files\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\audit_results.py",
+      "--project-root",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol"
+    ],
+    "exit_code": 0,
+    "runtime_seconds": 11.711389800002507,
+    "log": "results\\reproduction_logs\\workbook_audit.log"
+  },
+  {
+    "step": "experiment_audit",
+    "command": [
+      "C:\\Program Files\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\audit_experiments.py",
+      "--project-root",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol"
+    ],
+    "exit_code": 0,
+    "runtime_seconds": 6.52554980000059,
+    "log": "results\\reproduction_logs\\experiment_audit.log"
+  },
+  {
+    "step": "profile_问题1_逐时结果",
+    "command": [
+      "C:\\Program Files\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\figure\\scripts\\profile_data.py",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\results\\问题1_逐时结果.csv"
+    ],
+    "exit_code": 0,
+    "runtime_seconds": 1.2577194000004965,
+    "log": "results\\reproduction_logs\\profile_问题1_逐时结果.log"
+  },
+  {
+    "step": "profile_q2_每日汇总",
+    "command": [
+      "C:\\Program Files\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\figure\\scripts\\profile_data.py",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\results\\q2_每日汇总.csv"
+    ],
+    "exit_code": 0,
+    "runtime_seconds": 1.1731398000010813,
+    "log": "results\\reproduction_logs\\profile_q2_每日汇总.log"
+  },
+  {
+    "step": "profile_q3_每日汇总",
+    "command": [
+      "C:\\Program Files\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\figure\\scripts\\profile_data.py",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\results\\q3_每日汇总.csv"
+    ],
+    "exit_code": 0,
+    "runtime_seconds": 1.1699050999995961,
+    "log": "results\\reproduction_logs\\profile_q3_每日汇总.log"
+  },
+  {
+    "step": "profile_q4_3_每日汇总",
+    "command": [
+      "C:\\Program Files\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\figure\\scripts\\profile_data.py",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\results\\q4_3_每日汇总.csv"
+    ],
+    "exit_code": 0,
+    "runtime_seconds": 1.2026612000008754,
+    "log": "results\\reproduction_logs\\profile_q4_3_每日汇总.log"
+  },
+  {
+    "step": "profile_原始数据剖析",
+    "command": [
+      "C:\\Program Files\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\figure\\scripts\\profile_data.py",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\results\\原始数据剖析.csv"
+    ],
+    "exit_code": 0,
+    "runtime_seconds": 1.1545287000008102,
+    "log": "results\\reproduction_logs\\profile_原始数据剖析.log"
+  },
+  {
+    "step": "profile_experiments",
+    "command": [
+      "C:\\Program Files\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\figure\\scripts\\profile_data.py",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\results\\experiments\\实验总表.csv"
+    ],
+    "exit_code": 0,
+    "runtime_seconds": 1.1304812000016682,
+    "log": "results\\reproduction_logs\\profile_experiments.log"
+  },
+  {
+    "step": "figures",
+    "command": [
+      "C:\\Program Files\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\plot_all.py",
+      "--project-root",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol"
+    ],
+    "exit_code": 0,
+    "runtime_seconds": 21.021496199999092,
+    "log": "results\\reproduction_logs\\figures.log"
+  },
+  {
+    "step": "figure_format",
+    "command": [
+      "C:\\Program Files\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\figure\\scripts\\check_figure.py",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\process_q1_price_dispatch.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\process_q1_price_dispatch.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\process_q2_forecast_validation.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\process_q2_forecast_validation.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\process_q3_contract_updates.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\process_q3_contract_updates.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\process_q4_price_dispatch.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\process_q4_price_dispatch.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\raw_q1_typical_profiles.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\raw_q1_typical_profiles.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\raw_q2_annual_netload.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\raw_q2_annual_netload.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\raw_q2_pv_load_relation.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\raw_q2_pv_load_relation.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\raw_q3_forecast_error.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\raw_q3_forecast_error.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\raw_q4_price_variability.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\raw_q4_price_variability.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\result_q1_optimal_schedule.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\result_q1_optimal_schedule.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\result_q2_annual_risk.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\result_q2_annual_risk.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\result_q2_baselines.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\result_q2_baselines.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\result_q3_adjustment_benefit.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\result_q3_adjustment_benefit.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\result_q3_update_frequency.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\result_q3_update_frequency.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\result_q4_alpha_sensitivity.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\result_q4_alpha_sensitivity.svg",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\result_q4_strategy_comparison.png",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures\\result_q4_strategy_comparison.svg",
+      "--strict"
+    ],
+    "exit_code": 0,
+    "runtime_seconds": 0.7159664999999222,
+    "log": "results\\reproduction_logs\\figure_format.log"
+  },
+  {
+    "step": "figure_coverage",
+    "command": [
+      "C:\\Program Files\\Python314\\python.exe",
+      "-X",
+      "utf8",
+      "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\references\\roles\\编程手\\scripts\\figure_audit.py",
+      "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\figures",
+      "--questions",
+      "q1",
+      "q2",
+      "q3",
+      "q4",
+      "--strict"
+    ],
+    "exit_code": 0,
+    "runtime_seconds": 0.4329963000018324,
+    "log": "results\\reproduction_logs\\figure_coverage.log"
+  }
+]

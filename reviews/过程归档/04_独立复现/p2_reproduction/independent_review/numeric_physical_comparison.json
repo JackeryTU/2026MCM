@@ -1,0 +1,3990 @@
+{
+  "authority": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol",
+  "reproduction": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction",
+  "integrity_method": "path, bytes, mtime; numerical values; no digests",
+  "atol": 1e-07,
+  "rtol": 1e-11,
+  "checks": [
+    {
+      "check": "CSV results\\experiments\\q2_alpha_0.70_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_alpha_0.75_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_alpha_0.85_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_alpha_0.90_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_alpha_0.95_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_capacity_0.8_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_capacity_1.2_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_clusters_12_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_clusters_16_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_clusters_5_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_emergency_3_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_emergency_4_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_emergency_6_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_emergency_8_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_history_30_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_history_90_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_no_storage_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_point_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_power_0.8_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_power_1.2_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_roundtrip_0.9_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_safe_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q2_typical_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q3_0h_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q3_12h_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q3_2h_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q3_6h_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q42_no_storage_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q42_point_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q42_safe_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q42_typical_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_0h_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_12h_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_2h_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_6h_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_alpha_0.70_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_alpha_0.75_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_alpha_0.85_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_alpha_0.90_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_alpha_0.95_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_capacity_0.8_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_capacity_1.2_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_clusters_12_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_clusters_16_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_clusters_5_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_emergency_3_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_emergency_4_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_emergency_6_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_emergency_8_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_history_30_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_history_90_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_power_0.8_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_power_1.2_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\q43_roundtrip_0.9_daily.csv",
+      "passed": true,
+      "rows": 365,
+      "columns": 19,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\实验总表.csv",
+      "passed": true,
+      "rows": 54,
+      "columns": 30,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\时间口径敏感性.csv",
+      "passed": true,
+      "rows": 2,
+      "columns": 5,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\experiments\\更新频率比较.csv",
+      "passed": true,
+      "rows": 8,
+      "columns": 9,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\q2_每日汇总.csv",
+      "passed": true,
+      "rows": 334,
+      "columns": 15,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\q2_逐时结果.csv",
+      "passed": true,
+      "rows": 48096,
+      "columns": 20,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\q3_每日汇总.csv",
+      "passed": true,
+      "rows": 334,
+      "columns": 15,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\q3_逐时结果.csv",
+      "passed": true,
+      "rows": 48096,
+      "columns": 20,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\q4_2_每日汇总.csv",
+      "passed": true,
+      "rows": 334,
+      "columns": 15,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\q4_2_逐时结果.csv",
+      "passed": true,
+      "rows": 48096,
+      "columns": 20,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\q4_3_每日汇总.csv",
+      "passed": true,
+      "rows": 334,
+      "columns": 15,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\q4_3_逐时结果.csv",
+      "passed": true,
+      "rows": 48096,
+      "columns": 20,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\代表日历次更新.csv",
+      "passed": true,
+      "rows": 2880,
+      "columns": 5,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\典型日汇总.csv",
+      "passed": true,
+      "rows": 16,
+      "columns": 16,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\原始数据剖析.csv",
+      "passed": true,
+      "rows": 36,
+      "columns": 14,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\图表统计.csv",
+      "passed": true,
+      "rows": 9,
+      "columns": 3,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\表1_代表日购电.csv",
+      "passed": true,
+      "rows": 32,
+      "columns": 11,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\表2_代表日储能.csv",
+      "passed": true,
+      "rows": 96,
+      "columns": 7,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\表3_代表日应急.csv",
+      "passed": true,
+      "rows": 51,
+      "columns": 4,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\问题1_四小时汇总.csv",
+      "passed": true,
+      "rows": 6,
+      "columns": 5,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\问题1_逐时结果.csv",
+      "passed": true,
+      "rows": 144,
+      "columns": 14,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "CSV results\\预测误差指标.csv",
+      "passed": true,
+      "rows": 38,
+      "columns": 13,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "core metrics JSON",
+      "passed": true
+    },
+    {
+      "check": "Q1 source inputs",
+      "passed": true
+    },
+    {
+      "check": "Q1 independent physical and cost identities",
+      "passed": true,
+      "balance_max": 3.410605131648481e-13,
+      "soc_residual_max": 2.5579538487363607e-12
+    },
+    {
+      "check": "Q1 cyclic/bounds/power/exclusivity",
+      "passed": true
+    },
+    {
+      "check": "q2 source mapping",
+      "passed": true
+    },
+    {
+      "check": "q2 balance and SOC identities",
+      "passed": true,
+      "balance_max": 5.968558980384842e-13,
+      "soc_residual_max": 4.547473508864641e-12
+    },
+    {
+      "check": "q2 both settlement formulas",
+      "passed": true
+    },
+    {
+      "check": "q2 nonnegative limits exclusivity",
+      "passed": true
+    },
+    {
+      "check": "q2 SOC continuous all slots including midnight",
+      "passed": true
+    },
+    {
+      "check": "q2 complete dates and slots",
+      "passed": true
+    },
+    {
+      "check": "q2 daily sum plan_kwh",
+      "passed": true
+    },
+    {
+      "check": "q2 daily sum final_contract_kwh",
+      "passed": true
+    },
+    {
+      "check": "q2 daily sum cash_cost_yuan",
+      "passed": true
+    },
+    {
+      "check": "q2 daily sum emergency_kwh",
+      "passed": true
+    },
+    {
+      "check": "q2 daily sum charge_kwh",
+      "passed": true
+    },
+    {
+      "check": "q2 daily sum discharge_kwh",
+      "passed": true
+    },
+    {
+      "check": "q3 source mapping",
+      "passed": true
+    },
+    {
+      "check": "q3 balance and SOC identities",
+      "passed": true,
+      "balance_max": 4.547473508864641e-13,
+      "soc_residual_max": 4.5492498657040414e-12
+    },
+    {
+      "check": "q3 both settlement formulas",
+      "passed": true
+    },
+    {
+      "check": "q3 nonnegative limits exclusivity",
+      "passed": true
+    },
+    {
+      "check": "q3 SOC continuous all slots including midnight",
+      "passed": true
+    },
+    {
+      "check": "q3 complete dates and slots",
+      "passed": true
+    },
+    {
+      "check": "q3 daily sum plan_kwh",
+      "passed": true
+    },
+    {
+      "check": "q3 daily sum final_contract_kwh",
+      "passed": true
+    },
+    {
+      "check": "q3 daily sum cash_cost_yuan",
+      "passed": true
+    },
+    {
+      "check": "q3 daily sum emergency_kwh",
+      "passed": true
+    },
+    {
+      "check": "q3 daily sum charge_kwh",
+      "passed": true
+    },
+    {
+      "check": "q3 daily sum discharge_kwh",
+      "passed": true
+    },
+    {
+      "check": "q4_2 source mapping",
+      "passed": true
+    },
+    {
+      "check": "q4_2 balance and SOC identities",
+      "passed": true,
+      "balance_max": 6.821210263296962e-13,
+      "soc_residual_max": 4.547473508864641e-12
+    },
+    {
+      "check": "q4_2 both settlement formulas",
+      "passed": true
+    },
+    {
+      "check": "q4_2 nonnegative limits exclusivity",
+      "passed": true
+    },
+    {
+      "check": "q4_2 SOC continuous all slots including midnight",
+      "passed": true
+    },
+    {
+      "check": "q4_2 complete dates and slots",
+      "passed": true
+    },
+    {
+      "check": "q4_2 daily sum plan_kwh",
+      "passed": true
+    },
+    {
+      "check": "q4_2 daily sum final_contract_kwh",
+      "passed": true
+    },
+    {
+      "check": "q4_2 daily sum cash_cost_yuan",
+      "passed": true
+    },
+    {
+      "check": "q4_2 daily sum emergency_kwh",
+      "passed": true
+    },
+    {
+      "check": "q4_2 daily sum charge_kwh",
+      "passed": true
+    },
+    {
+      "check": "q4_2 daily sum discharge_kwh",
+      "passed": true
+    },
+    {
+      "check": "q4_3 source mapping",
+      "passed": true
+    },
+    {
+      "check": "q4_3 balance and SOC identities",
+      "passed": true,
+      "balance_max": 4.618527782440651e-13,
+      "soc_residual_max": 4.5492498657040414e-12
+    },
+    {
+      "check": "q4_3 both settlement formulas",
+      "passed": true
+    },
+    {
+      "check": "q4_3 nonnegative limits exclusivity",
+      "passed": true
+    },
+    {
+      "check": "q4_3 SOC continuous all slots including midnight",
+      "passed": true
+    },
+    {
+      "check": "q4_3 complete dates and slots",
+      "passed": true
+    },
+    {
+      "check": "q4_3 daily sum plan_kwh",
+      "passed": true
+    },
+    {
+      "check": "q4_3 daily sum final_contract_kwh",
+      "passed": true
+    },
+    {
+      "check": "q4_3 daily sum cash_cost_yuan",
+      "passed": true
+    },
+    {
+      "check": "q4_3 daily sum emergency_kwh",
+      "passed": true
+    },
+    {
+      "check": "q4_3 daily sum charge_kwh",
+      "passed": true
+    },
+    {
+      "check": "q4_3 daily sum discharge_kwh",
+      "passed": true
+    },
+    {
+      "check": "54 prescribed experiments exactly",
+      "passed": true
+    },
+    {
+      "check": "q2_safe numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_safe 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_safe aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_safe independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_point numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_point 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_point aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_point independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_typical numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_typical 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_typical aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_typical independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_no_storage numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_no_storage 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_no_storage aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 0.0
+    },
+    {
+      "check": "q2_no_storage independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_no_storage actual battery disabled",
+      "passed": true
+    },
+    {
+      "check": "q42_safe numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q42_safe 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q42_safe aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q42_safe independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q42_point numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q42_point 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q42_point aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q42_point independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q42_typical numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q42_typical 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q42_typical aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.6370904631912708e-11
+    },
+    {
+      "check": "q42_typical independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q42_no_storage numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q42_no_storage 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q42_no_storage aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 0.0
+    },
+    {
+      "check": "q42_no_storage independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q42_no_storage actual battery disabled",
+      "passed": true
+    },
+    {
+      "check": "q3_0h numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q3_0h 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q3_0h aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q3_0h independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q3_12h numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q3_12h 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q3_12h aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q3_12h independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q3_6h numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q3_6h 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q3_6h aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q3_6h independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q3_2h numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q3_2h 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q3_2h aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q3_2h independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_0h numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_0h 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_0h aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_0h independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_12h numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_12h 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_12h aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 2.1827872842550278e-11
+    },
+    {
+      "check": "q43_12h independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_6h numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_6h 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_6h aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_6h independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_2h numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_2h 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_2h aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_2h independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.70 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.70 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.70 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q2_alpha_0.70 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.75 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.75 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.75 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_alpha_0.75 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.85 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.85 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.85 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_alpha_0.85 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.90 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.90 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.90 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_alpha_0.90 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.95 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.95 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_alpha_0.95 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_alpha_0.95 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_clusters_5 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_clusters_5 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_clusters_5 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_clusters_5 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_clusters_12 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_clusters_12 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_clusters_12 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_clusters_12 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_clusters_16 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_clusters_16 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_clusters_16 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q2_clusters_16 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_history_30 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_history_30 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_history_30 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q2_history_30 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_history_90 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_history_90 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_history_90 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q2_history_90 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_capacity_0.8 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_capacity_0.8 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_capacity_0.8 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_capacity_0.8 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_capacity_0.8 normalized 10/90/50 capacity only",
+      "passed": true
+    },
+    {
+      "check": "q2_capacity_1.2 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_capacity_1.2 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_capacity_1.2 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q2_capacity_1.2 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_capacity_1.2 normalized 10/90/50 capacity only",
+      "passed": true
+    },
+    {
+      "check": "q2_power_0.8 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_power_0.8 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_power_0.8 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_power_0.8 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_power_1.2 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_power_1.2 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_power_1.2 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q2_power_1.2 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_roundtrip_0.9 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_roundtrip_0.9 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_roundtrip_0.9 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_roundtrip_0.9 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_emergency_3 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_emergency_3 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_emergency_3 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_emergency_3 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_emergency_4 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_emergency_4 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_emergency_4 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_emergency_4 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_emergency_6 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_emergency_6 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_emergency_6 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_emergency_6 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2_emergency_8 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q2_emergency_8 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q2_emergency_8 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q2_emergency_8 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.70 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.70 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.70 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_alpha_0.70 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.75 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.75 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.75 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q43_alpha_0.75 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.85 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.85 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.85 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q43_alpha_0.85 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.90 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.90 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.90 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q43_alpha_0.90 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.95 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.95 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_alpha_0.95 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_alpha_0.95 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_clusters_5 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_clusters_5 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_clusters_5 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_clusters_5 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_clusters_12 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_clusters_12 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_clusters_12 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q43_clusters_12 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_clusters_16 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_clusters_16 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_clusters_16 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q43_clusters_16 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_history_30 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_history_30 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_history_30 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_history_30 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_history_90 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_history_90 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_history_90 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_history_90 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_capacity_0.8 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_capacity_0.8 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_capacity_0.8 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.0913936421275139e-11
+    },
+    {
+      "check": "q43_capacity_0.8 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_capacity_0.8 normalized 10/90/50 capacity only",
+      "passed": true
+    },
+    {
+      "check": "q43_capacity_1.2 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_capacity_1.2 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_capacity_1.2 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.4551915228366852e-11
+    },
+    {
+      "check": "q43_capacity_1.2 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_capacity_1.2 normalized 10/90/50 capacity only",
+      "passed": true
+    },
+    {
+      "check": "q43_power_0.8 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_power_0.8 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_power_0.8 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_power_0.8 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_power_1.2 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_power_1.2 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_power_1.2 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_power_1.2 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_roundtrip_0.9 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_roundtrip_0.9 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_roundtrip_0.9 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_roundtrip_0.9 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_emergency_3 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_emergency_3 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_emergency_3 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_emergency_3 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_emergency_4 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_emergency_4 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_emergency_4 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_emergency_4 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_emergency_6 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_emergency_6 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_emergency_6 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_emergency_6 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q43_emergency_8 numerical JSON reproduction",
+      "passed": true
+    },
+    {
+      "check": "q43_emergency_8 365d initial and cross-day continuity",
+      "passed": true
+    },
+    {
+      "check": "q43_emergency_8 aggregate physical bounds and energy",
+      "passed": true,
+      "daily_soc_residual_max": 1.8189894035458565e-11
+    },
+    {
+      "check": "q43_emergency_8 independently sum 334d",
+      "passed": true
+    },
+    {
+      "check": "q2 emergency 3 same physical policy recost",
+      "passed": true
+    },
+    {
+      "check": "q2 emergency 4 same physical policy recost",
+      "passed": true
+    },
+    {
+      "check": "q2 emergency 6 same physical policy recost",
+      "passed": true
+    },
+    {
+      "check": "q2 emergency 8 same physical policy recost",
+      "passed": true
+    },
+    {
+      "check": "q43 emergency 3 same physical policy recost",
+      "passed": true
+    },
+    {
+      "check": "q43 emergency 4 same physical policy recost",
+      "passed": true
+    },
+    {
+      "check": "q43 emergency 6 same physical policy recost",
+      "passed": true
+    },
+    {
+      "check": "q43 emergency 8 same physical policy recost",
+      "passed": true
+    },
+    {
+      "check": "q3 0h frequency arithmetic",
+      "passed": true
+    },
+    {
+      "check": "q3 12h frequency arithmetic",
+      "passed": true
+    },
+    {
+      "check": "q3 6h frequency arithmetic",
+      "passed": true
+    },
+    {
+      "check": "q3 2h frequency arithmetic",
+      "passed": true
+    },
+    {
+      "check": "q43 0h frequency arithmetic",
+      "passed": true
+    },
+    {
+      "check": "q43 12h frequency arithmetic",
+      "passed": true
+    },
+    {
+      "check": "q43 6h frequency arithmetic",
+      "passed": true
+    },
+    {
+      "check": "q43 2h frequency arithmetic",
+      "passed": true
+    },
+    {
+      "check": "XLSX all cells and template structure result1.xlsx",
+      "passed": true,
+      "filled_cells": 317,
+      "numeric_cells": 158,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "XLSX all cells and template structure result2.xlsx",
+      "passed": true,
+      "filled_cells": 64211,
+      "numeric_cells": 55865,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "XLSX all cells and template structure result3.xlsx",
+      "passed": true,
+      "filled_cells": 110099,
+      "numeric_cells": 103510,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "XLSX all cells and template structure result4-2.xlsx",
+      "passed": true,
+      "filled_cells": 64229,
+      "numeric_cells": 55871,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "XLSX all cells and template structure result4-3.xlsx",
+      "passed": true,
+      "filled_cells": 110117,
+      "numeric_cells": 103516,
+      "max_abs_difference": 0.0
+    },
+    {
+      "check": "table1 q2 2025-03-20 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q2 2025-03-20 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q2 2025-06-21 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q2 2025-06-21 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q2 2025-09-23 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q2 2025-09-23 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q2 2025-12-21 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q2 2025-12-21 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q3 2025-03-20 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q3 2025-03-20 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q3 2025-06-21 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q3 2025-06-21 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q3 2025-09-23 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q3 2025-09-23 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q3 2025-12-21 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q3 2025-12-21 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_2 2025-03-20 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_2 2025-03-20 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_2 2025-06-21 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_2 2025-06-21 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_2 2025-09-23 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_2 2025-09-23 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_2 2025-12-21 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_2 2025-12-21 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_3 2025-03-20 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_3 2025-03-20 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_3 2025-06-21 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_3 2025-06-21 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_3 2025-09-23 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_3 2025-09-23 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_3 2025-12-21 initial_plan",
+      "passed": true
+    },
+    {
+      "check": "table1 q4_3 2025-12-21 final_contract",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-03-20 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-03-20 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-03-20 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-03-20 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-03-20 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-03-20 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-06-21 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-06-21 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-06-21 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-06-21 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-06-21 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-06-21 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-09-23 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-09-23 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-09-23 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-09-23 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-09-23 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-09-23 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-12-21 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-12-21 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-12-21 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-12-21 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-12-21 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q2 2025-12-21 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-03-20 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-03-20 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-03-20 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-03-20 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-03-20 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-03-20 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-06-21 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-06-21 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-06-21 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-06-21 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-06-21 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-06-21 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-09-23 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-09-23 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-09-23 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-09-23 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-09-23 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-09-23 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-12-21 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-12-21 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-12-21 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-12-21 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-12-21 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q3 2025-12-21 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-03-20 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-03-20 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-03-20 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-03-20 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-03-20 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-03-20 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-06-21 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-06-21 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-06-21 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-06-21 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-06-21 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-06-21 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-09-23 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-09-23 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-09-23 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-09-23 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-09-23 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-09-23 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-12-21 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-12-21 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-12-21 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-12-21 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-12-21 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_2 2025-12-21 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-03-20 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-03-20 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-03-20 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-03-20 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-03-20 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-03-20 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-06-21 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-06-21 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-06-21 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-06-21 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-06-21 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-06-21 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-09-23 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-09-23 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-09-23 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-09-23 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-09-23 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-09-23 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-12-21 0:00-4:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-12-21 4:00-8:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-12-21 8:00-12:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-12-21 12:00-16:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-12-21 16:00-20:00",
+      "passed": true
+    },
+    {
+      "check": "table2 q4_3 2025-12-21 20:00-24:00",
+      "passed": true
+    },
+    {
+      "check": "table3 complete emergency slots q2 2025-03-20",
+      "passed": true,
+      "slots": 2
+    },
+    {
+      "check": "table3 complete emergency slots q2 2025-06-21",
+      "passed": true,
+      "slots": 0
+    },
+    {
+      "check": "table3 complete emergency slots q2 2025-09-23",
+      "passed": true,
+      "slots": 9
+    },
+    {
+      "check": "table3 complete emergency slots q2 2025-12-21",
+      "passed": true,
+      "slots": 2
+    },
+    {
+      "check": "table3 complete emergency slots q3 2025-03-20",
+      "passed": true,
+      "slots": 1
+    },
+    {
+      "check": "table3 complete emergency slots q3 2025-06-21",
+      "passed": true,
+      "slots": 0
+    },
+    {
+      "check": "table3 complete emergency slots q3 2025-09-23",
+      "passed": true,
+      "slots": 0
+    },
+    {
+      "check": "table3 complete emergency slots q3 2025-12-21",
+      "passed": true,
+      "slots": 8
+    },
+    {
+      "check": "table3 complete emergency slots q4_2 2025-03-20",
+      "passed": true,
+      "slots": 2
+    },
+    {
+      "check": "table3 complete emergency slots q4_2 2025-06-21",
+      "passed": true,
+      "slots": 0
+    },
+    {
+      "check": "table3 complete emergency slots q4_2 2025-09-23",
+      "passed": true,
+      "slots": 9
+    },
+    {
+      "check": "table3 complete emergency slots q4_2 2025-12-21",
+      "passed": true,
+      "slots": 2
+    },
+    {
+      "check": "table3 complete emergency slots q4_3 2025-03-20",
+      "passed": true,
+      "slots": 1
+    },
+    {
+      "check": "table3 complete emergency slots q4_3 2025-06-21",
+      "passed": true,
+      "slots": 0
+    },
+    {
+      "check": "table3 complete emergency slots q4_3 2025-09-23",
+      "passed": true,
+      "slots": 0
+    },
+    {
+      "check": "table3 complete emergency slots q4_3 2025-12-21",
+      "passed": true,
+      "slots": 9
+    },
+    {
+      "check": "q1 displayed rho recomputed",
+      "passed": true
+    },
+    {
+      "check": "q4 displayed descriptive rho recomputed",
+      "passed": true
+    },
+    {
+      "check": "q3 displayed absolute adjustment recomputed",
+      "passed": true
+    },
+    {
+      "check": "q3 paired-day benefit statistic",
+      "passed": true
+    },
+    {
+      "check": "q4 total strategy difference fixed_price_saving_percent",
+      "passed": true
+    },
+    {
+      "check": "q4 total strategy difference variable_price_saving_percent",
+      "passed": true
+    },
+    {
+      "check": "independent raw-data forecast metrics analog_load",
+      "passed": true,
+      "count": 48096.0,
+      "mae_kw": 722.5708284728119,
+      "rmse_kw": 904.0899411647504,
+      "bias_kw": -13.7001309101303,
+      "mape_percent": 17.73679281819324,
+      "mape_count": 48096.0
+    },
+    {
+      "check": "independent inverse empirical interval analog_load",
+      "passed": true
+    },
+    {
+      "check": "independent raw-data plotted forecast MAE RMSE R2",
+      "passed": true
+    },
+    {
+      "check": "independent raw-data forecast metrics analog_pv",
+      "passed": true,
+      "count": 48096.0,
+      "mae_kw": 335.92170986142486,
+      "rmse_kw": 557.7722816052662,
+      "bias_kw": -0.23017107490682898,
+      "mape_percent": 25.42774946031497,
+      "mape_count": 23991.0
+    },
+    {
+      "check": "independent inverse empirical interval analog_pv",
+      "passed": true
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw 0.0 nan",
+      "passed": true,
+      "count": 8016
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_bias_corrected 0.0 nan",
+      "passed": true,
+      "count": 8016
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_same_day 0.0 nan",
+      "passed": true,
+      "count": 8016
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw 6.0 nan",
+      "passed": true,
+      "count": 8010
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_bias_corrected 6.0 nan",
+      "passed": true,
+      "count": 6012
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_same_day 6.0 nan",
+      "passed": true,
+      "count": 6012
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw 12.0 nan",
+      "passed": true,
+      "count": 8004
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_bias_corrected 12.0 nan",
+      "passed": true,
+      "count": 4008
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_same_day 12.0 nan",
+      "passed": true,
+      "count": 4008
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw 18.0 nan",
+      "passed": true,
+      "count": 7998
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_bias_corrected 18.0 nan",
+      "passed": true,
+      "count": 2004
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_same_day 18.0 nan",
+      "passed": true,
+      "count": 2004
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 1.0",
+      "passed": true,
+      "count": 1336
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 2.0",
+      "passed": true,
+      "count": 1336
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 3.0",
+      "passed": true,
+      "count": 1336
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 4.0",
+      "passed": true,
+      "count": 1336
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 5.0",
+      "passed": true,
+      "count": 1336
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 6.0",
+      "passed": true,
+      "count": 1336
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 7.0",
+      "passed": true,
+      "count": 1335
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 8.0",
+      "passed": true,
+      "count": 1335
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 9.0",
+      "passed": true,
+      "count": 1335
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 10.0",
+      "passed": true,
+      "count": 1335
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 11.0",
+      "passed": true,
+      "count": 1335
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 12.0",
+      "passed": true,
+      "count": 1335
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 13.0",
+      "passed": true,
+      "count": 1334
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 14.0",
+      "passed": true,
+      "count": 1334
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 15.0",
+      "passed": true,
+      "count": 1334
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 16.0",
+      "passed": true,
+      "count": 1334
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 17.0",
+      "passed": true,
+      "count": 1334
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 18.0",
+      "passed": true,
+      "count": 1334
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 19.0",
+      "passed": true,
+      "count": 1333
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 20.0",
+      "passed": true,
+      "count": 1333
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 21.0",
+      "passed": true,
+      "count": 1333
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 22.0",
+      "passed": true,
+      "count": 1333
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 23.0",
+      "passed": true,
+      "count": 1333
+    },
+    {
+      "check": "independent official hourly target metrics official_pv_raw_lead nan 24.0",
+      "passed": true,
+      "count": 1333
+    },
+    {
+      "check": "16 logical figures and q1-q4 raw/process/result coverage",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\process_q1_price_dispatch.png",
+      "passed": true,
+      "size": [
+        1320,
+        1005
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\process_q1_price_dispatch_grayscale.png",
+      "passed": true,
+      "size": [
+        1320,
+        1005
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector process_q1_price_dispatch",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\process_q2_forecast_validation.png",
+      "passed": true,
+      "size": [
+        1380,
+        1110
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\process_q2_forecast_validation_grayscale.png",
+      "passed": true,
+      "size": [
+        1380,
+        1110
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector process_q2_forecast_validation",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\process_q3_contract_updates.png",
+      "passed": true,
+      "size": [
+        1890,
+        1065
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\process_q3_contract_updates_grayscale.png",
+      "passed": true,
+      "size": [
+        1890,
+        1065
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector process_q3_contract_updates",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\process_q4_price_dispatch.png",
+      "passed": true,
+      "size": [
+        1395,
+        1095
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\process_q4_price_dispatch_grayscale.png",
+      "passed": true,
+      "size": [
+        1395,
+        1095
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector process_q4_price_dispatch",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\raw_q1_typical_profiles.png",
+      "passed": true,
+      "size": [
+        1890,
+        1230
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\raw_q1_typical_profiles_grayscale.png",
+      "passed": true,
+      "size": [
+        1890,
+        1230
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector raw_q1_typical_profiles",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\raw_q2_annual_netload.png",
+      "passed": true,
+      "size": [
+        1890,
+        1125
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\raw_q2_annual_netload_grayscale.png",
+      "passed": true,
+      "size": [
+        1890,
+        1125
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector raw_q2_annual_netload",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\raw_q2_pv_load_relation.png",
+      "passed": true,
+      "size": [
+        1395,
+        1095
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\raw_q2_pv_load_relation_grayscale.png",
+      "passed": true,
+      "size": [
+        1395,
+        1095
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector raw_q2_pv_load_relation",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\raw_q3_forecast_error.png",
+      "passed": true,
+      "size": [
+        1890,
+        825
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\raw_q3_forecast_error_grayscale.png",
+      "passed": true,
+      "size": [
+        1890,
+        825
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector raw_q3_forecast_error",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\raw_q4_price_variability.png",
+      "passed": true,
+      "size": [
+        1890,
+        915
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\raw_q4_price_variability_grayscale.png",
+      "passed": true,
+      "size": [
+        1890,
+        915
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector raw_q4_price_variability",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\result_q1_optimal_schedule.png",
+      "passed": true,
+      "size": [
+        1890,
+        1320
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\result_q1_optimal_schedule_grayscale.png",
+      "passed": true,
+      "size": [
+        1890,
+        1320
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector result_q1_optimal_schedule",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\result_q2_annual_risk.png",
+      "passed": true,
+      "size": [
+        1890,
+        1275
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\result_q2_annual_risk_grayscale.png",
+      "passed": true,
+      "size": [
+        1890,
+        1275
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector result_q2_annual_risk",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\result_q2_baselines.png",
+      "passed": true,
+      "size": [
+        1890,
+        1050
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\result_q2_baselines_grayscale.png",
+      "passed": true,
+      "size": [
+        1890,
+        1050
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector result_q2_baselines",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\result_q3_adjustment_benefit.png",
+      "passed": true,
+      "size": [
+        1395,
+        1125
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\result_q3_adjustment_benefit_grayscale.png",
+      "passed": true,
+      "size": [
+        1395,
+        1125
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector result_q3_adjustment_benefit",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\result_q3_update_frequency.png",
+      "passed": true,
+      "size": [
+        1890,
+        1350
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\result_q3_update_frequency_grayscale.png",
+      "passed": true,
+      "size": [
+        1890,
+        1350
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector result_q3_update_frequency",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\result_q4_alpha_sensitivity.png",
+      "passed": true,
+      "size": [
+        1890,
+        1350
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\result_q4_alpha_sensitivity_grayscale.png",
+      "passed": true,
+      "size": [
+        1890,
+        1350
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector result_q4_alpha_sensitivity",
+      "passed": true
+    },
+    {
+      "check": "decoded pixels figures\\result_q4_strategy_comparison.png",
+      "passed": true,
+      "size": [
+        1890,
+        1365
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "decoded pixels figures\\_qa\\result_q4_strategy_comparison_grayscale.png",
+      "passed": true,
+      "size": [
+        1890,
+        1365
+      ],
+      "max_abs_pixel_difference": 0.0,
+      "dpi": [
+        299.9994,
+        299.9994
+      ]
+    },
+    {
+      "check": "SVG is vector result_q4_strategy_comparison",
+      "passed": true
+    },
+    {
+      "check": "full unique entry completed all steps",
+      "passed": true
+    },
+    {
+      "check": "manifest seed parameters and input inventory",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata data\\C题.pdf",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata data\\附件\\附件1.xlsx",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata data\\附件\\附件2.xlsx",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata data\\附件\\附件3.xlsx",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata data\\附件\\附件4.xlsx",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata data\\附件\\附件5\\result1.xlsx",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata data\\附件\\附件5\\result2.xlsx",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata data\\附件\\附件5\\result3.xlsx",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata data\\附件\\附件5\\result4-2.xlsx",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata data\\附件\\附件5\\result4-3.xlsx",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata audit_experiments.py",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata audit_results.py",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata evaluate_results.py",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata microgrid_core.py",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata plot_all.py",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata reproduce.py",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata run_all.py",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata run_experiments.py",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata smoke_test.py",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata test_core.py",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata test_evaluation.py",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata utils\\plot_style.py",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata utils\\repro_manifest_nohash.py",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata 题目分析报告.md",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata 术语表格.md",
+      "passed": true
+    },
+    {
+      "check": "manifest metadata figures\\图表契约-重算版.md",
+      "passed": true
+    },
+    {
+      "check": "authority snapshot path size mtime unchanged",
+      "passed": true,
+      "files": 240,
+      "changes": []
+    }
+  ],
+  "failures": [],
+  "csv_summary": {
+    "files": 75,
+    "numeric_cells": 3657626,
+    "max_abs_difference": 0.0
+  },
+  "reproduced_key_metrics": {
+    "seed": 2026,
+    "alpha": 0.8,
+    "time_mapping": "input timestamp is natural 10-minute interval endpoint; official template header retained by position",
+    "q1": {
+      "purchase_kwh": 59482.6981674023,
+      "cash_cost_yuan": 35126.948940559116,
+      "charge_kwh": 20740.661758257742,
+      "discharge_kwh": 16799.93602418877,
+      "pv_curtailed_kwh": 0.0,
+      "soc_min_kwh": 1200.0,
+      "soc_max_kwh": 10800.0,
+      "max_balance_residual_kwh": 9.094947017729282e-13
+    },
+    "annual_feb_dec": {
+      "q2": {
+        "days": 334,
+        "plan_kwh": 24505245.923331857,
+        "final_contract_kwh": 24505245.923331857,
+        "cash_cost_yuan": 18764165.93342194,
+        "alternative_cash_cost_yuan": 18764165.93342194,
+        "emergency_kwh": 578081.5435773833,
+        "unused_contract_kwh": 4123779.9048769586,
+        "pv_curtailed_kwh": 1950263.9847542914,
+        "soc_end_kwh": 10609.771281566384,
+        "max_balance_residual_kwh": 3.694822225952521e-13
+      },
+      "q3": {
+        "days": 334,
+        "plan_kwh": 24623849.843820192,
+        "final_contract_kwh": 23894844.221065704,
+        "cash_cost_yuan": 16279696.690460613,
+        "alternative_cash_cost_yuan": 17076049.296414606,
+        "emergency_kwh": 115458.14570383352,
+        "unused_contract_kwh": 3093394.843209086,
+        "pv_curtailed_kwh": 1841583.5121787754,
+        "soc_end_kwh": 10649.434159285278,
+        "max_balance_residual_kwh": 3.410605131648481e-13
+      },
+      "q4_2": {
+        "days": 334,
+        "plan_kwh": 24513576.97666406,
+        "final_contract_kwh": 24513576.97666406,
+        "cash_cost_yuan": 19254498.43940144,
+        "alternative_cash_cost_yuan": 19254498.43940144,
+        "emergency_kwh": 575898.3508341654,
+        "unused_contract_kwh": 4100533.5809429735,
+        "pv_curtailed_kwh": 1969275.566435357,
+        "soc_end_kwh": 10613.513264120855,
+        "max_balance_residual_kwh": 3.694822225952521e-13
+      },
+      "q4_3": {
+        "days": 334,
+        "plan_kwh": 24630306.50346248,
+        "final_contract_kwh": 23901965.092639573,
+        "cash_cost_yuan": 16735118.324558932,
+        "alternative_cash_cost_yuan": 17490654.789468836,
+        "emergency_kwh": 115938.21192851543,
+        "unused_contract_kwh": 3085161.9487350355,
+        "pv_curtailed_kwh": 1848622.3307717426,
+        "soc_end_kwh": 10651.745417687422,
+        "max_balance_residual_kwh": 3.410605131648481e-13
+      }
+    },
+    "comparisons": {
+      "fixed_price_adjustment_saving_yuan": 2484469.2429613266,
+      "variable_price_adjustment_saving_yuan": 2519380.114842508,
+      "q3_primary_vs_alternative_settlement_yuan": 796352.6059539933,
+      "q4_3_primary_vs_alternative_settlement_yuan": 755536.4649099037
+    }
+  },
+  "main_physics": [
+    {
+      "variant": "q2",
+      "slots": 48096,
+      "balance_max": 5.968558980384842e-13,
+      "soc_residual_max": 4.547473508864641e-12,
+      "soc_min": 1200.0,
+      "soc_max": 10800.0,
+      "max_power_kw": 5000.0,
+      "cash": 18764165.93342194,
+      "alternate_cash": 18764165.93342194
+    },
+    {
+      "variant": "q3",
+      "slots": 48096,
+      "balance_max": 4.547473508864641e-13,
+      "soc_residual_max": 4.5492498657040414e-12,
+      "soc_min": 1200.0,
+      "soc_max": 10800.0,
+      "max_power_kw": 5000.0,
+      "cash": 16279696.690460611,
+      "alternate_cash": 17076049.296414606
+    },
+    {
+      "variant": "q4_2",
+      "slots": 48096,
+      "balance_max": 6.821210263296962e-13,
+      "soc_residual_max": 4.547473508864641e-12,
+      "soc_min": 1200.0,
+      "soc_max": 10800.0,
+      "max_power_kw": 5000.0,
+      "cash": 19254498.43940144,
+      "alternate_cash": 19254498.43940144
+    },
+    {
+      "variant": "q4_3",
+      "slots": 48096,
+      "balance_max": 4.618527782440651e-13,
+      "soc_residual_max": 4.5492498657040414e-12,
+      "soc_min": 1200.0,
+      "soc_max": 10800.0,
+      "max_power_kw": 5000.0,
+      "cash": 16735118.324558932,
+      "alternate_cash": 17490654.789468836
+    }
+  ],
+  "capacity_checks": [
+    {
+      "name": "q2_capacity_0.8",
+      "capacity": 9600.0,
+      "minimum": 960.0,
+      "maximum": 8640.0,
+      "initial": 4800.0
+    },
+    {
+      "name": "q2_capacity_1.2",
+      "capacity": 14400.0,
+      "minimum": 1440.0,
+      "maximum": 12960.0,
+      "initial": 7200.0
+    },
+    {
+      "name": "q43_capacity_0.8",
+      "capacity": 9600.0,
+      "minimum": 960.0,
+      "maximum": 8640.0,
+      "initial": 4800.0
+    },
+    {
+      "name": "q43_capacity_1.2",
+      "capacity": 14400.0,
+      "minimum": 1440.0,
+      "maximum": 12960.0,
+      "initial": 7200.0
+    }
+  ],
+  "two_hour_results": [
+    {
+      "variant": "q3",
+      "candidate": "2h",
+      "saving_yuan": 708343.3002051599,
+      "saving_percent": 4.351084136722441,
+      "extra_events": 2672,
+      "breakeven_yuan_per_extra_event": 265.0985404959431,
+      "all_four_days_nonworse": true,
+      "recommended_extra_updates": true,
+      "alternative_saving_yuan": 127065.2630517073
+    },
+    {
+      "variant": "q43",
+      "candidate": "2h",
+      "saving_yuan": 701631.699218832,
+      "saving_percent": 4.192570889619473,
+      "extra_events": 2672,
+      "breakeven_yuan_per_extra_event": 262.586713779503,
+      "all_four_days_nonworse": true,
+      "recommended_extra_updates": true,
+      "alternative_saving_yuan": 139845.6748284027
+    }
+  ],
+  "workbook_summary": [
+    {
+      "file": "result1.xlsx",
+      "filled_cells": 317,
+      "numeric_cells": 158,
+      "max_abs_difference": 0.0
+    },
+    {
+      "file": "result2.xlsx",
+      "filled_cells": 64211,
+      "numeric_cells": 55865,
+      "max_abs_difference": 0.0
+    },
+    {
+      "file": "result3.xlsx",
+      "filled_cells": 110099,
+      "numeric_cells": 103510,
+      "max_abs_difference": 0.0
+    },
+    {
+      "file": "result4-2.xlsx",
+      "filled_cells": 64229,
+      "numeric_cells": 55871,
+      "max_abs_difference": 0.0
+    },
+    {
+      "file": "result4-3.xlsx",
+      "filled_cells": 110117,
+      "numeric_cells": 103516,
+      "max_abs_difference": 0.0
+    }
+  ],
+  "figure_pixels": [
+    {
+      "name": "process_q1_price_dispatch",
+      "sizes": [
+        [
+          1320,
+          1005
+        ],
+        [
+          1320,
+          1005
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "process_q2_forecast_validation",
+      "sizes": [
+        [
+          1380,
+          1110
+        ],
+        [
+          1380,
+          1110
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "process_q3_contract_updates",
+      "sizes": [
+        [
+          1890,
+          1065
+        ],
+        [
+          1890,
+          1065
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "process_q4_price_dispatch",
+      "sizes": [
+        [
+          1395,
+          1095
+        ],
+        [
+          1395,
+          1095
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "raw_q1_typical_profiles",
+      "sizes": [
+        [
+          1890,
+          1230
+        ],
+        [
+          1890,
+          1230
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "raw_q2_annual_netload",
+      "sizes": [
+        [
+          1890,
+          1125
+        ],
+        [
+          1890,
+          1125
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "raw_q2_pv_load_relation",
+      "sizes": [
+        [
+          1395,
+          1095
+        ],
+        [
+          1395,
+          1095
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "raw_q3_forecast_error",
+      "sizes": [
+        [
+          1890,
+          825
+        ],
+        [
+          1890,
+          825
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "raw_q4_price_variability",
+      "sizes": [
+        [
+          1890,
+          915
+        ],
+        [
+          1890,
+          915
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "result_q1_optimal_schedule",
+      "sizes": [
+        [
+          1890,
+          1320
+        ],
+        [
+          1890,
+          1320
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "result_q2_annual_risk",
+      "sizes": [
+        [
+          1890,
+          1275
+        ],
+        [
+          1890,
+          1275
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "result_q2_baselines",
+      "sizes": [
+        [
+          1890,
+          1050
+        ],
+        [
+          1890,
+          1050
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "result_q3_adjustment_benefit",
+      "sizes": [
+        [
+          1395,
+          1125
+        ],
+        [
+          1395,
+          1125
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "result_q3_update_frequency",
+      "sizes": [
+        [
+          1890,
+          1350
+        ],
+        [
+          1890,
+          1350
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "result_q4_alpha_sensitivity",
+      "sizes": [
+        [
+          1890,
+          1350
+        ],
+        [
+          1890,
+          1350
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "result_q4_strategy_comparison",
+      "sizes": [
+        [
+          1890,
+          1365
+        ],
+        [
+          1890,
+          1365
+        ]
+      ],
+      "max_differences": [
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "pipeline": {
+    "mode": "full_reproduction",
+    "runtime_seconds": 1830.8772019000025,
+    "steps": [
+      {
+        "step": "environment",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\references\\roles\\编程手\\scripts\\check_env.py",
+          "--features",
+          "data",
+          "visualization",
+          "optimization",
+          "excel",
+          "machine-learning"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 0.24790560000110418,
+        "log": "results\\reproduction_logs\\environment.log"
+      },
+      {
+        "step": "core_tests",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\test_core.py",
+          "--project-root",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 16.573647400000482,
+        "log": "results\\reproduction_logs\\core_tests.log"
+      },
+      {
+        "step": "evaluation_tests",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\test_evaluation.py"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 8.932274999999208,
+        "log": "results\\reproduction_logs\\evaluation_tests.log"
+      },
+      {
+        "step": "main",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\run_all.py",
+          "--project-root",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction",
+          "--alpha",
+          "0.8"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 172.4547520999986,
+        "log": "results\\reproduction_logs\\main.log"
+      },
+      {
+        "step": "experiments",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\run_experiments.py",
+          "--project-root",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 1587.4882739000022,
+        "log": "results\\reproduction_logs\\experiments.log"
+      },
+      {
+        "step": "workbook_audit",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\audit_results.py",
+          "--project-root",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 10.153131900002336,
+        "log": "results\\reproduction_logs\\workbook_audit.log"
+      },
+      {
+        "step": "experiment_audit",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\audit_experiments.py",
+          "--project-root",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 6.322134400001232,
+        "log": "results\\reproduction_logs\\experiment_audit.log"
+      },
+      {
+        "step": "profile_问题1_逐时结果",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\figure\\scripts\\profile_data.py",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\results\\问题1_逐时结果.csv"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 1.1889011999992363,
+        "log": "results\\reproduction_logs\\profile_问题1_逐时结果.log"
+      },
+      {
+        "step": "profile_q2_每日汇总",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\figure\\scripts\\profile_data.py",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\results\\q2_每日汇总.csv"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 1.2220720000004803,
+        "log": "results\\reproduction_logs\\profile_q2_每日汇总.log"
+      },
+      {
+        "step": "profile_q3_每日汇总",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\figure\\scripts\\profile_data.py",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\results\\q3_每日汇总.csv"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 1.0687604999984615,
+        "log": "results\\reproduction_logs\\profile_q3_每日汇总.log"
+      },
+      {
+        "step": "profile_q4_3_每日汇总",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\figure\\scripts\\profile_data.py",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\results\\q4_3_每日汇总.csv"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 1.129645699998946,
+        "log": "results\\reproduction_logs\\profile_q4_3_每日汇总.log"
+      },
+      {
+        "step": "profile_原始数据剖析",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\figure\\scripts\\profile_data.py",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\results\\原始数据剖析.csv"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 1.2528973999978916,
+        "log": "results\\reproduction_logs\\profile_原始数据剖析.log"
+      },
+      {
+        "step": "profile_experiments",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\figure\\scripts\\profile_data.py",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\results\\experiments\\实验总表.csv"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 1.3244999000016833,
+        "log": "results\\reproduction_logs\\profile_experiments.log"
+      },
+      {
+        "step": "figures",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\plot_all.py",
+          "--project-root",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 20.37987720000092,
+        "log": "results\\reproduction_logs\\figures.log"
+      },
+      {
+        "step": "figure_format",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\figure\\scripts\\check_figure.py",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\process_q1_price_dispatch.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\process_q1_price_dispatch.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\process_q2_forecast_validation.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\process_q2_forecast_validation.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\process_q3_contract_updates.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\process_q3_contract_updates.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\process_q4_price_dispatch.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\process_q4_price_dispatch.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\raw_q1_typical_profiles.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\raw_q1_typical_profiles.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\raw_q2_annual_netload.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\raw_q2_annual_netload.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\raw_q2_pv_load_relation.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\raw_q2_pv_load_relation.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\raw_q3_forecast_error.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\raw_q3_forecast_error.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\raw_q4_price_variability.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\raw_q4_price_variability.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\result_q1_optimal_schedule.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\result_q1_optimal_schedule.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\result_q2_annual_risk.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\result_q2_annual_risk.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\result_q2_baselines.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\result_q2_baselines.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\result_q3_adjustment_benefit.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\result_q3_adjustment_benefit.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\result_q3_update_frequency.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\result_q3_update_frequency.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\result_q4_alpha_sensitivity.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\result_q4_alpha_sensitivity.svg",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\result_q4_strategy_comparison.png",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures\\result_q4_strategy_comparison.svg",
+          "--strict"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 0.660907400000724,
+        "log": "results\\reproduction_logs\\figure_format.log"
+      },
+      {
+        "step": "figure_coverage",
+        "command": [
+          "C:\\Program Files\\Python314\\python.exe",
+          "-X",
+          "utf8",
+          "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\references\\roles\\编程手\\scripts\\figure_audit.py",
+          "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\p2_reproduction\\figures",
+          "--questions",
+          "q1",
+          "q2",
+          "q3",
+          "q4",
+          "--strict"
+        ],
+        "exit_code": 0,
+        "runtime_seconds": 0.26714820000051986,
+        "log": "results\\reproduction_logs\\figure_coverage.log"
+      }
+    ],
+    "runtime": {
+      "name": "python",
+      "version": "3.14.2",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "dependencies": {
+        "numpy": "2.4.1",
+        "pandas": "3.0.0",
+        "scipy": "1.17.0",
+        "scikit-learn": "1.8.0",
+        "openpyxl": "3.1.5",
+        "matplotlib": "3.10.8",
+        "Pillow": "12.2.0"
+      }
+    }
+  },
+  "authority_metadata_changes": [],
+  "status": "PASS"
+}

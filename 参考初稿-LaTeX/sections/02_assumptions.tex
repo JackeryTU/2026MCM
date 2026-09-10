@@ -1,0 +1,77 @@
+\section{模型假设、时间口径与符号}
+
+\subsection{基本假设}
+
+在不改变题面物理含义的前提下作如下假设：
+\begin{enumerate}[label=（\arabic*）]
+  \item 微网不能向外部电网反向售电。光伏可被负荷利用、用于充电或弃光；合同电量未使用的部分记为闲置合同电量。
+  \item 储能容量为 $12000\,\mathrm{kWh}$，荷电状态限定在10\%至90\%，即 $1200\le S\le10800\,\mathrm{kWh}$；充、放电功率上限均为 $5000\,\mathrm{kW}$，单向效率均为0.9。
+  \item 同一10分钟槽不主动同时充电和放电。线性规划若出现数值层面的极小共存量，在执行和审计时按容差处理；真实结果未出现有意义的同时充放。
+  \item 问题一为循环典型日，日末荷电状态等于日初；问题二至四按全年顺序推进，不施加每日循环约束。规划末端价值只用于抑制短视放电，不从报告的现金费用中扣除。
+  \item 相似日、残差、偏差和价格预测均只能使用当前决策时刻以前可得的数据。官方光伏预报按其发布时刻进入信息集，跨年不可得的目标不参与误差计算。
+  \item 题设未给出设备启停、老化、备用容量和配电网潮流限制，因此主目标只计外购合同及应急费用。储能吞吐量作为同费用解之间的次级筛选量，而不是虚构的货币成本。
+\end{enumerate}
+
+\subsection{10分钟时间映射}
+
+附件中的时刻标签从00:10持续到24:00。本文将标签解释为自然10分钟区间的终点：00:10对应00:00--00:10，24:00对应23:50--24:00。设原始功率为 $P_t$，则时槽电量为
+\begin{equation}
+ E_t=P_t\Delta t,\qquad \Delta t=\frac16\ \mathrm h .
+ \label{eq:power-energy}
+\end{equation}
+题面给出的Excel模板表头保持不变，数值按槽位置写入；论文中的指定时段、SOC边界点和聚合量统一采用自然区间。这一约定可同时避免把10分钟电量误作整小时电量，以及把24:00错误解释为下一日首槽。
+
+\subsection{统一物理模型}
+
+对任意日期和时槽，定义负荷电量 $L_t$、可用光伏电量 $V_t$、合同购电 $g_t$、闲置合同 $w_t$、光伏利用 $v_t$、充电 $x_t$、放电 $y_t$、应急购电 $u_t$ 和槽初荷电状态 $S_t$。母线平衡为
+\begin{equation}
+ g_t-w_t+v_t+y_t+u_t=L_t+x_t .
+ \label{eq:balance}
+\end{equation}
+储能状态递推为
+\begin{equation}
+ S_{t+1}=S_t+\eta_c x_t-\frac{y_t}{\eta_d},
+ \qquad \eta_c=\eta_d=0.9 .
+ \label{eq:soc}
+\end{equation}
+约束写为
+\begin{align}
+ 0\le v_t\le V_t,\quad &0\le w_t\le g_t, \label{eq:renew}\\
+ 0\le x_t\le P_{\max}\Delta t,\quad &0\le y_t\le P_{\max}\Delta t, \label{eq:power}\\
+ S_{\min}\le S_t\le S_{\max},\quad &u_t\ge0. \label{eq:bounds}
+\end{align}
+其中 $P_{\max}\Delta t=833.3333\,\mathrm{kWh}$。等式\eqref{eq:balance}把“合同已购买但未使用”的 $w_t$ 明确列出，因而合同电量、实际供能和现金费用不会混淆；式\eqref{eq:soc}在充放电两侧分别计入效率，往返效率为 $0.81$。
+
+\subsection{主要符号}
+
+全文主要符号、单位和决策角色汇总于表\ref{tab:symbols}。特别地，功率变量只在输入和图中使用kW，进入优化器后统一乘以时长成为kWh；SOC也是kWh，因而式\eqref{eq:balance}和式\eqref{eq:soc}两侧量纲一致。价格乘以合同或应急电量后得到元。这个转换看似简单，却决定了5000 kW功率上限在单槽中应为833.3333 kWh，而不是5000 kWh。
+
+\begin{table}[H]
+\centering
+\caption{主要符号及单位}
+\label{tab:symbols}
+\begin{tabularx}{\textwidth}{c c X}
+\toprule
+符号 & 单位 & 含义\\
+\midrule
+$d,t,h$ & -- & 日期、10分钟时槽、预报或调账发布时刻\\
+$L_t,V_t$ & kWh & 时槽负荷电量、可用光伏电量\\
+$g_t,w_t$ & kWh & 合同购电量、闲置合同电量\\
+$v_t,x_t,y_t,u_t$ & kWh & 光伏利用、充电、放电、应急购电\\
+$S_t$ & kWh & 时槽初荷电状态\\
+$c_t$ & 元/kWh & 外部电网基准价格或实际价格\\
+$p_t,q_t$ & kWh & 0时不可变基准合同、最终有效合同\\
+$\alpha$ & -- & 保守净负荷经验分位水平，主方案固定为0.8\\
+$\mathcal F_{d,h}$ & -- & 日期$d$在时刻$h$可获得的信息集\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+式\eqref{eq:balance}还区分了合同购电 $g_t$ 与真正流入微网的 $g_t-w_t$。如果省略 $w_t$，当合同供给超过负荷、充电能力和光伏消纳需求时，模型要么被迫虚构用电，要么错误允许向外送电。显式设置闲置合同变量后，过购不会破坏能量平衡，同时仍按合同规则计费。类似地，弃光量为 $V_t-v_t$，它与闲置合同来自不同能源侧，二者不能合并为一个“浪费”变量。
+
+对于全年策略，日末SOC不是固定参数，而是下一日的日初状态。设第$d$日末为 $S_{d,144}$，则连接条件为
+\begin{equation}
+ S_{d+1,0}=S_{d,144}.
+ \label{eq:day-link}
+\end{equation}
+这一约束使1月的预测和调度虽然不进入正式费用统计，却仍会通过SOC影响2月1日。若每天强行重置到6000 kWh，相当于在午夜无成本注入或抽走能量，会系统性扭曲年度费用。

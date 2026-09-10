@@ -1,0 +1,3 @@
+﻿mapping,cost_yuan,purchase_kwh,soc_start_kwh,soc_end_kwh
+natural_endpoints,35126.948940559116,59482.6981674023,6000.0,6000.0
+template_start_shift_10min,35126.848940558106,59482.69816740468,6000.0,6000.0

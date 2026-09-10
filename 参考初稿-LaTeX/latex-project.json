@@ -1,0 +1,164 @@
+{
+  "schema_version": 2,
+  "integrity_policy": "User explicitly prohibited all hash computation/comparison. Only path, size and mtime are checked; not content-integrity proof.",
+  "contest": "cumcm",
+  "main_tex": "main.tex",
+  "template": {
+    "path": "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\latex\\assets\\templates\\cumcm",
+    "source": null,
+    "version": null,
+    "metadata": {
+      "main.tex": {
+        "bytes": 845,
+        "mtime_ns": 1788711129195304100
+      },
+      "references.bib": {
+        "bytes": 66,
+        "mtime_ns": 1788711129210323900
+      }
+    }
+  },
+  "template_files": {
+    "main.tex": {
+      "bytes": 845,
+      "mtime_ns": 1788711129195304100
+    },
+    "references.bib": {
+      "bytes": 66,
+      "mtime_ns": 1788711129210323900
+    }
+  },
+  "resource_bindings": [
+    {
+      "source": "figures/raw_q1_typical_profiles.png",
+      "destination": "figs/raw_q1_typical_profiles.png",
+      "metadata": {
+        "bytes": 95925,
+        "mtime_ns": 1789058202733019100
+      },
+      "metadata_mode": "content",
+      "bound_at": "2026-09-10T18:07:08.272957+00:00"
+    },
+    {
+      "source": "figures/result_q1_optimal_schedule.png",
+      "destination": "figs/result_q1_optimal_schedule.png",
+      "metadata": {
+        "bytes": 171983,
+        "mtime_ns": 1789058204236060000
+      },
+      "metadata_mode": "content",
+      "bound_at": "2026-09-10T18:07:08.474626+00:00"
+    },
+    {
+      "source": "figures/raw_q2_annual_netload.png",
+      "destination": "figs/raw_q2_annual_netload.png",
+      "metadata": {
+        "bytes": 205044,
+        "mtime_ns": 1789058207651245100
+      },
+      "metadata_mode": "content",
+      "bound_at": "2026-09-10T18:07:08.708222+00:00"
+    },
+    {
+      "source": "figures/process_q2_forecast_validation.png",
+      "destination": "figs/process_q2_forecast_validation.png",
+      "metadata": {
+        "bytes": 274803,
+        "mtime_ns": 1789058209458542000
+      },
+      "metadata_mode": "content",
+      "bound_at": "2026-09-10T18:07:08.945892+00:00"
+    },
+    {
+      "source": "figures/result_q2_annual_risk.png",
+      "destination": "figs/result_q2_annual_risk.png",
+      "metadata": {
+        "bytes": 235669,
+        "mtime_ns": 1789058210070442000
+      },
+      "metadata_mode": "content",
+      "bound_at": "2026-09-10T18:07:09.170206+00:00"
+    },
+    {
+      "source": "figures/result_q2_baselines.png",
+      "destination": "figs/result_q2_baselines.png",
+      "metadata": {
+        "bytes": 50191,
+        "mtime_ns": 1789058213901967400
+      },
+      "metadata_mode": "content",
+      "bound_at": "2026-09-10T18:07:09.390653+00:00"
+    },
+    {
+      "source": "figures/raw_q3_forecast_error.png",
+      "destination": "figs/raw_q3_forecast_error.png",
+      "metadata": {
+        "bytes": 65011,
+        "mtime_ns": 1789058210598369600
+      },
+      "metadata_mode": "content",
+      "bound_at": "2026-09-10T18:07:09.581761+00:00"
+    },
+    {
+      "source": "figures/process_q3_contract_updates.png",
+      "destination": "figs/process_q3_contract_updates.png",
+      "metadata": {
+        "bytes": 143970,
+        "mtime_ns": 1789058211021077100
+      },
+      "metadata_mode": "content",
+      "bound_at": "2026-09-10T18:07:09.811827+00:00"
+    },
+    {
+      "source": "figures/result_q3_update_frequency.png",
+      "destination": "figs/result_q3_update_frequency.png",
+      "metadata": {
+        "bytes": 100867,
+        "mtime_ns": 1789058214474494600
+      },
+      "metadata_mode": "content",
+      "bound_at": "2026-09-10T18:07:10.020353+00:00"
+    },
+    {
+      "source": "figures/raw_q4_price_variability.png",
+      "destination": "figs/raw_q4_price_variability.png",
+      "metadata": {
+        "bytes": 49548,
+        "mtime_ns": 1789058212039740200
+      },
+      "metadata_mode": "content",
+      "bound_at": "2026-09-10T18:07:10.231545+00:00"
+    },
+    {
+      "source": "figures/result_q4_strategy_comparison.png",
+      "destination": "figs/result_q4_strategy_comparison.png",
+      "metadata": {
+        "bytes": 120409,
+        "mtime_ns": 1789058213568534200
+      },
+      "metadata_mode": "content",
+      "bound_at": "2026-09-10T18:07:10.457076+00:00"
+    },
+    {
+      "source": "figures/result_q4_alpha_sensitivity.png",
+      "destination": "figs/result_q4_alpha_sensitivity.png",
+      "metadata": {
+        "bytes": 135533,
+        "mtime_ns": 1789058214983769700
+      },
+      "metadata_mode": "content",
+      "bound_at": "2026-09-10T18:07:10.687600+00:00"
+    },
+    {
+      "source": "microgrid_core.py",
+      "destination": "code/microgrid_core.py",
+      "metadata": {
+        "bytes": 30664,
+        "mtime_ns": 1789052606567416200
+      },
+      "metadata_mode": "content",
+      "bound_at": "2026-09-10T18:07:10.965726+00:00"
+    }
+  ],
+  "created_at": "2026-09-10T17:58:02.122475+00:00"
+}

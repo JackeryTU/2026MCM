@@ -1,0 +1,1442 @@
+[
+  {
+    "path": "术语表格.md",
+    "bytes": 7297,
+    "mtime_utc": "2026-09-10T14:56:48.9950798Z",
+    "mtime_ticks": 639246490089950798
+  },
+  {
+    "path": "题目分析报告.md",
+    "bytes": 26617,
+    "mtime_utc": "2026-09-10T14:56:44.7338066Z",
+    "mtime_ticks": 639246490047338066
+  },
+  {
+    "path": "audit_experiments.py",
+    "bytes": 3650,
+    "mtime_utc": "2026-09-10T16:13:45.1016058Z",
+    "mtime_ticks": 639246536251016058
+  },
+  {
+    "path": "audit_results.py",
+    "bytes": 5908,
+    "mtime_utc": "2026-09-10T15:47:14.7560097Z",
+    "mtime_ticks": 639246520347560097
+  },
+  {
+    "path": "data\\附件\\附件1.xlsx",
+    "bytes": 16003,
+    "mtime_utc": "2026-09-10T10:58:12.6164928Z",
+    "mtime_ticks": 639246346926164928
+  },
+  {
+    "path": "data\\附件\\附件2.xlsx",
+    "bytes": 907128,
+    "mtime_utc": "2026-09-10T10:58:12.6437193Z",
+    "mtime_ticks": 639246346926437193
+  },
+  {
+    "path": "data\\附件\\附件3.xlsx",
+    "bytes": 293526,
+    "mtime_utc": "2026-09-10T10:58:12.6595105Z",
+    "mtime_ticks": 639246346926595105
+  },
+  {
+    "path": "data\\附件\\附件4.xlsx",
+    "bytes": 409790,
+    "mtime_utc": "2026-09-10T10:58:12.6755571Z",
+    "mtime_ticks": 639246346926755571
+  },
+  {
+    "path": "data\\附件\\附件5\\result1.xlsx",
+    "bytes": 13323,
+    "mtime_utc": "2026-09-10T10:58:12.6936305Z",
+    "mtime_ticks": 639246346926936305
+  },
+  {
+    "path": "data\\附件\\附件5\\result2.xlsx",
+    "bytes": 18397,
+    "mtime_utc": "2026-09-10T10:58:12.7152153Z",
+    "mtime_ticks": 639246346927152153
+  },
+  {
+    "path": "data\\附件\\附件5\\result3.xlsx",
+    "bytes": 265429,
+    "mtime_utc": "2026-09-10T10:58:12.7430982Z",
+    "mtime_ticks": 639246346927430982
+  },
+  {
+    "path": "data\\附件\\附件5\\result4-2.xlsx",
+    "bytes": 18397,
+    "mtime_utc": "2026-09-10T10:58:12.7608871Z",
+    "mtime_ticks": 639246346927608871
+  },
+  {
+    "path": "data\\附件\\附件5\\result4-3.xlsx",
+    "bytes": 265429,
+    "mtime_utc": "2026-09-10T10:58:12.7848395Z",
+    "mtime_ticks": 639246346927848395
+  },
+  {
+    "path": "data\\C题.pdf",
+    "bytes": 354389,
+    "mtime_utc": "2026-09-10T10:58:12.5949120Z",
+    "mtime_ticks": 639246346925949120
+  },
+  {
+    "path": "data\\README.md",
+    "bytes": 553,
+    "mtime_utc": "2026-09-07T18:26:50.0492686Z",
+    "mtime_ticks": 639244024100492686
+  },
+  {
+    "path": "evaluate_results.py",
+    "bytes": 6679,
+    "mtime_utc": "2026-09-10T15:22:04.4923376Z",
+    "mtime_ticks": 639246505244923376
+  },
+  {
+    "path": "figures\\_qa\\process_q1_price_dispatch_grayscale.png",
+    "bytes": 45748,
+    "mtime_utc": "2026-09-10T16:36:43.7102586Z",
+    "mtime_ticks": 639246550037102586
+  },
+  {
+    "path": "figures\\_qa\\process_q2_forecast_validation_grayscale.png",
+    "bytes": 113174,
+    "mtime_utc": "2026-09-10T16:36:49.4995488Z",
+    "mtime_ticks": 639246550094995488
+  },
+  {
+    "path": "figures\\_qa\\process_q3_contract_updates_grayscale.png",
+    "bytes": 68077,
+    "mtime_utc": "2026-09-10T16:36:51.0699575Z",
+    "mtime_ticks": 639246550110699575
+  },
+  {
+    "path": "figures\\_qa\\process_q4_price_dispatch_grayscale.png",
+    "bytes": 135778,
+    "mtime_utc": "2026-09-10T16:36:53.0991971Z",
+    "mtime_ticks": 639246550130991971
+  },
+  {
+    "path": "figures\\_qa\\raw_q1_typical_profiles_grayscale.png",
+    "bytes": 43713,
+    "mtime_utc": "2026-09-10T16:36:42.7963512Z",
+    "mtime_ticks": 639246550027963512
+  },
+  {
+    "path": "figures\\_qa\\raw_q2_annual_netload_grayscale.png",
+    "bytes": 87409,
+    "mtime_utc": "2026-09-10T16:36:47.7015969Z",
+    "mtime_ticks": 639246550077015969
+  },
+  {
+    "path": "figures\\_qa\\raw_q2_pv_load_relation_grayscale.png",
+    "bytes": 119434,
+    "mtime_utc": "2026-09-10T16:36:48.6114261Z",
+    "mtime_ticks": 639246550086114261
+  },
+  {
+    "path": "figures\\_qa\\raw_q3_forecast_error_grayscale.png",
+    "bytes": 29061,
+    "mtime_utc": "2026-09-10T16:36:50.6253799Z",
+    "mtime_ticks": 639246550106253799
+  },
+  {
+    "path": "figures\\_qa\\raw_q4_price_variability_grayscale.png",
+    "bytes": 21683,
+    "mtime_utc": "2026-09-10T16:36:52.0707501Z",
+    "mtime_ticks": 639246550120707501
+  },
+  {
+    "path": "figures\\_qa\\result_q1_optimal_schedule_grayscale.png",
+    "bytes": 73484,
+    "mtime_utc": "2026-09-10T16:36:44.2840560Z",
+    "mtime_ticks": 639246550042840560
+  },
+  {
+    "path": "figures\\_qa\\result_q2_annual_risk_grayscale.png",
+    "bytes": 101356,
+    "mtime_utc": "2026-09-10T16:36:50.1322034Z",
+    "mtime_ticks": 639246550101322034
+  },
+  {
+    "path": "figures\\_qa\\result_q2_baselines_grayscale.png",
+    "bytes": 23652,
+    "mtime_utc": "2026-09-10T16:36:53.9426709Z",
+    "mtime_ticks": 639246550139426709
+  },
+  {
+    "path": "figures\\_qa\\result_q3_adjustment_benefit_grayscale.png",
+    "bytes": 66754,
+    "mtime_utc": "2026-09-10T16:36:51.6200334Z",
+    "mtime_ticks": 639246550116200334
+  },
+  {
+    "path": "figures\\_qa\\result_q3_update_frequency_grayscale.png",
+    "bytes": 48340,
+    "mtime_utc": "2026-09-10T16:36:54.5113261Z",
+    "mtime_ticks": 639246550145113261
+  },
+  {
+    "path": "figures\\_qa\\result_q4_alpha_sensitivity_grayscale.png",
+    "bytes": 60327,
+    "mtime_utc": "2026-09-10T16:36:55.0290641Z",
+    "mtime_ticks": 639246550150290641
+  },
+  {
+    "path": "figures\\_qa\\result_q4_strategy_comparison_grayscale.png",
+    "bytes": 51582,
+    "mtime_utc": "2026-09-10T16:36:53.6041472Z",
+    "mtime_ticks": 639246550136041472
+  },
+  {
+    "path": "figures\\图表契约-重算版.md",
+    "bytes": 4371,
+    "mtime_utc": "2026-09-10T16:35:45.4828667Z",
+    "mtime_ticks": 639246549454828667
+  },
+  {
+    "path": "figures\\图表契约.md",
+    "bytes": 4032,
+    "mtime_utc": "2026-09-10T15:59:55.9570292Z",
+    "mtime_ticks": 639246527959570292
+  },
+  {
+    "path": "figures\\process_q1_price_dispatch.png",
+    "bytes": 101720,
+    "mtime_utc": "2026-09-10T16:36:43.6692364Z",
+    "mtime_ticks": 639246550036692364
+  },
+  {
+    "path": "figures\\process_q1_price_dispatch.svg",
+    "bytes": 94470,
+    "mtime_utc": "2026-09-10T16:36:43.4988055Z",
+    "mtime_ticks": 639246550034988055
+  },
+  {
+    "path": "figures\\process_q2_forecast_validation.png",
+    "bytes": 274803,
+    "mtime_utc": "2026-09-10T16:36:49.4585420Z",
+    "mtime_ticks": 639246550094585420
+  },
+  {
+    "path": "figures\\process_q2_forecast_validation.svg",
+    "bytes": 359893,
+    "mtime_utc": "2026-09-10T16:36:49.2580173Z",
+    "mtime_ticks": 639246550092580173
+  },
+  {
+    "path": "figures\\process_q3_contract_updates.png",
+    "bytes": 143970,
+    "mtime_utc": "2026-09-10T16:36:51.0210771Z",
+    "mtime_ticks": 639246550110210771
+  },
+  {
+    "path": "figures\\process_q3_contract_updates.svg",
+    "bytes": 18869,
+    "mtime_utc": "2026-09-10T16:36:50.8747854Z",
+    "mtime_ticks": 639246550108747854
+  },
+  {
+    "path": "figures\\process_q4_price_dispatch.png",
+    "bytes": 331922,
+    "mtime_utc": "2026-09-10T16:36:53.0572630Z",
+    "mtime_ticks": 639246550130572630
+  },
+  {
+    "path": "figures\\process_q4_price_dispatch.svg",
+    "bytes": 385979,
+    "mtime_utc": "2026-09-10T16:36:52.8538994Z",
+    "mtime_ticks": 639246550128538994
+  },
+  {
+    "path": "figures\\raw_q1_typical_profiles.png",
+    "bytes": 95925,
+    "mtime_utc": "2026-09-10T16:36:42.7330191Z",
+    "mtime_ticks": 639246550027330191
+  },
+  {
+    "path": "figures\\raw_q1_typical_profiles.svg",
+    "bytes": 23591,
+    "mtime_utc": "2026-09-10T16:36:42.5686976Z",
+    "mtime_ticks": 639246550025686976
+  },
+  {
+    "path": "figures\\raw_q2_annual_netload.png",
+    "bytes": 205044,
+    "mtime_utc": "2026-09-10T16:36:47.6512451Z",
+    "mtime_ticks": 639246550076512451
+  },
+  {
+    "path": "figures\\raw_q2_annual_netload.svg",
+    "bytes": 10356380,
+    "mtime_utc": "2026-09-10T16:36:47.4572890Z",
+    "mtime_ticks": 639246550074572890
+  },
+  {
+    "path": "figures\\raw_q2_pv_load_relation.png",
+    "bytes": 294710,
+    "mtime_utc": "2026-09-10T16:36:48.5679033Z",
+    "mtime_ticks": 639246550085679033
+  },
+  {
+    "path": "figures\\raw_q2_pv_load_relation.svg",
+    "bytes": 421645,
+    "mtime_utc": "2026-09-10T16:36:48.3273211Z",
+    "mtime_ticks": 639246550083273211
+  },
+  {
+    "path": "figures\\raw_q3_forecast_error.png",
+    "bytes": 65011,
+    "mtime_utc": "2026-09-10T16:36:50.5983696Z",
+    "mtime_ticks": 639246550105983696
+  },
+  {
+    "path": "figures\\raw_q3_forecast_error.svg",
+    "bytes": 80582,
+    "mtime_utc": "2026-09-10T16:36:50.4722383Z",
+    "mtime_ticks": 639246550104722383
+  },
+  {
+    "path": "figures\\raw_q4_price_variability.png",
+    "bytes": 49548,
+    "mtime_utc": "2026-09-10T16:36:52.0397402Z",
+    "mtime_ticks": 639246550120397402
+  },
+  {
+    "path": "figures\\raw_q4_price_variability.svg",
+    "bytes": 26670,
+    "mtime_utc": "2026-09-10T16:36:51.9436563Z",
+    "mtime_ticks": 639246550119436563
+  },
+  {
+    "path": "figures\\README.md",
+    "bytes": 1305,
+    "mtime_utc": "2026-09-10T16:44:28.0852535Z",
+    "mtime_ticks": 639246554680852535
+  },
+  {
+    "path": "figures\\result_q1_optimal_schedule.png",
+    "bytes": 171983,
+    "mtime_utc": "2026-09-10T16:36:44.2360600Z",
+    "mtime_ticks": 639246550042360600
+  },
+  {
+    "path": "figures\\result_q1_optimal_schedule.svg",
+    "bytes": 35002,
+    "mtime_utc": "2026-09-10T16:36:44.1078322Z",
+    "mtime_ticks": 639246550041078322
+  },
+  {
+    "path": "figures\\result_q2_annual_risk.png",
+    "bytes": 235669,
+    "mtime_utc": "2026-09-10T16:36:50.0704420Z",
+    "mtime_ticks": 639246550100704420
+  },
+  {
+    "path": "figures\\result_q2_annual_risk.svg",
+    "bytes": 51953,
+    "mtime_utc": "2026-09-10T16:36:49.8828821Z",
+    "mtime_ticks": 639246550098828821
+  },
+  {
+    "path": "figures\\result_q2_baselines.png",
+    "bytes": 50191,
+    "mtime_utc": "2026-09-10T16:36:53.9019674Z",
+    "mtime_ticks": 639246550139019674
+  },
+  {
+    "path": "figures\\result_q2_baselines.svg",
+    "bytes": 10211,
+    "mtime_utc": "2026-09-10T16:36:53.8244915Z",
+    "mtime_ticks": 639246550138244915
+  },
+  {
+    "path": "figures\\result_q3_adjustment_benefit.png",
+    "bytes": 153729,
+    "mtime_utc": "2026-09-10T16:36:51.5808911Z",
+    "mtime_ticks": 639246550115808911
+  },
+  {
+    "path": "figures\\result_q3_adjustment_benefit.svg",
+    "bytes": 122426,
+    "mtime_utc": "2026-09-10T16:36:51.4517361Z",
+    "mtime_ticks": 639246550114517361
+  },
+  {
+    "path": "figures\\result_q3_update_frequency.png",
+    "bytes": 100867,
+    "mtime_utc": "2026-09-10T16:36:54.4744946Z",
+    "mtime_ticks": 639246550144744946
+  },
+  {
+    "path": "figures\\result_q3_update_frequency.svg",
+    "bytes": 16711,
+    "mtime_utc": "2026-09-10T16:36:54.3216639Z",
+    "mtime_ticks": 639246550143216639
+  },
+  {
+    "path": "figures\\result_q4_alpha_sensitivity.png",
+    "bytes": 135533,
+    "mtime_utc": "2026-09-10T16:36:54.9837697Z",
+    "mtime_ticks": 639246550149837697
+  },
+  {
+    "path": "figures\\result_q4_alpha_sensitivity.svg",
+    "bytes": 19602,
+    "mtime_utc": "2026-09-10T16:36:54.8382534Z",
+    "mtime_ticks": 639246550148382534
+  },
+  {
+    "path": "figures\\result_q4_strategy_comparison.png",
+    "bytes": 120409,
+    "mtime_utc": "2026-09-10T16:36:53.5685342Z",
+    "mtime_ticks": 639246550135685342
+  },
+  {
+    "path": "figures\\result_q4_strategy_comparison.svg",
+    "bytes": 16467,
+    "mtime_utc": "2026-09-10T16:36:53.3976281Z",
+    "mtime_ticks": 639246550133976281
+  },
+  {
+    "path": "microgrid_core.py",
+    "bytes": 30664,
+    "mtime_utc": "2026-09-10T15:03:26.5674162Z",
+    "mtime_ticks": 639246494065674162
+  },
+  {
+    "path": "plot_all.py",
+    "bytes": 20269,
+    "mtime_utc": "2026-09-10T16:35:41.5844158Z",
+    "mtime_ticks": 639246549415844158
+  },
+  {
+    "path": "reproduce.py",
+    "bytes": 5458,
+    "mtime_utc": "2026-09-10T16:13:48.4796454Z",
+    "mtime_ticks": 639246536284796454
+  },
+  {
+    "path": "results\\表1_代表日购电.csv",
+    "bytes": 4676,
+    "mtime_utc": "2026-09-10T15:49:34.3055461Z",
+    "mtime_ticks": 639246521743055461
+  },
+  {
+    "path": "results\\表2_代表日储能.csv",
+    "bytes": 7657,
+    "mtime_utc": "2026-09-10T15:49:34.3075444Z",
+    "mtime_ticks": 639246521743075444
+  },
+  {
+    "path": "results\\表3_代表日应急.csv",
+    "bytes": 2271,
+    "mtime_utc": "2026-09-10T15:49:34.3095459Z",
+    "mtime_ticks": 639246521743095459
+  },
+  {
+    "path": "results\\代表日历次更新.csv",
+    "bytes": 104195,
+    "mtime_utc": "2026-09-10T15:49:34.3185475Z",
+    "mtime_ticks": 639246521743185475
+  },
+  {
+    "path": "results\\典型日汇总.csv",
+    "bytes": 3922,
+    "mtime_utc": "2026-09-10T15:49:34.3255459Z",
+    "mtime_ticks": 639246521743255459
+  },
+  {
+    "path": "results\\复现清单.json",
+    "bytes": 16398,
+    "mtime_utc": "2026-09-10T16:36:57.0813580Z",
+    "mtime_ticks": 639246550170813580
+  },
+  {
+    "path": "results\\工作簿审计.json",
+    "bytes": 771,
+    "mtime_utc": "2026-09-10T16:36:20.9139510Z",
+    "mtime_ticks": 639246549809139510
+  },
+  {
+    "path": "results\\核心指标.json",
+    "bytes": 2722,
+    "mtime_utc": "2026-09-10T15:49:34.3275446Z",
+    "mtime_ticks": 639246521743275446
+  },
+  {
+    "path": "results\\实验审计.json",
+    "bytes": 14645,
+    "mtime_utc": "2026-09-10T16:36:27.3198963Z",
+    "mtime_ticks": 639246549873198963
+  },
+  {
+    "path": "results\\图表统计.csv",
+    "bytes": 613,
+    "mtime_utc": "2026-09-10T16:36:55.0447999Z",
+    "mtime_ticks": 639246550150447999
+  },
+  {
+    "path": "results\\问题1_四小时汇总.csv",
+    "bytes": 346,
+    "mtime_utc": "2026-09-10T15:49:29.6759621Z",
+    "mtime_ticks": 639246521696759621
+  },
+  {
+    "path": "results\\问题1_逐时结果.csv",
+    "bytes": 18613,
+    "mtime_utc": "2026-09-10T15:49:29.6749652Z",
+    "mtime_ticks": 639246521696749652
+  },
+  {
+    "path": "results\\预测误差指标.csv",
+    "bytes": 6403,
+    "mtime_utc": "2026-09-10T15:49:34.2895465Z",
+    "mtime_ticks": 639246521742895465
+  },
+  {
+    "path": "results\\原始数据剖析.csv",
+    "bytes": 5603,
+    "mtime_utc": "2026-09-10T15:49:34.3015454Z",
+    "mtime_ticks": 639246521743015454
+  },
+  {
+    "path": "results\\主运行记录.json",
+    "bytes": 3500,
+    "mtime_utc": "2026-09-10T15:49:34.3535546Z",
+    "mtime_ticks": 639246521743535546
+  },
+  {
+    "path": "results\\experiments\\更新频率比较.csv",
+    "bytes": 755,
+    "mtime_utc": "2026-09-10T16:28:42.2518972Z",
+    "mtime_ticks": 639246545222518972
+  },
+  {
+    "path": "results\\experiments\\时间口径敏感性.csv",
+    "bytes": 209,
+    "mtime_utc": "2026-09-10T16:28:42.2994316Z",
+    "mtime_ticks": 639246545222994316
+  },
+  {
+    "path": "results\\experiments\\实验总表.csv",
+    "bytes": 21482,
+    "mtime_utc": "2026-09-10T16:28:42.2478976Z",
+    "mtime_ticks": 639246545222478976
+  },
+  {
+    "path": "results\\experiments\\q2_alpha_0.70_daily.csv",
+    "bytes": 98537,
+    "mtime_utc": "2026-09-10T15:57:24.7226760Z",
+    "mtime_ticks": 639246526447226760
+  },
+  {
+    "path": "results\\experiments\\q2_alpha_0.70.json",
+    "bytes": 4912,
+    "mtime_utc": "2026-09-10T15:57:24.7286786Z",
+    "mtime_ticks": 639246526447286786
+  },
+  {
+    "path": "results\\experiments\\q2_alpha_0.75_daily.csv",
+    "bytes": 98213,
+    "mtime_utc": "2026-09-10T15:57:39.4195911Z",
+    "mtime_ticks": 639246526594195911
+  },
+  {
+    "path": "results\\experiments\\q2_alpha_0.75.json",
+    "bytes": 4918,
+    "mtime_utc": "2026-09-10T15:57:39.4257189Z",
+    "mtime_ticks": 639246526594257189
+  },
+  {
+    "path": "results\\experiments\\q2_alpha_0.85_daily.csv",
+    "bytes": 97540,
+    "mtime_utc": "2026-09-10T15:58:03.0268582Z",
+    "mtime_ticks": 639246526830268582
+  },
+  {
+    "path": "results\\experiments\\q2_alpha_0.85.json",
+    "bytes": 4913,
+    "mtime_utc": "2026-09-10T15:58:03.0366831Z",
+    "mtime_ticks": 639246526830366831
+  },
+  {
+    "path": "results\\experiments\\q2_alpha_0.90_daily.csv",
+    "bytes": 96984,
+    "mtime_utc": "2026-09-10T15:58:22.6312588Z",
+    "mtime_ticks": 639246527026312588
+  },
+  {
+    "path": "results\\experiments\\q2_alpha_0.90.json",
+    "bytes": 4895,
+    "mtime_utc": "2026-09-10T15:58:22.6398624Z",
+    "mtime_ticks": 639246527026398624
+  },
+  {
+    "path": "results\\experiments\\q2_alpha_0.95_daily.csv",
+    "bytes": 96234,
+    "mtime_utc": "2026-09-10T15:58:41.0972685Z",
+    "mtime_ticks": 639246527210972685
+  },
+  {
+    "path": "results\\experiments\\q2_alpha_0.95.json",
+    "bytes": 4895,
+    "mtime_utc": "2026-09-10T15:58:41.1097677Z",
+    "mtime_ticks": 639246527211097677
+  },
+  {
+    "path": "results\\experiments\\q2_capacity_0.8_daily.csv",
+    "bytes": 98012,
+    "mtime_utc": "2026-09-10T16:27:10.9024545Z",
+    "mtime_ticks": 639246544309024545
+  },
+  {
+    "path": "results\\experiments\\q2_capacity_0.8.json",
+    "bytes": 4902,
+    "mtime_utc": "2026-09-10T16:27:10.9084462Z",
+    "mtime_ticks": 639246544309084462
+  },
+  {
+    "path": "results\\experiments\\q2_capacity_1.2_daily.csv",
+    "bytes": 99443,
+    "mtime_utc": "2026-09-10T16:27:17.6238255Z",
+    "mtime_ticks": 639246544376238255
+  },
+  {
+    "path": "results\\experiments\\q2_capacity_1.2.json",
+    "bytes": 4936,
+    "mtime_utc": "2026-09-10T16:27:17.6318365Z",
+    "mtime_ticks": 639246544376318365
+  },
+  {
+    "path": "results\\experiments\\q2_clusters_12_daily.csv",
+    "bytes": 97736,
+    "mtime_utc": "2026-09-10T15:59:24.4740825Z",
+    "mtime_ticks": 639246527644740825
+  },
+  {
+    "path": "results\\experiments\\q2_clusters_12.json",
+    "bytes": 4916,
+    "mtime_utc": "2026-09-10T15:59:24.4850803Z",
+    "mtime_ticks": 639246527644850803
+  },
+  {
+    "path": "results\\experiments\\q2_clusters_16_daily.csv",
+    "bytes": 97802,
+    "mtime_utc": "2026-09-10T15:59:45.0483537Z",
+    "mtime_ticks": 639246527850483537
+  },
+  {
+    "path": "results\\experiments\\q2_clusters_16.json",
+    "bytes": 4917,
+    "mtime_utc": "2026-09-10T15:59:45.0523760Z",
+    "mtime_ticks": 639246527850523760
+  },
+  {
+    "path": "results\\experiments\\q2_clusters_5_daily.csv",
+    "bytes": 97852,
+    "mtime_utc": "2026-09-10T15:59:01.8726933Z",
+    "mtime_ticks": 639246527418726933
+  },
+  {
+    "path": "results\\experiments\\q2_clusters_5.json",
+    "bytes": 4920,
+    "mtime_utc": "2026-09-10T15:59:01.8829495Z",
+    "mtime_ticks": 639246527418829495
+  },
+  {
+    "path": "results\\experiments\\q2_emergency_3_daily.csv",
+    "bytes": 97847,
+    "mtime_utc": "2026-09-10T16:00:52.5316506Z",
+    "mtime_ticks": 639246528525316506
+  },
+  {
+    "path": "results\\experiments\\q2_emergency_3.json",
+    "bytes": 4923,
+    "mtime_utc": "2026-09-10T16:00:52.5380675Z",
+    "mtime_ticks": 639246528525380675
+  },
+  {
+    "path": "results\\experiments\\q2_emergency_4_daily.csv",
+    "bytes": 97815,
+    "mtime_utc": "2026-09-10T16:01:00.2506152Z",
+    "mtime_ticks": 639246528602506152
+  },
+  {
+    "path": "results\\experiments\\q2_emergency_4.json",
+    "bytes": 4919,
+    "mtime_utc": "2026-09-10T16:01:00.2542044Z",
+    "mtime_ticks": 639246528602542044
+  },
+  {
+    "path": "results\\experiments\\q2_emergency_6_daily.csv",
+    "bytes": 97835,
+    "mtime_utc": "2026-09-10T16:01:08.8806371Z",
+    "mtime_ticks": 639246528688806371
+  },
+  {
+    "path": "results\\experiments\\q2_emergency_6.json",
+    "bytes": 4921,
+    "mtime_utc": "2026-09-10T16:01:08.8886651Z",
+    "mtime_ticks": 639246528688886651
+  },
+  {
+    "path": "results\\experiments\\q2_emergency_8_daily.csv",
+    "bytes": 97792,
+    "mtime_utc": "2026-09-10T16:01:18.2263461Z",
+    "mtime_ticks": 639246528782263461
+  },
+  {
+    "path": "results\\experiments\\q2_emergency_8.json",
+    "bytes": 4921,
+    "mtime_utc": "2026-09-10T16:01:18.2305154Z",
+    "mtime_ticks": 639246528782305154
+  },
+  {
+    "path": "results\\experiments\\q2_history_30_daily.csv",
+    "bytes": 97709,
+    "mtime_utc": "2026-09-10T15:59:56.7066935Z",
+    "mtime_ticks": 639246527967066935
+  },
+  {
+    "path": "results\\experiments\\q2_history_30.json",
+    "bytes": 4906,
+    "mtime_utc": "2026-09-10T15:59:56.7136947Z",
+    "mtime_ticks": 639246527967136947
+  },
+  {
+    "path": "results\\experiments\\q2_history_90_daily.csv",
+    "bytes": 98143,
+    "mtime_utc": "2026-09-10T16:00:10.2887829Z",
+    "mtime_ticks": 639246528102887829
+  },
+  {
+    "path": "results\\experiments\\q2_history_90.json",
+    "bytes": 4910,
+    "mtime_utc": "2026-09-10T16:00:10.2927870Z",
+    "mtime_ticks": 639246528102927870
+  },
+  {
+    "path": "results\\experiments\\q2_no_storage_daily.csv",
+    "bytes": 80642,
+    "mtime_utc": "2026-09-10T15:48:20.2711518Z",
+    "mtime_ticks": 639246521002711518
+  },
+  {
+    "path": "results\\experiments\\q2_no_storage.json",
+    "bytes": 4640,
+    "mtime_utc": "2026-09-10T15:48:20.2751496Z",
+    "mtime_ticks": 639246521002751496
+  },
+  {
+    "path": "results\\experiments\\q2_point_daily.csv",
+    "bytes": 98709,
+    "mtime_utc": "2026-09-10T15:48:10.0101172Z",
+    "mtime_ticks": 639246520900101172
+  },
+  {
+    "path": "results\\experiments\\q2_point.json",
+    "bytes": 4911,
+    "mtime_utc": "2026-09-10T15:48:10.0141184Z",
+    "mtime_ticks": 639246520900141184
+  },
+  {
+    "path": "results\\experiments\\q2_power_0.8_daily.csv",
+    "bytes": 101403,
+    "mtime_utc": "2026-09-10T16:00:24.9772203Z",
+    "mtime_ticks": 639246528249772203
+  },
+  {
+    "path": "results\\experiments\\q2_power_0.8.json",
+    "bytes": 4951,
+    "mtime_utc": "2026-09-10T16:00:24.9894577Z",
+    "mtime_ticks": 639246528249894577
+  },
+  {
+    "path": "results\\experiments\\q2_power_1.2_daily.csv",
+    "bytes": 98922,
+    "mtime_utc": "2026-09-10T16:00:32.1003990Z",
+    "mtime_ticks": 639246528321003990
+  },
+  {
+    "path": "results\\experiments\\q2_power_1.2.json",
+    "bytes": 4929,
+    "mtime_utc": "2026-09-10T16:00:32.1044085Z",
+    "mtime_ticks": 639246528321044085
+  },
+  {
+    "path": "results\\experiments\\q2_roundtrip_0.9_daily.csv",
+    "bytes": 98084,
+    "mtime_utc": "2026-09-10T16:00:42.4782909Z",
+    "mtime_ticks": 639246528424782909
+  },
+  {
+    "path": "results\\experiments\\q2_roundtrip_0.9.json",
+    "bytes": 4959,
+    "mtime_utc": "2026-09-10T16:00:42.4914933Z",
+    "mtime_ticks": 639246528424914933
+  },
+  {
+    "path": "results\\experiments\\q2_safe_daily.csv",
+    "bytes": 97833,
+    "mtime_utc": "2026-09-10T15:48:03.9936948Z",
+    "mtime_ticks": 639246520839936948
+  },
+  {
+    "path": "results\\experiments\\q2_safe.json",
+    "bytes": 4915,
+    "mtime_utc": "2026-09-10T15:48:04.0006942Z",
+    "mtime_ticks": 639246520840006942
+  },
+  {
+    "path": "results\\experiments\\q2_typical_daily.csv",
+    "bytes": 99253,
+    "mtime_utc": "2026-09-10T15:48:16.2485748Z",
+    "mtime_ticks": 639246520962485748
+  },
+  {
+    "path": "results\\experiments\\q2_typical.json",
+    "bytes": 4938,
+    "mtime_utc": "2026-09-10T15:48:16.2525743Z",
+    "mtime_ticks": 639246520962525743
+  },
+  {
+    "path": "results\\experiments\\q3_0h_daily.csv",
+    "bytes": 99212,
+    "mtime_utc": "2026-09-10T15:49:12.6348816Z",
+    "mtime_ticks": 639246521526348816
+  },
+  {
+    "path": "results\\experiments\\q3_0h.json",
+    "bytes": 4888,
+    "mtime_utc": "2026-09-10T15:49:12.6378814Z",
+    "mtime_ticks": 639246521526378814
+  },
+  {
+    "path": "results\\experiments\\q3_12h_daily.csv",
+    "bytes": 98993,
+    "mtime_utc": "2026-09-10T15:49:22.3502294Z",
+    "mtime_ticks": 639246521623502294
+  },
+  {
+    "path": "results\\experiments\\q3_12h.json",
+    "bytes": 4862,
+    "mtime_utc": "2026-09-10T15:49:22.3532408Z",
+    "mtime_ticks": 639246521623532408
+  },
+  {
+    "path": "results\\experiments\\q3_2h_daily.csv",
+    "bytes": 99145,
+    "mtime_utc": "2026-09-10T15:50:43.6837253Z",
+    "mtime_ticks": 639246522436837253
+  },
+  {
+    "path": "results\\experiments\\q3_2h.json",
+    "bytes": 4969,
+    "mtime_utc": "2026-09-10T15:50:43.6877224Z",
+    "mtime_ticks": 639246522436877224
+  },
+  {
+    "path": "results\\experiments\\q3_6h_daily.csv",
+    "bytes": 98026,
+    "mtime_utc": "2026-09-10T15:49:40.7474731Z",
+    "mtime_ticks": 639246521807474731
+  },
+  {
+    "path": "results\\experiments\\q3_6h.json",
+    "bytes": 4870,
+    "mtime_utc": "2026-09-10T15:49:40.7500053Z",
+    "mtime_ticks": 639246521807500053
+  },
+  {
+    "path": "results\\experiments\\q42_no_storage_daily.csv",
+    "bytes": 80642,
+    "mtime_utc": "2026-09-10T15:48:41.4628788Z",
+    "mtime_ticks": 639246521214628788
+  },
+  {
+    "path": "results\\experiments\\q42_no_storage.json",
+    "bytes": 4640,
+    "mtime_utc": "2026-09-10T15:48:41.4668857Z",
+    "mtime_ticks": 639246521214668857
+  },
+  {
+    "path": "results\\experiments\\q42_point_daily.csv",
+    "bytes": 99274,
+    "mtime_utc": "2026-09-10T15:48:31.7352423Z",
+    "mtime_ticks": 639246521117352423
+  },
+  {
+    "path": "results\\experiments\\q42_point.json",
+    "bytes": 4917,
+    "mtime_utc": "2026-09-10T15:48:31.7392383Z",
+    "mtime_ticks": 639246521117392383
+  },
+  {
+    "path": "results\\experiments\\q42_safe_daily.csv",
+    "bytes": 97877,
+    "mtime_utc": "2026-09-10T15:48:26.1753362Z",
+    "mtime_ticks": 639246521061753362
+  },
+  {
+    "path": "results\\experiments\\q42_safe.json",
+    "bytes": 4904,
+    "mtime_utc": "2026-09-10T15:48:26.1793362Z",
+    "mtime_ticks": 639246521061793362
+  },
+  {
+    "path": "results\\experiments\\q42_typical_daily.csv",
+    "bytes": 99116,
+    "mtime_utc": "2026-09-10T15:48:37.7890922Z",
+    "mtime_ticks": 639246521177890922
+  },
+  {
+    "path": "results\\experiments\\q42_typical.json",
+    "bytes": 4936,
+    "mtime_utc": "2026-09-10T15:48:37.7921042Z",
+    "mtime_ticks": 639246521177921042
+  },
+  {
+    "path": "results\\experiments\\q43_0h_daily.csv",
+    "bytes": 99097,
+    "mtime_utc": "2026-09-10T15:50:51.0188475Z",
+    "mtime_ticks": 639246522510188475
+  },
+  {
+    "path": "results\\experiments\\q43_0h.json",
+    "bytes": 4875,
+    "mtime_utc": "2026-09-10T15:50:51.0258525Z",
+    "mtime_ticks": 639246522510258525
+  },
+  {
+    "path": "results\\experiments\\q43_12h_daily.csv",
+    "bytes": 98888,
+    "mtime_utc": "2026-09-10T15:51:03.0097469Z",
+    "mtime_ticks": 639246522630097469
+  },
+  {
+    "path": "results\\experiments\\q43_12h.json",
+    "bytes": 4867,
+    "mtime_utc": "2026-09-10T15:51:03.0127495Z",
+    "mtime_ticks": 639246522630127495
+  },
+  {
+    "path": "results\\experiments\\q43_2h_daily.csv",
+    "bytes": 98820,
+    "mtime_utc": "2026-09-10T15:53:56.8935977Z",
+    "mtime_ticks": 639246524368935977
+  },
+  {
+    "path": "results\\experiments\\q43_2h.json",
+    "bytes": 4974,
+    "mtime_utc": "2026-09-10T15:53:56.9035981Z",
+    "mtime_ticks": 639246524369035981
+  },
+  {
+    "path": "results\\experiments\\q43_6h_daily.csv",
+    "bytes": 97881,
+    "mtime_utc": "2026-09-10T15:51:39.6947224Z",
+    "mtime_ticks": 639246522996947224
+  },
+  {
+    "path": "results\\experiments\\q43_6h.json",
+    "bytes": 4878,
+    "mtime_utc": "2026-09-10T15:51:39.7103591Z",
+    "mtime_ticks": 639246522997103591
+  },
+  {
+    "path": "results\\experiments\\q43_alpha_0.70_daily.csv",
+    "bytes": 98442,
+    "mtime_utc": "2026-09-10T16:02:06.0031584Z",
+    "mtime_ticks": 639246529260031584
+  },
+  {
+    "path": "results\\experiments\\q43_alpha_0.70.json",
+    "bytes": 4894,
+    "mtime_utc": "2026-09-10T16:02:06.0106749Z",
+    "mtime_ticks": 639246529260106749
+  },
+  {
+    "path": "results\\experiments\\q43_alpha_0.75_daily.csv",
+    "bytes": 98045,
+    "mtime_utc": "2026-09-10T16:02:52.5871282Z",
+    "mtime_ticks": 639246529725871282
+  },
+  {
+    "path": "results\\experiments\\q43_alpha_0.75.json",
+    "bytes": 4893,
+    "mtime_utc": "2026-09-10T16:02:52.5921391Z",
+    "mtime_ticks": 639246529725921391
+  },
+  {
+    "path": "results\\experiments\\q43_alpha_0.85_daily.csv",
+    "bytes": 97346,
+    "mtime_utc": "2026-09-10T16:03:50.4967674Z",
+    "mtime_ticks": 639246530304967674
+  },
+  {
+    "path": "results\\experiments\\q43_alpha_0.85.json",
+    "bytes": 4887,
+    "mtime_utc": "2026-09-10T16:03:50.5019106Z",
+    "mtime_ticks": 639246530305019106
+  },
+  {
+    "path": "results\\experiments\\q43_alpha_0.90_daily.csv",
+    "bytes": 96558,
+    "mtime_utc": "2026-09-10T16:04:42.7663788Z",
+    "mtime_ticks": 639246530827663788
+  },
+  {
+    "path": "results\\experiments\\q43_alpha_0.90.json",
+    "bytes": 4878,
+    "mtime_utc": "2026-09-10T16:04:42.7693816Z",
+    "mtime_ticks": 639246530827693816
+  },
+  {
+    "path": "results\\experiments\\q43_alpha_0.95_daily.csv",
+    "bytes": 95991,
+    "mtime_utc": "2026-09-10T16:05:38.7510168Z",
+    "mtime_ticks": 639246531387510168
+  },
+  {
+    "path": "results\\experiments\\q43_alpha_0.95.json",
+    "bytes": 4870,
+    "mtime_utc": "2026-09-10T16:05:38.7580295Z",
+    "mtime_ticks": 639246531387580295
+  },
+  {
+    "path": "results\\experiments\\q43_capacity_0.8_daily.csv",
+    "bytes": 96658,
+    "mtime_utc": "2026-09-10T16:28:14.5015536Z",
+    "mtime_ticks": 639246544945015536
+  },
+  {
+    "path": "results\\experiments\\q43_capacity_0.8.json",
+    "bytes": 4872,
+    "mtime_utc": "2026-09-10T16:28:14.5075531Z",
+    "mtime_ticks": 639246544945075531
+  },
+  {
+    "path": "results\\experiments\\q43_capacity_1.2_daily.csv",
+    "bytes": 99569,
+    "mtime_utc": "2026-09-10T16:28:42.1843318Z",
+    "mtime_ticks": 639246545221843318
+  },
+  {
+    "path": "results\\experiments\\q43_capacity_1.2.json",
+    "bytes": 4901,
+    "mtime_utc": "2026-09-10T16:28:42.1903317Z",
+    "mtime_ticks": 639246545221903317
+  },
+  {
+    "path": "results\\experiments\\q43_clusters_12_daily.csv",
+    "bytes": 98082,
+    "mtime_utc": "2026-09-10T16:07:46.4222938Z",
+    "mtime_ticks": 639246532664222938
+  },
+  {
+    "path": "results\\experiments\\q43_clusters_12.json",
+    "bytes": 4898,
+    "mtime_utc": "2026-09-10T16:07:46.4292948Z",
+    "mtime_ticks": 639246532664292948
+  },
+  {
+    "path": "results\\experiments\\q43_clusters_16_daily.csv",
+    "bytes": 97845,
+    "mtime_utc": "2026-09-10T16:08:55.4302763Z",
+    "mtime_ticks": 639246533354302763
+  },
+  {
+    "path": "results\\experiments\\q43_clusters_16.json",
+    "bytes": 4887,
+    "mtime_utc": "2026-09-10T16:08:55.4400533Z",
+    "mtime_ticks": 639246533354400533
+  },
+  {
+    "path": "results\\experiments\\q43_clusters_5_daily.csv",
+    "bytes": 97717,
+    "mtime_utc": "2026-09-10T16:06:39.6842854Z",
+    "mtime_ticks": 639246531996842854
+  },
+  {
+    "path": "results\\experiments\\q43_clusters_5.json",
+    "bytes": 4896,
+    "mtime_utc": "2026-09-10T16:06:39.6955285Z",
+    "mtime_ticks": 639246531996955285
+  },
+  {
+    "path": "results\\experiments\\q43_emergency_3_daily.csv",
+    "bytes": 97877,
+    "mtime_utc": "2026-09-10T16:14:20.9862256Z",
+    "mtime_ticks": 639246536609862256
+  },
+  {
+    "path": "results\\experiments\\q43_emergency_3.json",
+    "bytes": 4886,
+    "mtime_utc": "2026-09-10T16:14:20.9967100Z",
+    "mtime_ticks": 639246536609967100
+  },
+  {
+    "path": "results\\experiments\\q43_emergency_4_daily.csv",
+    "bytes": 97852,
+    "mtime_utc": "2026-09-10T16:14:56.1536996Z",
+    "mtime_ticks": 639246536961536996
+  },
+  {
+    "path": "results\\experiments\\q43_emergency_4.json",
+    "bytes": 4885,
+    "mtime_utc": "2026-09-10T16:14:56.1623853Z",
+    "mtime_ticks": 639246536961623853
+  },
+  {
+    "path": "results\\experiments\\q43_emergency_6_daily.csv",
+    "bytes": 97887,
+    "mtime_utc": "2026-09-10T16:15:29.6649072Z",
+    "mtime_ticks": 639246537296649072
+  },
+  {
+    "path": "results\\experiments\\q43_emergency_6.json",
+    "bytes": 4886,
+    "mtime_utc": "2026-09-10T16:15:29.6790257Z",
+    "mtime_ticks": 639246537296790257
+  },
+  {
+    "path": "results\\experiments\\q43_emergency_8_daily.csv",
+    "bytes": 97881,
+    "mtime_utc": "2026-09-10T16:16:10.3809891Z",
+    "mtime_ticks": 639246537703809891
+  },
+  {
+    "path": "results\\experiments\\q43_emergency_8.json",
+    "bytes": 4890,
+    "mtime_utc": "2026-09-10T16:16:10.3930052Z",
+    "mtime_ticks": 639246537703930052
+  },
+  {
+    "path": "results\\experiments\\q43_history_30_daily.csv",
+    "bytes": 97141,
+    "mtime_utc": "2026-09-10T16:09:53.9309421Z",
+    "mtime_ticks": 639246533939309421
+  },
+  {
+    "path": "results\\experiments\\q43_history_30.json",
+    "bytes": 4866,
+    "mtime_utc": "2026-09-10T16:09:53.9379516Z",
+    "mtime_ticks": 639246533939379516
+  },
+  {
+    "path": "results\\experiments\\q43_history_90_daily.csv",
+    "bytes": 98071,
+    "mtime_utc": "2026-09-10T16:11:12.1432005Z",
+    "mtime_ticks": 639246534721432005
+  },
+  {
+    "path": "results\\experiments\\q43_history_90.json",
+    "bytes": 4901,
+    "mtime_utc": "2026-09-10T16:11:12.1471965Z",
+    "mtime_ticks": 639246534721471965
+  },
+  {
+    "path": "results\\experiments\\q43_power_0.8_daily.csv",
+    "bytes": 100891,
+    "mtime_utc": "2026-09-10T16:12:20.9752860Z",
+    "mtime_ticks": 639246535409752860
+  },
+  {
+    "path": "results\\experiments\\q43_power_0.8.json",
+    "bytes": 4910,
+    "mtime_utc": "2026-09-10T16:12:20.9815777Z",
+    "mtime_ticks": 639246535409815777
+  },
+  {
+    "path": "results\\experiments\\q43_power_1.2_daily.csv",
+    "bytes": 97406,
+    "mtime_utc": "2026-09-10T16:13:07.7144117Z",
+    "mtime_ticks": 639246535877144117
+  },
+  {
+    "path": "results\\experiments\\q43_power_1.2.json",
+    "bytes": 4883,
+    "mtime_utc": "2026-09-10T16:13:07.7234201Z",
+    "mtime_ticks": 639246535877234201
+  },
+  {
+    "path": "results\\experiments\\q43_roundtrip_0.9_daily.csv",
+    "bytes": 97983,
+    "mtime_utc": "2026-09-10T16:13:43.1070472Z",
+    "mtime_ticks": 639246536231070472
+  },
+  {
+    "path": "results\\experiments\\q43_roundtrip_0.9.json",
+    "bytes": 4935,
+    "mtime_utc": "2026-09-10T16:13:43.1170809Z",
+    "mtime_ticks": 639246536231170809
+  },
+  {
+    "path": "results\\p1_cold_start.json",
+    "bytes": 4248,
+    "mtime_utc": "2026-09-10T15:22:46.8326213Z",
+    "mtime_ticks": 639246505668326213
+  },
+  {
+    "path": "results\\p1_regression.json",
+    "bytes": 1967,
+    "mtime_utc": "2026-09-10T16:36:01.7410217Z",
+    "mtime_ticks": 639246549617410217
+  },
+  {
+    "path": "results\\p1_smoke.json",
+    "bytes": 3874,
+    "mtime_utc": "2026-09-10T13:02:36.1759376Z",
+    "mtime_ticks": 639246421561759376
+  },
+  {
+    "path": "results\\q2_每日汇总.csv",
+    "bytes": 77756,
+    "mtime_utc": "2026-09-10T15:49:29.6899695Z",
+    "mtime_ticks": 639246521696899695
+  },
+  {
+    "path": "results\\q2_逐时结果.csv",
+    "bytes": 9264805,
+    "mtime_utc": "2026-09-10T15:49:30.7137801Z",
+    "mtime_ticks": 639246521707137801
+  },
+  {
+    "path": "results\\q3_每日汇总.csv",
+    "bytes": 78211,
+    "mtime_utc": "2026-09-10T15:49:30.8440888Z",
+    "mtime_ticks": 639246521708440888
+  },
+  {
+    "path": "results\\q3_逐时结果.csv",
+    "bytes": 9326854,
+    "mtime_utc": "2026-09-10T15:49:31.9343317Z",
+    "mtime_ticks": 639246521719343317
+  },
+  {
+    "path": "results\\q4_2_每日汇总.csv",
+    "bytes": 77888,
+    "mtime_utc": "2026-09-10T15:49:31.9603397Z",
+    "mtime_ticks": 639246521719603397
+  },
+  {
+    "path": "results\\q4_2_逐时结果.csv",
+    "bytes": 9456536,
+    "mtime_utc": "2026-09-10T15:49:32.9524144Z",
+    "mtime_ticks": 639246521729524144
+  },
+  {
+    "path": "results\\q4_3_每日汇总.csv",
+    "bytes": 78101,
+    "mtime_utc": "2026-09-10T15:49:32.9809958Z",
+    "mtime_ticks": 639246521729809958
+  },
+  {
+    "path": "results\\q4_3_逐时结果.csv",
+    "bytes": 9519617,
+    "mtime_utc": "2026-09-10T15:49:34.0899127Z",
+    "mtime_ticks": 639246521740899127
+  },
+  {
+    "path": "results\\README.md",
+    "bytes": 2261,
+    "mtime_utc": "2026-09-10T16:44:19.8322097Z",
+    "mtime_ticks": 639246554598322097
+  },
+  {
+    "path": "results\\reproduction_logs\\core_tests.log",
+    "bytes": 1969,
+    "mtime_utc": "2026-09-10T16:36:01.7420228Z",
+    "mtime_ticks": 639246549617420228
+  },
+  {
+    "path": "results\\reproduction_logs\\environment.log",
+    "bytes": 385,
+    "mtime_utc": "2026-09-10T16:35:47.0170117Z",
+    "mtime_ticks": 639246549470170117
+  },
+  {
+    "path": "results\\reproduction_logs\\evaluation_tests.log",
+    "bytes": 134,
+    "mtime_utc": "2026-09-10T16:36:08.9533691Z",
+    "mtime_ticks": 639246549689533691
+  },
+  {
+    "path": "results\\reproduction_logs\\experiment_audit.log",
+    "bytes": 14647,
+    "mtime_utc": "2026-09-10T16:36:27.3198963Z",
+    "mtime_ticks": 639246549873198963
+  },
+  {
+    "path": "results\\reproduction_logs\\figure_coverage.log",
+    "bytes": 5489,
+    "mtime_utc": "2026-09-10T16:36:56.9123489Z",
+    "mtime_ticks": 639246550169123489
+  },
+  {
+    "path": "results\\reproduction_logs\\figure_format.log",
+    "bytes": 6377,
+    "mtime_utc": "2026-09-10T16:36:56.4614120Z",
+    "mtime_ticks": 639246550164614120
+  },
+  {
+    "path": "results\\reproduction_logs\\figures.log",
+    "bytes": 4153,
+    "mtime_utc": "2026-09-10T16:36:55.0458005Z",
+    "mtime_ticks": 639246550150458005
+  },
+  {
+    "path": "results\\reproduction_logs\\profile_问题1_逐时结果.log",
+    "bytes": 3164,
+    "mtime_utc": "2026-09-10T16:36:28.8162253Z",
+    "mtime_ticks": 639246549888162253
+  },
+  {
+    "path": "results\\reproduction_logs\\profile_原始数据剖析.log",
+    "bytes": 2974,
+    "mtime_utc": "2026-09-10T16:36:33.4832618Z",
+    "mtime_ticks": 639246549934832618
+  },
+  {
+    "path": "results\\reproduction_logs\\profile_experiments.log",
+    "bytes": 7346,
+    "mtime_utc": "2026-09-10T16:36:34.6365697Z",
+    "mtime_ticks": 639246549946365697
+  },
+  {
+    "path": "results\\reproduction_logs\\profile_q2_每日汇总.log",
+    "bytes": 4244,
+    "mtime_utc": "2026-09-10T16:36:29.9856317Z",
+    "mtime_ticks": 639246549899856317
+  },
+  {
+    "path": "results\\reproduction_logs\\profile_q3_每日汇总.log",
+    "bytes": 3921,
+    "mtime_utc": "2026-09-10T16:36:31.1431850Z",
+    "mtime_ticks": 639246549911431850
+  },
+  {
+    "path": "results\\reproduction_logs\\profile_q4_3_每日汇总.log",
+    "bytes": 3913,
+    "mtime_utc": "2026-09-10T16:36:32.3510953Z",
+    "mtime_ticks": 639246549923510953
+  },
+  {
+    "path": "results\\reproduction_logs\\steps.json",
+    "bytes": 10391,
+    "mtime_utc": "2026-09-10T16:36:56.9313576Z",
+    "mtime_ticks": 639246550169313576
+  },
+  {
+    "path": "results\\reproduction_logs\\workbook_audit.log",
+    "bytes": 773,
+    "mtime_utc": "2026-09-10T16:36:20.9179504Z",
+    "mtime_ticks": 639246549809179504
+  },
+  {
+    "path": "results\\result1.xlsx",
+    "bytes": 8810,
+    "mtime_utc": "2026-09-10T15:49:07.2929432Z",
+    "mtime_ticks": 639246521472929432
+  },
+  {
+    "path": "results\\result2.xlsx",
+    "bytes": 645011,
+    "mtime_utc": "2026-09-10T15:49:13.3187414Z",
+    "mtime_ticks": 639246521533187414
+  },
+  {
+    "path": "results\\result3.xlsx",
+    "bytes": 1126022,
+    "mtime_utc": "2026-09-10T15:49:18.7893220Z",
+    "mtime_ticks": 639246521587893220
+  },
+  {
+    "path": "results\\result4-2.xlsx",
+    "bytes": 647818,
+    "mtime_utc": "2026-09-10T15:49:24.3075403Z",
+    "mtime_ticks": 639246521643075403
+  },
+  {
+    "path": "results\\result4-3.xlsx",
+    "bytes": 1131008,
+    "mtime_utc": "2026-09-10T15:49:29.6679643Z",
+    "mtime_ticks": 639246521696679643
+  },
+  {
+    "path": "reviews\\敏感性执行口径.md",
+    "bytes": 1298,
+    "mtime_utc": "2026-09-10T15:56:58.6616201Z",
+    "mtime_ticks": 639246526186616201
+  },
+  {
+    "path": "reviews\\M1回执.md",
+    "bytes": 1143,
+    "mtime_utc": "2026-09-10T15:14:49.8327844Z",
+    "mtime_ticks": 639246500898327844
+  },
+  {
+    "path": "reviews\\P1独立验收回执.md",
+    "bytes": 10786,
+    "mtime_utc": "2026-09-10T15:46:29.6198246Z",
+    "mtime_ticks": 639246519896198246
+  },
+  {
+    "path": "reviews\\P2作者自检.md",
+    "bytes": 3680,
+    "mtime_utc": "2026-09-10T16:44:39.6240822Z",
+    "mtime_ticks": 639246554796240822
+  },
+  {
+    "path": "run_all.py",
+    "bytes": 23063,
+    "mtime_utc": "2026-09-10T15:36:43.2898861Z",
+    "mtime_ticks": 639246514032898861
+  },
+  {
+    "path": "run_experiments.py",
+    "bytes": 10119,
+    "mtime_utc": "2026-09-10T15:44:31.0214827Z",
+    "mtime_ticks": 639246518710214827
+  },
+  {
+    "path": "smoke_test.py",
+    "bytes": 3904,
+    "mtime_utc": "2026-09-10T15:06:05.4739781Z",
+    "mtime_ticks": 639246495654739781
+  },
+  {
+    "path": "test_core.py",
+    "bytes": 8992,
+    "mtime_utc": "2026-09-10T15:36:48.1085012Z",
+    "mtime_ticks": 639246514081085012
+  },
+  {
+    "path": "test_evaluation.py",
+    "bytes": 2764,
+    "mtime_utc": "2026-09-10T15:24:09.0331007Z",
+    "mtime_ticks": 639246506490331007
+  },
+  {
+    "path": "utils\\plot_style.py",
+    "bytes": 17160,
+    "mtime_utc": "2026-09-06T16:12:06.8023560Z",
+    "mtime_ticks": 639243079268023560
+  },
+  {
+    "path": "utils\\README.md",
+    "bytes": 698,
+    "mtime_utc": "2026-09-07T18:26:50.1164768Z",
+    "mtime_ticks": 639244024101164768
+  },
+  {
+    "path": "utils\\repro_manifest_nohash.py",
+    "bytes": 4220,
+    "mtime_utc": "2026-09-10T16:03:09.5949900Z",
+    "mtime_ticks": 639246529895949900
+  }
+]

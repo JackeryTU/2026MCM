@@ -1,0 +1,36 @@
+{
+  "status": "author_numeric_audit_passed_not_independent_P2",
+  "checks": [
+    {
+      "file": "result1.xlsx",
+      "filled_cells": 317,
+      "formula_count": 0,
+      "status": "PASS"
+    },
+    {
+      "file": "result2.xlsx",
+      "filled_cells": 64211,
+      "formula_count": 0,
+      "status": "PASS"
+    },
+    {
+      "file": "result3.xlsx",
+      "filled_cells": 110099,
+      "formula_count": 0,
+      "status": "PASS"
+    },
+    {
+      "file": "result4-2.xlsx",
+      "filled_cells": 64229,
+      "formula_count": 0,
+      "status": "PASS"
+    },
+    {
+      "file": "result4-3.xlsx",
+      "filled_cells": 110117,
+      "formula_count": 0,
+      "status": "PASS"
+    }
+  ],
+  "hash_checks": "omitted per user request"
+}

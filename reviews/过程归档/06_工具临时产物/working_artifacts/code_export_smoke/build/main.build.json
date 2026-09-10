@@ -1,0 +1,109 @@
+{
+  "schema_version": 2,
+  "integrity_policy": "User explicitly prohibited all hash computation/comparison. Only path, size and mtime are checked; not content-integrity proof.",
+  "created_at": "2026-09-10T17:07:44.183111+00:00",
+  "passed": true,
+  "main_tex": "main.tex",
+  "project_root": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\paper_tools\\code_export_smoke",
+  "source_metadata": {
+    "code/microgrid_core.py": {
+      "bytes": 30664,
+      "mtime_ns": 1789052606567416200
+    },
+    "latex-project.json": {
+      "bytes": 1268,
+      "mtime_ns": 1789060040661668800
+    },
+    "main.tex": {
+      "bytes": 1056,
+      "mtime_ns": 1789059987440786200
+    },
+    "references.bib": {
+      "bytes": 66,
+      "mtime_ns": 1788711129210323900
+    }
+  },
+  "compiled_source_metadata": {
+    "code/microgrid_core.py": {
+      "bytes": 30664,
+      "mtime_ns": 1789052606567416200
+    },
+    "latex-project.json": {
+      "bytes": 1268,
+      "mtime_ns": 1789060040661668800
+    },
+    "main.tex": {
+      "bytes": 1056,
+      "mtime_ns": 1789059987440786200
+    },
+    "references.bib": {
+      "bytes": 66,
+      "mtime_ns": 1788711129210323900
+    }
+  },
+  "post_build_source_metadata": {
+    "code/microgrid_core.py": {
+      "bytes": 30664,
+      "mtime_ns": 1789052606567416200
+    },
+    "latex-project.json": {
+      "bytes": 1268,
+      "mtime_ns": 1789060040661668800
+    },
+    "main.tex": {
+      "bytes": 1056,
+      "mtime_ns": 1789059987440786200
+    },
+    "references.bib": {
+      "bytes": 66,
+      "mtime_ns": 1788711129210323900
+    }
+  },
+  "pdf_metadata": {
+    "bytes": 105614,
+    "mtime_ns": 1789060064079443700
+  },
+  "project_manifest_metadata": {
+    "bytes": 1268,
+    "mtime_ns": 1789060040661668800
+  },
+  "engine": "xelatex",
+  "tools": {
+    "latexmk": {
+      "path": "C:/texlive/2025/bin/windows\\latexmk.EXE",
+      "version": "Latexmk, John Collins, 27 Dec. 2024. Version 4.86a"
+    },
+    "xelatex": {
+      "path": "C:/texlive/2025/bin/windows\\xelatex.EXE",
+      "version": "XeTeX 3.141592653-2.6-0.999997 (TeX Live 2025)"
+    }
+  },
+  "commands": [
+    {
+      "command": [
+        "C:/texlive/2025/bin/windows\\latexmk.EXE",
+        "-norc",
+        "-gg",
+        "-xelatex",
+        "-e",
+        "$xelatex = 'xelatex -no-shell-escape %O %S'",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-file-line-error",
+        "-outdir=build",
+        "main.tex"
+      ],
+      "cwd": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\paper_tools\\code_export_smoke",
+      "returncode": 0,
+      "duration_seconds": 13.293
+    }
+  ],
+  "warnings": [],
+  "allowed_warnings": [],
+  "warning_override": {
+    "patterns": [],
+    "reason": null
+  },
+  "issues": [],
+  "reproduce": "\"C:\\Program Files\\Python314\\python.exe\" C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\paper_tools\\latex_paper_nohash.py build C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\paper_tools\\code_export_smoke\\main.tex --engine xelatex --timeout 180 --publish C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\paper_tools\\code_export_smoke.pdf"
+}

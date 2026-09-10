@@ -1,0 +1,44 @@
+{
+  "schema_version": 2,
+  "integrity_policy": "User explicitly prohibited all hash computation/comparison. Only path, size and mtime are checked; not content-integrity proof.",
+  "contest": "cumcm",
+  "main_tex": "main.tex",
+  "template": {
+    "path": "C:\\Users\\lenovo\\.codex\\skills\\math-modeling-skill-main\\tools\\latex\\assets\\templates\\cumcm",
+    "source": null,
+    "version": "2026 format baseline; code export smoke",
+    "metadata": {
+      "main.tex": {
+        "bytes": 845,
+        "mtime_ns": 1788711129195304100
+      },
+      "references.bib": {
+        "bytes": 66,
+        "mtime_ns": 1788711129210323900
+      }
+    }
+  },
+  "template_files": {
+    "main.tex": {
+      "bytes": 845,
+      "mtime_ns": 1788711129195304100
+    },
+    "references.bib": {
+      "bytes": 66,
+      "mtime_ns": 1788711129210323900
+    }
+  },
+  "resource_bindings": [
+    {
+      "source": "code_smoke_inputs/microgrid_core.py",
+      "destination": "code/microgrid_core.py",
+      "metadata": {
+        "bytes": 30664,
+        "mtime_ns": 1789052606567416200
+      },
+      "metadata_mode": "content",
+      "bound_at": "2026-09-10T17:07:20.659750+00:00"
+    }
+  ],
+  "created_at": "2026-09-10T17:01:52.078612+00:00"
+}
