@@ -203,7 +203,7 @@ def main() -> int:
     parser.add_argument("--alpha", type=float, choices=(.8, .9, .95), default=.9)
     parser.add_argument("--horizon", type=int, choices=(36, 72), default=36)
     parser.add_argument("--tracking-weight", type=float, choices=(0., .01, .05), default=0.)
-    parser.add_argument("--controller", choices=("mpc", "delayed_greedy", "greedy"), default="mpc")
+    parser.add_argument("--controller", choices=("mpc", "delayed_greedy", "greedy"), default="greedy")
     parser.add_argument("--end-day", type=int, default=365)
     args = parser.parse_args()
     root = Path(args.project_root).resolve()

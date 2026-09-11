@@ -542,7 +542,290 @@ def solve_schedule(
     return result
 
 
-def causal_dispatch(
+def solve_risk_contract_lp(
+    load_point_kw: np.ndarray,
+    pv_point_kw: np.ndarray,
+    price: np.ndarray,
+    soc0: float,
+    historical_net_residual_kw: np.ndarray,
+    *,
+    alpha: float = DEFAULT_ALPHA,
+    scenario_weights: np.ndarray | None = None,
+    terminal_value: float = 0.0,
+    battery: Battery = DEFAULT_BATTERY,
+    emergency_multiplier: float = 5.0,
+    history_start: int | None = None,
+    history_end_exclusive: int | None = None,
+    base_plan_kwh: np.ndarray | None = None,
+) -> dict[str, Any]:
+    """Solve a causal initial or adjusted risk-contract LP.
+
+    ``base_contract_kwh`` balances the centre forecast together with the
+    planned battery trajectory.  ``risk_reserve_kwh`` is an already-paid
+    reserve contract calibrated only from completed historical residuals.
+    Historical shortfall variables price the remaining tail at the fivefold
+    emergency tariff; they are planning proxies and never enter cash
+    settlement.  When ``base_plan_kwh`` is supplied, the total contract is
+    settled against that original plan with the Problem 3 upward/downward
+    adjustment tariff; the same residual reserve and shortfall construction
+    is retained.
+    """
+    load = np.asarray(load_point_kw, dtype=float)
+    pv = np.asarray(pv_point_kw, dtype=float)
+    price = np.asarray(price, dtype=float)
+    residual = np.asarray(historical_net_residual_kw, dtype=float)
+    n_slots = load.size
+    if pv.shape != (n_slots,) or price.shape != (n_slots,):
+        raise ValueError("风险合同LP的负荷、光伏和电价长度不一致")
+    if residual.ndim != 2 or residual.shape[1] != n_slots:
+        raise ValueError("历史净负荷残差必须是样本数×时段数二维矩阵")
+    if not 0.0 <= alpha <= 1.0:
+        raise ValueError("风险分位水平必须位于[0,1]")
+    if any(not np.isfinite(v).all() for v in (load, pv, price, residual)):
+        raise ValueError("风险合同LP输入包含NaN或无穷值")
+    if np.any(load < 0) or np.any(pv < 0) or np.any(price < 0):
+        raise ValueError("风险合同LP的预测量和电价不得为负")
+    if not battery.minimum - 1e-9 <= soc0 <= battery.maximum + 1e-9:
+        raise ValueError(f"初始SOC越界: {soc0}")
+    adjusted = base_plan_kwh is not None
+    if adjusted:
+        base_plan_kwh = np.asarray(base_plan_kwh, dtype=float)
+        if base_plan_kwh.shape != (n_slots,) or not np.isfinite(base_plan_kwh).all():
+            raise ValueError("原合同必须是与调整时域等长的有限向量")
+        if np.any(base_plan_kwh < -1e-7):
+            raise ValueError("原合同不得为负")
+        base_plan_kwh = np.maximum(base_plan_kwh, 0.0)
+
+    sample_count = residual.shape[0]
+    if scenario_weights is None:
+        weights = (
+            np.full(sample_count, 1.0 / sample_count)
+            if sample_count
+            else np.empty(0, dtype=float)
+        )
+    else:
+        weights = np.asarray(scenario_weights, dtype=float)
+        if weights.shape != (sample_count,) or np.any(weights < 0) or (sample_count and weights.sum() <= 0):
+            raise ValueError("历史残差场景权重非法")
+        weights = weights / weights.sum() if sample_count else weights
+
+    # Variable blocks: base, reserve, charge, discharge, SOC, PV used, z,
+    # and (for an adjusted contract) upward/downward changes from the original.
+    pos = 0
+    blocks: dict[str, slice] = {}
+    for name, size in (
+        ("base", n_slots), ("reserve", n_slots),
+        ("charge", n_slots), ("discharge", n_slots),
+        ("soc", n_slots + 1), ("pv_used", n_slots),
+        ("shortfall", sample_count * n_slots),
+    ):
+        blocks[name] = slice(pos, pos + size)
+        pos += size
+    if adjusted:
+        for name in ("up", "down"):
+            blocks[name] = slice(pos, pos + n_slots)
+            pos += n_slots
+
+    c = np.zeros(pos, dtype=float)
+    if adjusted:
+        c[blocks["up"]] = 1.5 * price
+        c[blocks["down"]] = -0.5 * price
+        constant_cost = float(np.dot(price, base_plan_kwh))
+    else:
+        c[blocks["base"]] = price
+        c[blocks["reserve"]] = price
+        constant_cost = 0.0
+    if sample_count:
+        c[blocks["shortfall"]] = (
+            emergency_multiplier * weights[:, None] * price[None, :]
+        ).ravel()
+    c[blocks["soc"].stop - 1] = -float(terminal_value)
+
+    aeq = lil_matrix((2 * n_slots + (n_slots if adjusted else 0), pos), dtype=float)
+    beq = np.zeros(aeq.shape[0], dtype=float)
+    load_e = load * DT_HOURS
+    pv_e = pv * DT_HOURS
+    for t in range(n_slots):
+        aeq[t, blocks["base"].start + t] = 1.0
+        aeq[t, blocks["charge"].start + t] = -1.0
+        aeq[t, blocks["discharge"].start + t] = 1.0
+        aeq[t, blocks["pv_used"].start + t] = 1.0
+        beq[t] = load_e[t]
+
+        row = n_slots + t
+        aeq[row, blocks["soc"].start + t] = -1.0
+        aeq[row, blocks["soc"].start + t + 1] = 1.0
+        aeq[row, blocks["charge"].start + t] = -battery.eta_c
+        aeq[row, blocks["discharge"].start + t] = 1.0 / battery.eta_d
+
+        if adjusted:
+            row = 2 * n_slots + t
+            # base + reserve = original + upward - downward
+            aeq[row, blocks["base"].start + t] = 1.0
+            aeq[row, blocks["reserve"].start + t] = 1.0
+            aeq[row, blocks["up"].start + t] = -1.0
+            aeq[row, blocks["down"].start + t] = 1.0
+            beq[row] = base_plan_kwh[t]
+
+    if sample_count:
+        aub = lil_matrix((sample_count * n_slots, pos), dtype=float)
+        bub = np.empty(sample_count * n_slots, dtype=float)
+        residual_e = residual * DT_HOURS
+        for j in range(sample_count):
+            for t in range(n_slots):
+                row = j * n_slots + t
+                # z[j,t] >= residual[j,t] - reserve[t]
+                aub[row, blocks["reserve"].start + t] = -1.0
+                aub[row, blocks["shortfall"].start + row] = -1.0
+                bub[row] = -residual_e[j, t]
+        aub_csr = aub.tocsr()
+    else:
+        residual_e = np.empty((0, n_slots), dtype=float)
+        aub_csr = None
+        bub = None
+
+    if sample_count:
+        risk_floor = np.maximum(
+            0.0, weighted_quantile_columns(residual, weights, alpha) * DT_HOURS
+        )
+    else:
+        risk_floor = np.zeros(n_slots, dtype=float)
+    bounds: list[tuple[float | None, float | None]] = []
+    bounds.extend([(0.0, None)] * n_slots)
+    bounds.extend([(float(v), None) for v in risk_floor])
+    bounds.extend([(0.0, battery.slot_limit)] * n_slots)
+    bounds.extend([(0.0, battery.slot_limit)] * n_slots)
+    soc_bounds = [(battery.minimum, battery.maximum)] * (n_slots + 1)
+    soc_bounds[0] = (soc0, soc0)
+    bounds.extend(soc_bounds)
+    bounds.extend([(0.0, float(v)) for v in pv_e])
+    bounds.extend([(0.0, None)] * (sample_count * n_slots))
+    if adjusted:
+        bounds.extend([(0.0, None)] * n_slots)
+        bounds.extend([(0.0, float(v)) for v in base_plan_kwh])
+
+    solved = linprog(
+        c, A_ub=aub_csr, b_ub=bub, A_eq=aeq.tocsr(), b_eq=beq,
+        bounds=bounds, method="highs",
+    )
+    if not solved.success:
+        raise RuntimeError(f"风险合同LP求解失败: status={solved.status}, {solved.message}")
+
+    economic_optimum = float(solved.fun)
+    tie = np.zeros(pos, dtype=float)
+    tie[blocks["charge"]] = 1.0
+    tie[blocks["discharge"]] = 1.0
+    objective_row = csr_matrix(c.reshape(1, -1))
+    tolerance = 1e-8 * max(1.0, abs(economic_optimum))
+    if aub_csr is None:
+        tie_aub = objective_row
+        tie_bub = np.asarray([economic_optimum + tolerance])
+    else:
+        from scipy.sparse import vstack
+        tie_aub = vstack([aub_csr, objective_row], format="csr")
+        tie_bub = np.concatenate([bub, [economic_optimum + tolerance]])
+    refined = linprog(
+        tie, A_ub=tie_aub, b_ub=tie_bub, A_eq=aeq.tocsr(), b_eq=beq,
+        bounds=bounds, method="highs",
+    )
+    if not refined.success:
+        raise RuntimeError(f"风险合同LP吞吐次级优化失败: {refined.status}, {refined.message}")
+    x = refined.x
+
+    base = x[blocks["base"]].copy()
+    reserve = x[blocks["reserve"]].copy()
+    shortfall = x[blocks["shortfall"]].reshape(sample_count, n_slots).copy()
+    soc = x[blocks["soc"]].copy()
+    total_contract = base + reserve
+    if adjusted:
+        up = x[blocks["up"]].copy()
+        down = x[blocks["down"]].copy()
+        contract_cost = float(
+            np.dot(price, base_plan_kwh)
+            + np.dot(1.5 * price, up)
+            - np.dot(0.5 * price, down)
+        )
+        base_only_cost = float(np.sum(
+            price * np.minimum(base_plan_kwh, base)
+            + 1.5 * price * np.maximum(base - base_plan_kwh, 0.0)
+            + 0.5 * price * np.maximum(base_plan_kwh - base, 0.0)
+        ))
+        base_cost = base_only_cost
+        reserve_cost = contract_cost - base_only_cost
+    else:
+        up = down = None
+        base_cost = float(np.dot(price, base))
+        reserve_cost = float(np.dot(price, reserve))
+        contract_cost = base_cost + reserve_cost
+    expected_emergency_cost = float(
+        emergency_multiplier * np.sum(weights[:, None] * price[None, :] * shortfall)
+    ) if sample_count else 0.0
+    terminal_credit = float(terminal_value * (soc[-1] - battery.minimum))
+    objective = contract_cost + expected_emergency_cost - terminal_credit
+    normalized_highs_objective = float(
+        np.dot(c, x) + constant_cost + terminal_value * battery.minimum
+    )
+    normalized_economic_optimum = float(
+        economic_optimum + constant_cost + terminal_value * battery.minimum
+    )
+    eq_residual = aeq.tocsr() @ x - beq
+    overlap = np.minimum(x[blocks["charge"]], x[blocks["discharge"]])
+    if sample_count:
+        shortfall_violation = np.maximum(
+            residual_e - reserve[None, :] - shortfall, 0.0
+        )
+        max_shortfall_violation = float(np.max(shortfall_violation))
+    else:
+        max_shortfall_violation = 0.0
+    result = {
+        "grid_kwh": total_contract,
+        "base_contract_kwh": base,
+        "risk_reserve_kwh": reserve,
+        "risk_reserve_lower_bound_kwh": risk_floor,
+        "charge_kwh": x[blocks["charge"]].copy(),
+        "discharge_kwh": x[blocks["discharge"]].copy(),
+        "soc_kwh": soc,
+        "pv_used_kwh": x[blocks["pv_used"]].copy(),
+        "historical_shortfall_kwh": shortfall,
+        "base_contract_cost": base_cost,
+        "cash_contract_cost": contract_cost,
+        "risk_reserve_cost": reserve_cost,
+        "expected_emergency_cost": expected_emergency_cost,
+        "risk_cost": reserve_cost + expected_emergency_cost,
+        "terminal_value_credit": terminal_credit,
+        "solver_objective": objective,
+        "highs_objective": normalized_highs_objective,
+        "economic_optimum": normalized_economic_optimum,
+        "secondary_tie_break_gap": float(
+            normalized_highs_objective - normalized_economic_optimum
+        ),
+        "objective_solver_residual": float(
+            objective - normalized_highs_objective
+        ),
+        "objective_decomposition_residual": float(
+            objective - (base_cost + reserve_cost + expected_emergency_cost - terminal_credit)
+        ),
+        "max_eq_residual": float(np.max(np.abs(eq_residual))),
+        "max_shortfall_violation": max_shortfall_violation,
+        "simultaneous_flow_slots": int(np.count_nonzero(overlap > 1e-5)),
+        "simultaneous_flow_max": float(np.max(overlap)),
+        "historical_sample_count": int(sample_count),
+        "history_start": history_start,
+        "history_end_exclusive": history_end_exclusive,
+        "scenario_weights": weights.tolist(),
+        "alpha": float(alpha),
+        "status": "optimal",
+        "model": "risk_contract_lp_adjusted" if adjusted else "risk_contract_lp",
+        "adjusted": adjusted,
+    }
+    if adjusted:
+        result["up_kwh"] = up
+        result["down_kwh"] = down
+        result["original_contract_kwh"] = base_plan_kwh.copy()
+    return result
+
+
+def greedy_execution(
     contract_kwh: np.ndarray,
     actual_load_kw: np.ndarray,
     actual_pv_kw: np.ndarray,
@@ -553,7 +836,13 @@ def causal_dispatch(
     battery: Battery = DEFAULT_BATTERY,
     emergency_multiplier: float = 5.0,
 ) -> dict[str, Any]:
-    """Greedy feasible controller using current observation only."""
+    """Execute the fixed contract with current-slot state feedback only.
+
+    Source priority is explicit: PV serves load, then the paid contract; PV
+    surplus charges before contract surplus; the battery discharges only for a
+    remaining load deficit; emergency power covers the final deficit.
+    """
+    begun = time.perf_counter()
     q = np.asarray(contract_kwh, dtype=float)
     load_e = np.asarray(actual_load_kw, dtype=float) * DT_HOURS
     pv_e = np.asarray(actual_pv_kw, dtype=float) * DT_HOURS
@@ -561,28 +850,52 @@ def causal_dispatch(
     n = q.size
     if load_e.shape != (n,) or pv_e.shape != (n,) or price.shape != (n,):
         raise ValueError("因果控制输入长度不一致")
+    if any(not np.isfinite(v).all() for v in (q, load_e, pv_e, price)) or np.any(q < -1e-7) or np.any(load_e < 0) or np.any(pv_e < 0) or np.any(price < 0):
+        raise ValueError("反馈执行输入必须有限且非负")
+    # LP solvers can return a nominally non-negative contract at roughly
+    # -1e-10 because of feasibility tolerances.  Treat only that numerical
+    # dust as zero; materially negative contracts remain invalid above.
+    q = np.maximum(q, 0.0)
+    if not battery.minimum - 1e-9 <= soc0 <= battery.maximum + 1e-9:
+        raise ValueError("反馈执行初始SOC越界")
     charge = np.zeros(n)
     discharge = np.zeros(n)
     emergency = np.zeros(n)
     unused = np.zeros(n)
     curtailed = np.zeros(n)
     pv_used = np.zeros(n)
+    pv_to_load = np.zeros(n)
+    contract_to_load = np.zeros(n)
+    pv_to_charge = np.zeros(n)
+    contract_to_charge = np.zeros(n)
     soc = np.empty(n + 1)
     soc[0] = soc0
     for t in range(n):
-        available = q[t] + pv_e[t] - load_e[t]
-        if available >= 0.0:
-            charge[t] = min(available, battery.slot_limit, max(0.0, (battery.maximum - soc[t]) / battery.eta_c))
-            surplus = max(0.0, available - charge[t])
-            unused[t] = min(q[t], surplus)
-            curtailed[t] = max(0.0, surplus - unused[t])
-            pv_used[t] = pv_e[t] - curtailed[t]
+        pv_to_load[t] = min(pv_e[t], load_e[t])
+        load_after_pv = load_e[t] - pv_to_load[t]
+        contract_to_load[t] = min(q[t], load_after_pv)
+        deficit = load_after_pv - contract_to_load[t]
+        remaining_pv = pv_e[t] - pv_to_load[t]
+        remaining_contract = q[t] - contract_to_load[t]
+        if deficit <= 1e-12:
+            room = min(
+                battery.slot_limit,
+                max(0.0, (battery.maximum - soc[t]) / battery.eta_c),
+            )
+            pv_to_charge[t] = min(remaining_pv, room)
+            contract_to_charge[t] = min(remaining_contract, room - pv_to_charge[t])
+            charge[t] = pv_to_charge[t] + contract_to_charge[t]
+            curtailed[t] = remaining_pv - pv_to_charge[t]
+            unused[t] = remaining_contract - contract_to_charge[t]
+            pv_used[t] = pv_to_load[t] + pv_to_charge[t]
             soc[t + 1] = soc[t] + battery.eta_c * charge[t]
         else:
-            need = -available
-            discharge[t] = min(need, battery.slot_limit, max(0.0, (soc[t] - battery.minimum) * battery.eta_d))
-            emergency[t] = max(0.0, need - discharge[t])
-            pv_used[t] = pv_e[t]
+            discharge[t] = min(
+                deficit, battery.slot_limit,
+                max(0.0, (soc[t] - battery.minimum) * battery.eta_d),
+            )
+            emergency[t] = max(0.0, deficit - discharge[t])
+            pv_used[t] = pv_to_load[t]
             soc[t + 1] = soc[t] - discharge[t] / battery.eta_d
     residual = q - unused + pv_used + discharge + emergency - load_e - charge
     if base_plan_kwh is None:
@@ -609,6 +922,10 @@ def causal_dispatch(
         "unused_contract_kwh": unused,
         "pv_curtailed_kwh": curtailed,
         "pv_used_kwh": pv_used,
+        "pv_to_load_kwh": pv_to_load,
+        "contract_to_load_kwh": contract_to_load,
+        "pv_to_charge_kwh": pv_to_charge,
+        "contract_to_charge_kwh": contract_to_charge,
         "settlement_cost": settlement,
         "alternative_settlement_cost": alt_settlement,
         "emergency_cost": emergency_cost,
@@ -617,8 +934,27 @@ def causal_dispatch(
         "max_balance_residual": float(np.max(np.abs(residual))),
         "simultaneous_flow_slots": int(np.count_nonzero(np.minimum(charge, discharge) > 1e-5)),
         "simultaneous_flow_max": float(np.max(np.minimum(charge, discharge))),
-        "controller": "greedy_baseline",
+        "controller": "greedy_feedback",
+        "runtime_seconds": float(time.perf_counter() - begun),
+        "controller_diagnostics": {
+            "solve_count": 0, "fallback_count": 0, "clip_count": 0,
+            "total_seconds": float(time.perf_counter() - begun),
+        },
     }
+
+
+def causal_dispatch(
+    contract_kwh: np.ndarray, actual_load_kw: np.ndarray,
+    actual_pv_kw: np.ndarray, price: np.ndarray, soc0: float, *,
+    base_plan_kwh: np.ndarray | None = None,
+    battery: Battery = DEFAULT_BATTERY, emergency_multiplier: float = 5.0,
+) -> dict[str, Any]:
+    """Compatibility alias for the formal feedback-greedy executor."""
+    return greedy_execution(
+        contract_kwh, actual_load_kw, actual_pv_kw, price, soc0,
+        base_plan_kwh=base_plan_kwh, battery=battery,
+        emergency_multiplier=emergency_multiplier,
+    )
 
 
 def _mpc_blocks(n: int, tracking: bool) -> dict[str, slice]:
@@ -931,6 +1267,31 @@ def rolling_mpc_dispatch(
     return out
 
 
+def baseline_MPC(
+    contract_kwh: np.ndarray, actual_load_kw: np.ndarray,
+    actual_pv_kw: np.ndarray, settlement_price: np.ndarray, soc0: float, *,
+    forecast_load_kw: np.ndarray, forecast_pv_kw: np.ndarray,
+    forecast_price: np.ndarray | None = None,
+    base_plan_kwh: np.ndarray | None = None,
+    target_soc_kwh: np.ndarray | None = None,
+    battery: Battery = DEFAULT_BATTERY, emergency_multiplier: float = 5.0,
+    config: MpcConfig = MpcConfig(),
+) -> dict[str, Any]:
+    """Comparison-only MPC baseline under the same fixed contract."""
+    begun = time.perf_counter()
+    result = rolling_mpc_dispatch(
+        contract_kwh, actual_load_kw, actual_pv_kw, settlement_price, soc0,
+        forecast_load_kw=forecast_load_kw, forecast_pv_kw=forecast_pv_kw,
+        forecast_price=forecast_price, base_plan_kwh=base_plan_kwh,
+        target_soc_kwh=target_soc_kwh, battery=battery,
+        emergency_multiplier=emergency_multiplier, config=config,
+    )
+    result["controller"] = "baseline_MPC"
+    result["runtime_seconds"] = float(time.perf_counter() - begun)
+    result["solver_diagnostics"]["role"] = "comparison_only"
+    return result
+
+
 def delayed_greedy_dispatch(
     contract_kwh: np.ndarray, actual_load_kw: np.ndarray, actual_pv_kw: np.ndarray,
     settlement_price: np.ndarray, soc0: float, *,
@@ -1094,7 +1455,7 @@ def run_q2_day(
     history_days: int = DEFAULT_HISTORY_DAYS,
     max_scenarios: int = 9,
     risk_mode: str = DEFAULT_RISK_MODE,
-    controller: str = "mpc",
+    controller: str = "greedy",
     mpc_config: MpcConfig = MpcConfig(),
     price_model: str = "mean_7",
 ) -> dict[str, Any]:
@@ -1108,16 +1469,27 @@ def run_q2_day(
         )
     else:
         safe_l, safe_v, meta = safe_pair
-    plan = solve_schedule(
-        safe_l,
-        safe_v,
-        price,
-        soc0,
-        terminal_value=terminal_value(price, battery),
-        battery=battery,
+    history_start = max(0, day - history_days)
+    residual_l = np.asarray(load_residual[history_start:day], dtype=float)
+    residual_v = np.asarray(pv_residual[history_start:day], dtype=float)
+    if risk_mode == "unclustered":
+        historical_net = residual_l - residual_v
+        scenario_weights = None
+    else:
+        scenario_l, scenario_v, scenario_weights = _residual_scenarios(
+            residual_l, residual_v, risk_mode=risk_mode,
+            max_scenarios=max_scenarios,
+        )
+        historical_net = scenario_l - scenario_v
+    plan = solve_risk_contract_lp(
+        load_point[day], pv_point[day], price, soc0, historical_net,
+        alpha=alpha, scenario_weights=scenario_weights,
+        terminal_value=terminal_value(price, battery), battery=battery,
+        emergency_multiplier=emergency_multiplier,
+        history_start=history_start, history_end_exclusive=day,
     )
     if controller == "mpc":
-        actual = rolling_mpc_dispatch(
+        actual = baseline_MPC(
             plan["grid_kwh"], data.actual_load_kw[day], data.actual_pv_kw[day],
             settlement_price, soc0, forecast_load_kw=load_point[day],
             forecast_pv_kw=pv_point[day], forecast_price=price,
@@ -1132,7 +1504,7 @@ def run_q2_day(
             emergency_multiplier=emergency_multiplier,
         )
     elif controller == "greedy":
-        actual = causal_dispatch(
+        actual = greedy_execution(
             plan["grid_kwh"], data.actual_load_kw[day], data.actual_pv_kw[day],
             settlement_price, soc0, battery=battery,
             emergency_multiplier=emergency_multiplier,
@@ -1210,6 +1582,7 @@ def safe_update_trajectory(
         r_l = np.empty((0, n))
         r_v = np.empty((0, n))
     if risk_mode == "unclustered":
+        historical_net = r_l - r_v
         correction = empirical_quantile_columns(r_l - r_v, alpha)
         scenario_count = hist_ids.size if hist_ids.size else 1
         weights = np.full(scenario_count, 1.0 / scenario_count)
@@ -1217,7 +1590,8 @@ def safe_update_trajectory(
         c_l, c_v, weights = _residual_scenarios(
             r_l, r_v, risk_mode=risk_mode, max_scenarios=max_scenarios
         )
-        correction = weighted_quantile_columns(c_l - c_v, weights, alpha)
+        historical_net = c_l - c_v
+        correction = weighted_quantile_columns(historical_net, weights, alpha)
         scenario_count = weights.size
     safe_net = l_point - pv_point + correction
     safe_v = np.maximum.reduce([pv_point, -safe_net, np.zeros_like(safe_net)])
@@ -1235,6 +1609,10 @@ def safe_update_trajectory(
         "pv_point_kw": pv_point.tolist(),
         "load_point_kw": np.asarray(l_point, dtype=float).tolist(),
         "net_residual_quantile_kw": correction.tolist(),
+        # Kept as a compact ndarray for the downstream risk-contract LP.  It
+        # contains only completed-day residual paths available at this issue.
+        "historical_net_residual_kw": historical_net,
+        "history_day_indices": hist_ids.tolist(),
         "anchor_kw": anchor,
         "release_preserved_without_recentering": True,
     }
@@ -1255,6 +1633,7 @@ def nowcast_trajectory(
     point = np.asarray(meta["pv_point_kw"])
     load_point = np.asarray(meta["load_point_kw"])
     correction = np.asarray(meta["net_residual_quantile_kw"])
+    historical_net = np.asarray(meta["historical_net_residual_kw"], dtype=float)
     first = max(0, offset - 18)
     realized = data.actual_pv_kw[day, issue * 6 + first:event * 6]
     bias = float(np.mean(realized - point[first:offset])) if realized.size else 0.0
@@ -1264,13 +1643,43 @@ def nowcast_trajectory(
     revised_pv = np.maximum.reduce([revised_point, -revised_net, np.zeros_like(revised_net)])
     revised_load = revised_pv + revised_net
     return revised_load, revised_pv, {
-        **{k: v for k, v in meta.items() if k not in ("pv_point_kw", "load_point_kw", "net_residual_quantile_kw")},
+        **{k: v for k, v in meta.items() if k not in ("pv_point_kw", "load_point_kw", "net_residual_quantile_kw", "historical_net_residual_kw")},
         "decision_hour": event, "synthetic_nowcast": True,
         "observed_end_exclusive": event * 6, "nowcast_bias_kw": bias,
         "pv_point_kw": revised_point.tolist(),
         "load_point_kw": load_point[offset:].tolist(),
         "net_residual_quantile_kw": correction[offset:].tolist(),
+        "historical_net_residual_kw": historical_net[:, offset:],
     }
+
+
+def _solve_update_risk_contract(
+    meta: dict[str, Any],
+    price: np.ndarray,
+    soc0: float,
+    *,
+    alpha: float,
+    battery: Battery,
+    emergency_multiplier: float,
+    base_plan_kwh: np.ndarray | None = None,
+) -> dict[str, Any]:
+    """Map one causally available Q3/Q4 forecast release to the common LP."""
+    historical_net = np.asarray(meta["historical_net_residual_kw"], dtype=float)
+    raw_weights = np.asarray(meta.get("scenario_weights", []), dtype=float)
+    weights = raw_weights if historical_net.shape[0] and raw_weights.shape == (historical_net.shape[0],) else None
+    return solve_risk_contract_lp(
+        np.asarray(meta["load_point_kw"], dtype=float),
+        np.asarray(meta["pv_point_kw"], dtype=float),
+        np.asarray(price, dtype=float),
+        soc0,
+        historical_net,
+        alpha=alpha, scenario_weights=weights,
+        terminal_value=terminal_value(np.asarray(price, dtype=float), battery),
+        battery=battery, emergency_multiplier=emergency_multiplier,
+        history_start=int(meta["history_start"]),
+        history_end_exclusive=int(meta["history_end_exclusive"]),
+        base_plan_kwh=base_plan_kwh,
+    )
 
 
 def run_q3_day(
@@ -1291,7 +1700,7 @@ def run_q3_day(
     history_days: int = DEFAULT_HISTORY_DAYS,
     max_scenarios: int = 9,
     risk_mode: str = DEFAULT_RISK_MODE,
-    controller: str = "mpc",
+    controller: str = "greedy",
     mpc_config: MpcConfig = MpcConfig(),
     price_model: str = "mean_7",
 ) -> dict[str, Any]:
@@ -1311,13 +1720,9 @@ def run_q3_day(
         )
     else:
         safe_l0, safe_v0, meta0 = safe_updates[0]
-    initial = solve_schedule(
-        safe_l0,
-        safe_v0,
-        price,
-        soc0,
-        terminal_value=terminal_value(price, battery),
-        battery=battery,
+    initial = _solve_update_risk_contract(
+        meta0, price, soc0, alpha=alpha, battery=battery,
+        emergency_multiplier=emergency_multiplier,
     )
     p0 = initial["grid_kwh"]
     final_contract = p0.copy()
@@ -1381,14 +1786,10 @@ def run_q3_day(
             update_meta.append(meta)
             execution_meta = meta
             remaining_price = select_price_forecast(data, day, model=price_model, issue_hour=issue) if variable_price else price[start:]
-            update_solution = solve_schedule(
-                safe_l,
-                safe_v,
-                remaining_price,
-                current_soc,
-                terminal_value=terminal_value(remaining_price, battery),
+            update_solution = _solve_update_risk_contract(
+                meta, remaining_price, current_soc, alpha=alpha,
+                battery=battery, emergency_multiplier=emergency_multiplier,
                 base_plan_kwh=p0[start:],
-                battery=battery,
             )
             update_solution["planning_price"] = remaining_price
             contract_remaining = update_solution["grid_kwh"]
@@ -1399,7 +1800,7 @@ def run_q3_day(
         final_contract[start:end] = segment_contract
         if controller == "mpc":
             remaining_price = select_price_forecast(data, day, model=price_model, issue_hour=issue) if variable_price else price[start:]
-            segment = rolling_mpc_dispatch(
+            segment = baseline_MPC(
                 segment_contract, data.actual_load_kw[day, start:end],
                 data.actual_pv_kw[day, start:end], settlement_price[start:end],
                 current_soc,
@@ -1422,7 +1823,7 @@ def run_q3_day(
                 emergency_multiplier=emergency_multiplier,
             )
         elif controller == "greedy":
-            segment = causal_dispatch(
+            segment = greedy_execution(
                 segment_contract, data.actual_load_kw[day, start:end],
                 data.actual_pv_kw[day, start:end], settlement_price[start:end],
                 current_soc, base_plan_kwh=p0[start:end], battery=battery,
@@ -1443,9 +1844,9 @@ def run_q3_day(
     actual["simultaneous_flow_slots"] = int(np.count_nonzero(overlap > mpc_config.overlap_tolerance))
     actual["simultaneous_flow_max"] = float(np.max(overlap))
     actual["controller"] = {
-        "mpc": "rolling_mpc",
+        "mpc": "baseline_MPC",
         "delayed_greedy": "delayed_greedy_baseline",
-        "greedy": "greedy_baseline",
+        "greedy": "greedy_feedback",
     }[controller]
     if controller_diagnostics:
         times = [v for d in controller_diagnostics for v in ([d["median_seconds"]] if d["median_seconds"] is not None else [])]

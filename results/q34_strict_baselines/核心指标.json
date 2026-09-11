@@ -1,0 +1,49 @@
+{
+  "seed": 2026,
+  "alpha": 0.8,
+  "forecast_model": "F1",
+  "history_days": 30,
+  "risk_mode": "unclustered",
+  "controller": "greedy",
+  "mpc_horizon_slots": 36,
+  "tracking_weight": 0.0,
+  "time_mapping": "input timestamp is natural 10-minute interval endpoint; official template header retained by position",
+  "q1": {
+    "purchase_kwh": 59482.6981674023,
+    "cash_cost_yuan": 35126.948940559116,
+    "charge_kwh": 20740.661758257742,
+    "discharge_kwh": 16799.93602418877,
+    "pv_curtailed_kwh": 0.0,
+    "soc_min_kwh": 1200.0,
+    "soc_max_kwh": 10800.0,
+    "max_balance_residual_kwh": 9.094947017729282e-13
+  },
+  "annual_feb_dec": {
+    "q3_no_adjust": {
+      "days": 334,
+      "plan_kwh": 22973833.59594554,
+      "final_contract_kwh": 22973833.59594554,
+      "cash_cost_yuan": 14801900.590318229,
+      "alternative_cash_cost_yuan": 14801900.590318229,
+      "emergency_kwh": 80831.61589908839,
+      "unused_contract_kwh": 2314004.1855853815,
+      "pv_curtailed_kwh": 1540373.2286484272,
+      "soc_end_kwh": 10800.0,
+      "max_balance_residual_kwh": 2.5579538487363607e-13
+    },
+    "q4_3_no_adjust": {
+      "days": 334,
+      "plan_kwh": 22994863.549870778,
+      "final_contract_kwh": 22994863.549870778,
+      "cash_cost_yuan": 15523743.571570918,
+      "alternative_cash_cost_yuan": 15523743.571570918,
+      "emergency_kwh": 80088.167139266,
+      "unused_contract_kwh": 2279304.663457138,
+      "pv_curtailed_kwh": 1577024.0217587473,
+      "soc_end_kwh": 10800.0,
+      "max_balance_residual_kwh": 2.8421709430404007e-13
+    }
+  },
+  "comparisons": {},
+  "runtime_seconds": 64.2423312664032
+}

@@ -31,7 +31,17 @@ def physical(result, adjusted, battery=m.DEFAULT_BATTERY):
     for p in plans:
         assert p["status"] == "optimal" and p["max_eq_residual"] < 1e-6
         assert p["simultaneous_flow_max"] < 1e-5
-        assert_allclose(p["solver_objective"], p["cash_contract_cost"]-p["terminal_value_credit"], atol=1e-6)
+        expected_objective = (
+            p["cash_contract_cost"]
+            + p.get("expected_emergency_cost", 0.0)
+            - p["terminal_value_credit"]
+        )
+        assert_allclose(p["solver_objective"], expected_objective, atol=1e-6)
+        assert abs(p.get("objective_decomposition_residual", 0.0)) <= 1e-7
+        if "objective_solver_residual" in p:
+            assert abs(p["objective_solver_residual"]) <= (
+                1e-8 * max(1.0, abs(p["highs_objective"])) + 1e-6
+            )
 
 
 def main():
@@ -44,6 +54,89 @@ def main():
     data = m.load_inputs(root)
     lp, lr, vp, vr, ir = forecasts(data)
     checks = []
+    # Problem-2 planning contract: explicit base, reserve and historical tail
+    # cost must reconcile exactly, using only the supplied past samples.
+    n_small = 3
+    history = np.array([[0.0, 60.0, 120.0], [30.0, 90.0, 180.0]])
+    risk_plan = m.solve_risk_contract_lp(
+        np.full(n_small, 600.0), np.zeros(n_small), np.ones(n_small),
+        m.SOC_INITIAL, history, alpha=.8, terminal_value=0.0,
+        history_start=8, history_end_exclusive=10,
+    )
+    assert risk_plan["model"] == "risk_contract_lp"
+    assert risk_plan["historical_sample_count"] == 2
+    assert risk_plan["history_end_exclusive"] == 10
+    assert_allclose(
+        risk_plan["grid_kwh"],
+        risk_plan["base_contract_kwh"] + risk_plan["risk_reserve_kwh"],
+    )
+    assert np.all(risk_plan["risk_reserve_kwh"] + 1e-8 >= risk_plan["risk_reserve_lower_bound_kwh"])
+    assert risk_plan["max_shortfall_violation"] <= 1e-8
+    assert_allclose(
+        risk_plan["solver_objective"],
+        risk_plan["base_contract_cost"] + risk_plan["risk_cost"]
+        - risk_plan["terminal_value_credit"], atol=1e-6,
+    )
+    assert abs(risk_plan["objective_decomposition_residual"]) <= 1e-8
+    assert abs(risk_plan["objective_solver_residual"]) <= (
+        1e-8 * max(1.0, abs(risk_plan["highs_objective"])) + 1e-6
+    )
+    original = np.array([80.0, 120.0, 100.0])
+    adjusted_plan = m.solve_risk_contract_lp(
+        np.full(n_small, 600.0), np.zeros(n_small), np.ones(n_small),
+        m.SOC_INITIAL, history, alpha=.8, terminal_value=0.0,
+        history_start=8, history_end_exclusive=10, base_plan_kwh=original,
+    )
+    adjusted_contract = adjusted_plan["grid_kwh"]
+    expected_adjustment_cost = np.sum(
+        np.minimum(original, adjusted_contract)
+        + 1.5 * np.maximum(adjusted_contract - original, 0.0)
+        + 0.5 * np.maximum(original - adjusted_contract, 0.0)
+    )
+    assert adjusted_plan["model"] == "risk_contract_lp_adjusted"
+    assert_allclose(adjusted_plan["cash_contract_cost"], expected_adjustment_cost)
+    assert_allclose(
+        adjusted_contract,
+        original + adjusted_plan["up_kwh"] - adjusted_plan["down_kwh"],
+    )
+    assert np.max(np.minimum(adjusted_plan["up_kwh"], adjusted_plan["down_kwh"])) <= 1e-7
+    assert adjusted_plan["risk_reserve_cost"] >= -1e-7
+    assert abs(adjusted_plan["objective_decomposition_residual"]) <= 1e-8
+    checks.append("risk_contract_lp_initial_and_adjusted_settlement_decomposition")
+
+    # Directed feedback cases cover source priority, charge-source priority,
+    # discharge, emergency, SOC ceiling and no simultaneous flow.
+    feedback = m.greedy_execution(
+        np.array([20., 20., 200., 0., 0., 1000.]),
+        np.array([60., 60., 0., 600., 6000., 0.]),
+        np.array([120., 30., 1200., 0., 0., 6000.]),
+        np.ones(6), m.SOC_INITIAL,
+    )
+    assert_allclose(feedback["pv_to_load_kwh"][:2], [10., 5.])
+    assert_allclose(feedback["contract_to_load_kwh"][:2], [0., 5.])
+    assert feedback["pv_to_charge_kwh"][0] > 0
+    assert feedback["contract_to_charge_kwh"][1] > 0
+    assert feedback["discharge_kwh"][3] > 0
+    assert feedback["emergency_kwh"][4] > 0
+    assert feedback["soc_kwh"].max() <= m.SOC_MAX + 1e-8
+    assert feedback["simultaneous_flow_slots"] == 0
+    assert np.max(np.minimum(feedback["charge_kwh"], feedback["emergency_kwh"])) <= 1e-9
+    assert feedback["controller"] == "greedy_feedback"
+    checks.append("greedy_feedback_six_priority_and_boundary_cases")
+
+    # Later truth cannot change any already-executed feedback action.
+    prefix = m.greedy_execution(
+        np.full(4, 50.0), np.full(4, 600.0), np.zeros(4),
+        np.ones(4), m.SOC_INITIAL,
+    )
+    future_changed = m.greedy_execution(
+        np.full(4, 50.0), np.array([600., 600., 6000., 6000.]),
+        np.array([0., 0., 6000., 6000.]), np.ones(4), m.SOC_INITIAL,
+    )
+    for key in ("charge_kwh", "discharge_kwh", "emergency_kwh", "soc_kwh"):
+        stop = 3 if key == "soc_kwh" else 2
+        assert_allclose(prefix[key][:stop], future_changed[key][:stop], atol=0, rtol=0)
+    checks.append("greedy_future_truth_prefix_invariance")
     archive = m.build_forecast_archive(data)
     assert set(archive) == {"F0", "F1", "F2"}
     assert_allclose(archive["F1"]["load_kw"][7], data.actual_load_kw[0])
@@ -99,7 +192,7 @@ def main():
         assert meta["anchor_kw"] == (0 if i == 0 else data.actual_pv_kw[0, 35])
     checks.append("cold_start_single_duplicate_and_zero_variance")
     p = np.array([10., 10., 10.]); q = np.array([5., 10., 15.])
-    a = m.causal_dispatch(q, np.zeros(3), np.zeros(3), np.ones(3), m.SOC_MAX, base_plan_kwh=p)
+    a = m.greedy_execution(q, np.zeros(3), np.zeros(3), np.ones(3), m.SOC_MAX, base_plan_kwh=p)
     assert_allclose(a["settlement_cost"], [7.5, 10, 17.5])
     assert_allclose(a["alternative_settlement_cost"], [12.5, 10, 17.5])
     a = m.causal_dispatch(np.zeros(1), np.array([600.]), np.zeros(1), np.array([2.]), m.SOC_MIN)
@@ -218,6 +311,20 @@ def main():
     assert np.isfinite(frozen["safe_net_kw"]).all()
     physical(frozen, True)
     checks.append("unclustered_risk_and_eight_release_set_semantics")
+    strict_baseline = m.run_q3_day(
+        data, d, 6000, lp, lr, ir, variable_price=False,
+        safe_updates=updates, events=(0,), allowed_issue_hours=(),
+    )
+    assert strict_baseline["events"] == (0,)
+    assert strict_baseline["allowed_issue_hours"] == ()
+    assert len(strict_baseline["update_solutions"]) == 1
+    assert strict_baseline["update_solutions"][0]["model"] == "risk_contract_lp"
+    assert_allclose(
+        strict_baseline["initial_plan_kwh"],
+        strict_baseline["final_contract_kwh"], atol=0, rtol=0,
+    )
+    physical(strict_baseline, True)
+    checks.append("strict_same_initial_information_no_adjustment_baseline")
     continuity = {}
     # January is a required initial-state slice, not a parameter scan or annual backtest.
     for adjusted, variable in ((False, False), (True, False), (False, True), (True, True)):

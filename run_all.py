@@ -118,6 +118,7 @@ def simulate_variant(
     *,
     adjusted: bool,
     variable_price: bool,
+    official_initial_contract: bool,
     load_point,
     pv_point,
     load_residual,
@@ -132,9 +133,12 @@ def simulate_variant(
 ) -> list[dict[str, Any]]:
     results: list[dict[str, Any]] = []
     soc = SOC_INITIAL
-    name = ("q3" if adjusted else "q2") + ("_variable" if variable_price else "_fixed")
+    if official_initial_contract:
+        name = ("official_adjusted" if adjusted else "official_frozen") + ("_variable" if variable_price else "_fixed")
+    else:
+        name = "analog_frozen" + ("_variable" if variable_price else "_fixed")
     for day in range(len(data.dates)):
-        if adjusted:
+        if official_initial_contract:
             result = run_q3_day(
                 data,
                 day,
@@ -146,6 +150,8 @@ def simulate_variant(
                 alpha=alpha,
                 risk_mode=risk_mode,
                 safe_updates=q3_cache[day],
+                events=ISSUES if adjusted else (0,),
+                allowed_issue_hours=ISSUES[1:] if adjusted else (),
                 controller=controller,
                 mpc_config=mpc_config,
             )
@@ -167,7 +173,9 @@ def simulate_variant(
             )
         result["date"] = data.dates[day]
         result["day_index"] = day
-        validate_day(result, adjusted, soc)
+        # run_q3_day keeps the initial/final contract schema even when the
+        # strict comparison freezes the 00:00 official contract all day.
+        validate_day(result, official_initial_contract, soc)
         soc = float(result["actual"]["soc_kwh"][-1])
         results.append(result)
         if day % 45 == 0 or day == len(data.dates) - 1:
@@ -448,7 +456,14 @@ def main() -> int:
         help="residual trajectory treatment; the formal national-award run uses unclustered",
     )
     parser.add_argument("--skip-csv", action="store_true")
-    parser.add_argument("--controller", choices=("mpc", "delayed_greedy", "greedy"), default="mpc")
+    parser.add_argument(
+        "--variants", nargs="+", choices=(
+            "q2", "q3", "q3_no_adjust", "q4_2", "q4_3", "q4_3_no_adjust",
+        ),
+        default=("q2", "q3", "q4_2", "q4_3"),
+        help="annual variants to simulate; use this to rerun only affected cases",
+    )
+    parser.add_argument("--controller", choices=("mpc", "delayed_greedy", "greedy"), default="greedy")
     parser.add_argument("--mpc-horizon", type=int, choices=(36, 72), default=36)
     parser.add_argument("--tracking-weight", type=float, choices=(0.0, 0.01), default=0.0)
     args = parser.parse_args()
@@ -486,33 +501,60 @@ def main() -> int:
         risk_mode=args.risk_mode, controller=args.controller,
         mpc_config=mpc_config,
     )
-    q2 = simulate_variant(data, adjusted=False, variable_price=False, **common)
-    q3 = simulate_variant(data, adjusted=True, variable_price=False, **common)
-    q4_2 = simulate_variant(data, adjusted=False, variable_price=True, **common)
-    q4_3 = simulate_variant(data, adjusted=True, variable_price=True, **common)
-    attach_variant_metadata(q2, variable_price=False)
-    attach_variant_metadata(q3, variable_price=False)
-    attach_variant_metadata(q4_2, variable_price=True)
-    attach_variant_metadata(q4_3, variable_price=True)
+    # (allow intraday adjustment, variable price, use the 00:00 official
+    # forecast contract).  The two *_no_adjust variants are evidence-only
+    # controls: they share Q3/Q4-3's initial information and differ solely in
+    # whether the 06:00/12:00/18:00 releases may change the remaining contract.
+    variant_specs = {
+        "q2": (False, False, False),
+        "q3": (True, False, True),
+        "q3_no_adjust": (False, False, True),
+        "q4_2": (False, True, False),
+        "q4_3": (True, True, True),
+        "q4_3_no_adjust": (False, True, True),
+    }
+    selected_names = tuple(dict.fromkeys(args.variants))
+    simulated: dict[str, list[dict[str, Any]]] = {}
+    for name in selected_names:
+        adjusted, variable_price, official_initial_contract = variant_specs[name]
+        simulated[name] = simulate_variant(
+            data, adjusted=adjusted, variable_price=variable_price,
+            official_initial_contract=official_initial_contract, **common
+        )
+        attach_variant_metadata(simulated[name], variable_price=variable_price)
 
     templates = root / "data" / "附件" / "附件5"
     write_result1(data, q1, templates / "result1.xlsx", results_dir / "result1.xlsx")
-    write_annual_workbook(data, q2, templates / "result2.xlsx", results_dir / "result2.xlsx", adjusted=False)
-    write_annual_workbook(data, q3, templates / "result3.xlsx", results_dir / "result3.xlsx", adjusted=True)
-    write_annual_workbook(data, q4_2, templates / "result4-2.xlsx", results_dir / "result4-2.xlsx", adjusted=False)
-    write_annual_workbook(data, q4_3, templates / "result4-3.xlsx", results_dir / "result4-3.xlsx", adjusted=True)
+    template_names = {
+        "q2": "result2.xlsx", "q3": "result3.xlsx",
+        "q4_2": "result4-2.xlsx", "q4_3": "result4-3.xlsx",
+    }
+    for name, variant_results in simulated.items():
+        if name not in template_names:
+            continue
+        adjusted, _, _ = variant_specs[name]
+        template_name = template_names[name]
+        write_annual_workbook(
+            data, variant_results, templates / template_name,
+            results_dir / template_name, adjusted=adjusted,
+        )
 
     q1_schedule, q1_aggregate = q1_frames(data, q1)
     q1_schedule.to_csv(results_dir / "问题1_逐时结果.csv", index=False, encoding="utf-8-sig")
     q1_aggregate.to_csv(results_dir / "问题1_四小时汇总.csv", index=False, encoding="utf-8-sig")
-    variants = {"q2": (q2, False), "q3": (q3, True), "q4_2": (q4_2, False), "q4_3": (q4_3, True)}
+    variants = {
+        name: (variant_results, variant_specs[name][2])
+        for name, variant_results in simulated.items()
+    }
     daily_frames = {}
     for name, (variant_results, adjusted) in variants.items():
         daily = daily_summary_frame(variant_results, adjusted=adjusted)
         daily.to_csv(results_dir / f"{name}_每日汇总.csv", index=False, encoding="utf-8-sig")
         daily_frames[name] = daily
         if not args.skip_csv:
-            template_path = templates / ({"q2": "result2.xlsx", "q3": "result3.xlsx", "q4_2": "result4-2.xlsx", "q4_3": "result4-3.xlsx"}[name])
+            template_path = templates / template_names.get(
+                name, "result4-3.xlsx" if variant_specs[name][1] else "result3.xlsx"
+            )
             wb = load_workbook(template_path, read_only=True, data_only=True)
             labels = [wb["计划购电量"].cell(1, col).value for col in range(2, 2 + N_SLOTS)]
             for r in variant_results:
@@ -568,14 +610,33 @@ def main() -> int:
         "time_mapping": "input timestamp is natural 10-minute interval endpoint; official template header retained by position",
         "q1": q1_metrics,
         "annual_feb_dec": annual,
-        "comparisons": {
-            "fixed_price_adjustment_saving_yuan": annual["q2"]["cash_cost_yuan"] - annual["q3"]["cash_cost_yuan"],
-            "variable_price_adjustment_saving_yuan": annual["q4_2"]["cash_cost_yuan"] - annual["q4_3"]["cash_cost_yuan"],
-            "q3_primary_vs_alternative_settlement_yuan": annual["q3"]["alternative_cash_cost_yuan"] - annual["q3"]["cash_cost_yuan"],
-            "q4_3_primary_vs_alternative_settlement_yuan": annual["q4_3"]["alternative_cash_cost_yuan"] - annual["q4_3"]["cash_cost_yuan"],
-        },
+        "comparisons": {},
         "runtime_seconds": time.time() - started,
     }
+    if {"q2", "q3"} <= annual.keys():
+        metrics["comparisons"]["q2_to_q3_complete_strategy_difference_yuan"] = (
+            annual["q2"]["cash_cost_yuan"] - annual["q3"]["cash_cost_yuan"]
+        )
+    if {"q4_2", "q4_3"} <= annual.keys():
+        metrics["comparisons"]["q4_2_to_q4_3_complete_strategy_difference_yuan"] = (
+            annual["q4_2"]["cash_cost_yuan"] - annual["q4_3"]["cash_cost_yuan"]
+        )
+    if {"q3_no_adjust", "q3"} <= annual.keys():
+        metrics["comparisons"]["fixed_price_pure_adjustment_saving_yuan"] = (
+            annual["q3_no_adjust"]["cash_cost_yuan"] - annual["q3"]["cash_cost_yuan"]
+        )
+    if {"q4_3_no_adjust", "q4_3"} <= annual.keys():
+        metrics["comparisons"]["variable_price_pure_adjustment_saving_yuan"] = (
+            annual["q4_3_no_adjust"]["cash_cost_yuan"] - annual["q4_3"]["cash_cost_yuan"]
+        )
+    if "q3" in annual:
+        metrics["comparisons"]["q3_primary_vs_alternative_settlement_yuan"] = (
+            annual["q3"]["alternative_cash_cost_yuan"] - annual["q3"]["cash_cost_yuan"]
+        )
+    if "q4_3" in annual:
+        metrics["comparisons"]["q4_3_primary_vs_alternative_settlement_yuan"] = (
+            annual["q4_3"]["alternative_cash_cost_yuan"] - annual["q4_3"]["cash_cost_yuan"]
+        )
     (results_dir / "核心指标.json").write_text(json.dumps(metrics, ensure_ascii=False, indent=2), encoding="utf-8")
 
     inputs = [root / "data" / "C题.pdf"] + [root / "data" / "附件" / f"附件{i}.xlsx" for i in range(1, 5)]
@@ -596,6 +657,7 @@ def main() -> int:
         f"python -X utf8 run_all.py --project-root . --output-dir {output_arg} "
         f"--forecast-model {args.forecast_model} --history-days {args.history_days} "
         f"--alpha {args.alpha} --risk-mode {args.risk_mode} "
+        f"--variants {' '.join(selected_names)} "
         f"--controller {args.controller} --mpc-horizon {args.mpc_horizon} "
         f"--tracking-weight {args.tracking_weight}"
     )

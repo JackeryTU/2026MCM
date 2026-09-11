@@ -1,0 +1,99 @@
+{
+  "status": "PASS",
+  "figure_files": [
+    "results\\q2_strategy\\figures\\图_Q2_执行策略比较.pdf",
+    "results\\q2_strategy\\figures\\图_Q2_执行策略比较.svg",
+    "results\\q2_strategy\\figures\\图_Q2_执行策略比较.png",
+    "results\\q2_strategy\\figures\\图_Q2_执行策略比较_grayscale.png",
+    "results\\q2_strategy\\figures\\图_Q2_预测误差敏感性.pdf",
+    "results\\q2_strategy\\figures\\图_Q2_预测误差敏感性.svg",
+    "results\\q2_strategy\\figures\\图_Q2_预测误差敏感性.png",
+    "results\\q2_strategy\\figures\\图_Q2_预测误差敏感性_grayscale.png",
+    "results\\q2_strategy\\figures\\图_Q2_SOC连续轨迹.pdf",
+    "results\\q2_strategy\\figures\\图_Q2_SOC连续轨迹.svg",
+    "results\\q2_strategy\\figures\\图_Q2_SOC连续轨迹.png",
+    "results\\q2_strategy\\figures\\图_Q2_SOC连续轨迹_grayscale.png"
+  ],
+  "png_audit": [
+    {
+      "file": "results\\q2_strategy\\figures\\图_Q2_执行策略比较.png",
+      "pixels": [
+        2160,
+        1410
+      ],
+      "dpi": [
+        300.0,
+        300.0
+      ],
+      "minimum_300_dpi": true
+    },
+    {
+      "file": "results\\q2_strategy\\figures\\图_Q2_执行策略比较_grayscale.png",
+      "pixels": [
+        2160,
+        1410
+      ],
+      "dpi": [
+        300.0,
+        300.0
+      ],
+      "minimum_300_dpi": true
+    },
+    {
+      "file": "results\\q2_strategy\\figures\\图_Q2_预测误差敏感性.png",
+      "pixels": [
+        2160,
+        915
+      ],
+      "dpi": [
+        300.0,
+        300.0
+      ],
+      "minimum_300_dpi": true
+    },
+    {
+      "file": "results\\q2_strategy\\figures\\图_Q2_预测误差敏感性_grayscale.png",
+      "pixels": [
+        2160,
+        915
+      ],
+      "dpi": [
+        300.0,
+        300.0
+      ],
+      "minimum_300_dpi": true
+    },
+    {
+      "file": "results\\q2_strategy\\figures\\图_Q2_SOC连续轨迹.png",
+      "pixels": [
+        2160,
+        1320
+      ],
+      "dpi": [
+        300.0,
+        300.0
+      ],
+      "minimum_300_dpi": true
+    },
+    {
+      "file": "results\\q2_strategy\\figures\\图_Q2_SOC连续轨迹_grayscale.png",
+      "pixels": [
+        2160,
+        1320
+      ],
+      "dpi": [
+        300.0,
+        300.0
+      ],
+      "minimum_300_dpi": true
+    }
+  ],
+  "semantic_checks": {
+    "no_dual_y_axis": true,
+    "no_3d_or_pie": true,
+    "colorblind_palette_and_redundant_encoding": true,
+    "vector_exports_present": true,
+    "units_on_axes": true,
+    "continuous_sigma_axis_used_for_lines": true
+  }
+}

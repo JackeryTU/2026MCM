@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "paths": {
+    "template": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\data\\附件\\附件5\\result2.xlsx",
+    "official": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\results\\result2.xlsx",
+    "experiment": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\results\\q2_strategy\\result2.xlsx"
+  },
+  "sheet_names": [
+    "计划购电量",
+    "充放电量",
+    "紧急购电量"
+  ],
+  "sheet_dimensions": {
+    "计划购电量": "A1:EQ335",
+    "充放电量": "A1:F2005",
+    "紧急购电量": "A1:C137"
+  },
+  "defined_name_count": 0,
+  "formula_cell_count": 0,
+  "data_validation_count": 0,
+  "error_cells": [],
+  "written_day_count": 334,
+  "first_date": "2025-02-01",
+  "last_date": "2025-12-31",
+  "official_experiment_value_differences": [],
+  "checks": {
+    "expected_sheet_names_and_order": true,
+    "template_workbook_structure_preserved": true,
+    "template_formula_structure_preserved": true,
+    "no_excel_error_cells": true,
+    "official_and_experiment_workbooks_identical": true,
+    "exactly_334_plan_days": true,
+    "date_range_is_2025_02_01_to_2025_12_31": true,
+    "all_144_contract_slots_numeric": true
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "template": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\data\\附件\\附件5\\result2.xlsx",
+  "result": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\results\\q2_strategy\\result2.xlsx",
+  "same_sheet_names_and_order": true,
+  "sheet_names": [
+    "计划购电量",
+    "充放电量",
+    "紧急购电量"
+  ],
+  "purchase_header_identical": true,
+  "written_day_count": 334,
+  "first_date": "2025-02-01",
+  "last_date": "2025-12-31",
+  "all_numeric_contract_cells": true,
+  "checks": {
+    "same_sheet_names_and_order": true,
+    "purchase_header_identical": true,
+    "exactly_334_days": true,
+    "date_range_correct": true,
+    "all_numeric_contract_cells": true
+  }
+}

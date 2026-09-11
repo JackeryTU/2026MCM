@@ -1,0 +1,53 @@
+{
+  "phase": "main",
+  "alpha": 0.8,
+  "history_days": 30,
+  "forecast_model": "F1",
+  "mpc_horizon_slots": 36,
+  "evaluated_days": 334,
+  "evaluation_start": "2025-02-01",
+  "evaluation_end": "2025-12-31",
+  "main": {
+    "方法": "LP+反馈贪心",
+    "天数": 334,
+    "总费用_元": 14636893.759905677,
+    "平均每日费用_元": 43823.03520929843,
+    "合同费用_元": 14142085.215601586,
+    "应急费用_元": 494808.5443040929,
+    "应急购电量_kWh": 80648.33699267215,
+    "应急购电槽数": 456,
+    "应急购电事件数": 136,
+    "合同浪费量_kWh": 2037924.8140102476,
+    "弃光量_kWh": 1557153.09207191,
+    "SOC最小值_kWh": 1200.0,
+    "SOC最大值_kWh": 10800.0,
+    "期末SOC_kWh": 10800.0,
+    "执行计算时间_秒": 0.16905130018130876,
+    "最大平衡残差_kWh": 2.2737367544323206e-13,
+    "同时充放电槽数": 0
+  },
+  "result2_audit": {
+    "status": "PASS",
+    "template": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\data\\附件\\附件5\\result2.xlsx",
+    "result": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\results\\q2_strategy\\result2.xlsx",
+    "same_sheet_names_and_order": true,
+    "sheet_names": [
+      "计划购电量",
+      "充放电量",
+      "紧急购电量"
+    ],
+    "purchase_header_identical": true,
+    "written_day_count": 334,
+    "first_date": "2025-02-01",
+    "last_date": "2025-12-31",
+    "all_numeric_contract_cells": true,
+    "checks": {
+      "same_sheet_names_and_order": true,
+      "purchase_header_identical": true,
+      "exactly_334_days": true,
+      "date_range_correct": true,
+      "all_numeric_contract_cells": true
+    }
+  },
+  "runtime_seconds": 45.21225539999432
+}
