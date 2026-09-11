@@ -53,6 +53,29 @@ def main():
         cl, cv, w = m._cluster_residuals(z, z)
         assert cl.shape == (1, 144) and cv.shape == cl.shape
         assert_allclose(cl, 0); assert_allclose(w, [1])
+    for n in (0, 1):
+        z = np.zeros((n, 144))
+        ul, uv, uw = m._residual_scenarios(z, z, risk_mode="unclustered", max_scenarios=9)
+        assert ul.shape == (1, 144) and uv.shape == ul.shape
+        assert_allclose(ul, 0); assert_allclose(uw, [1])
+    residual_pair = np.vstack([np.zeros(144), np.full(144, 10.0)])
+    ul, uv, uw = m._residual_scenarios(
+        residual_pair, np.zeros_like(residual_pair), risk_mode="unclustered", max_scenarios=1
+    )
+    assert ul.shape == (2, 144) and uv.shape == ul.shape
+    assert_allclose(uw, [.5, .5])
+    unclustered = m.safe_analog_trajectory(
+        2, np.zeros(144), np.zeros(144), residual_pair, np.zeros_like(residual_pair),
+        alpha=.8, risk_mode="unclustered",
+    )
+    assert_allclose(unclustered[0] - unclustered[1], 10)
+    assert unclustered[2]["risk_mode"] == "unclustered"
+    assert unclustered[2]["scenario_count"] == 2
+    try:
+        m._residual_scenarios(residual_pair, residual_pair, risk_mode="unknown", max_scenarios=9)
+        raise AssertionError("invalid risk_mode accepted")
+    except ValueError:
+        pass
     assert_allclose(m.weighted_quantile_columns(np.array([[0.], [10.]]), np.array([.5, .5]), .8), [10])
     assert_allclose(m.weighted_quantile_columns(np.array([[0.], [10.]]), np.array([.5, .5]), .5), [0])
     assert_allclose(lp[0], data.typical_load_kw)
@@ -115,6 +138,41 @@ def main():
         test = m.solve_schedule(alt[0], alt[1], price, 6000)["grid_kwh"]
         assert_allclose(base, test, atol=0, rtol=0)
     checks.append("intraday_nowcast_price_and_decision_nonanticipativity")
+    # Information-release ablation: hidden official versions and their
+    # calibration residuals must not affect the frozen-00 strategy.
+    d = 78
+    updates = [m.safe_update_trajectory(data, d, i, lp[d], lr, ir) for i in range(4)]
+    frozen = m.run_q3_day(
+        data, d, 6000, lp, lr, ir, variable_price=False,
+        safe_updates=updates, allowed_issue_hours=(),
+    )
+    explicit_full = m.run_q3_day(
+        data, d, 6000, lp, lr, ir, variable_price=False,
+        safe_updates=updates, allowed_issue_hours=(6, 12, 18),
+    )
+    default_full = m.run_q3_day(
+        data, d, 6000, lp, lr, ir, variable_price=False, safe_updates=updates,
+    )
+    assert_allclose(explicit_full["final_contract_kwh"], default_full["final_contract_kwh"], atol=0, rtol=0)
+    changed = replace(
+        data,
+        pv_forecast_hourly=data.pv_forecast_hourly.copy(),
+    )
+    changed.pv_forecast_hourly[:, 1:] += 5000
+    changed_ir = m.official_pv_residuals(changed)
+    changed_updates = [m.safe_update_trajectory(changed, d, i, lp[d], lr, changed_ir) for i in range(4)]
+    frozen_changed = m.run_q3_day(
+        changed, d, 6000, lp, lr, changed_ir, variable_price=False,
+        safe_updates=changed_updates, allowed_issue_hours=(),
+    )
+    assert_allclose(frozen["initial_plan_kwh"], frozen_changed["initial_plan_kwh"], atol=0, rtol=0)
+    assert_allclose(frozen["final_contract_kwh"], frozen_changed["final_contract_kwh"], atol=0, rtol=0)
+    assert [x["source_issue_hour"] for x in frozen["update_meta"]] == [0, 0, 0, 0]
+    assert [x["source_issue_hour"] for x in explicit_full["update_meta"]] == [0, 6, 12, 18]
+    assert np.isfinite(frozen["target_soc_kwh"]).all()
+    assert np.isfinite(frozen["safe_net_kw"]).all()
+    physical(frozen, True)
+    checks.append("unclustered_risk_and_eight_release_set_semantics")
     continuity = {}
     # January is a required initial-state slice, not a parameter scan or annual backtest.
     for adjusted, variable in ((False, False), (True, False), (False, True), (True, True)):

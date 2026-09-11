@@ -23,6 +23,7 @@ def cases():
     def add(name, **kwargs):
         specs.append(dict(name=name, adjusted=False, variable=False, alpha=.8,
                           history_days=60, max_scenarios=9, baseline="safe",
+                          risk_mode=m.DEFAULT_RISK_MODE,
                           capacity=12000., power=5000., eta=.9, emergency=5.,
                           events=m.ISSUES, **{} ) | kwargs)
     for variable, prefix in ((False, "q2"), (True, "q42")):
@@ -38,7 +39,8 @@ def cases():
         for a in (.70,.75,.85,.90,.95):
             add(f"{prefix}_alpha_{a:.2f}", **common, alpha=a)
         for k in (5,12,16):
-            add(f"{prefix}_clusters_{k}", **common, max_scenarios=k)
+            add(f"{prefix}_clusters_{k}", **common, max_scenarios=k,
+                risk_mode="clustered")
         for h in (30,90):
             add(f"{prefix}_history_{h}", **common, history_days=h)
         for factor in (.8,1.2):
@@ -53,13 +55,16 @@ def cases():
 
 def prepare_case(spec, data, forecasts, cache):
     lp,lr,vp,vr,ir = forecasts
-    key = (spec["adjusted"],spec["alpha"],spec["history_days"],spec["max_scenarios"])
+    key = (spec["adjusted"],spec["alpha"],spec["history_days"],
+           spec["max_scenarios"],spec["risk_mode"])
     if spec["baseline"] in ("point","typical"):
         if spec["baseline"] == "typical":
             return [(data.typical_load_kw,data.typical_pv_kw,{"baseline":"typical"}) for _ in data.dates]
         return [(lp[d],vp[d],{"baseline":"uncorrected_point"}) for d in range(len(data.dates))]
     if key not in cache:
-        kwargs = dict(alpha=spec["alpha"], history_days=spec["history_days"], max_scenarios=spec["max_scenarios"])
+        kwargs = dict(alpha=spec["alpha"], history_days=spec["history_days"],
+                      max_scenarios=spec["max_scenarios"],
+                      risk_mode=spec["risk_mode"])
         if spec["adjusted"]:
             value = [[m.safe_update_trajectory(data,d,i,lp[d],lr,ir,**kwargs) for i in range(4)] for d in range(len(data.dates))]
         else:
@@ -80,7 +85,8 @@ def simulate(spec, data, forecasts, safe_cache, output):
     rows=[]
     for d,date in enumerate(data.dates):
         common=dict(variable_price=spec["variable"], battery=battery,
-                    alpha=spec["alpha"], emergency_multiplier=spec["emergency"])
+                    alpha=spec["alpha"], emergency_multiplier=spec["emergency"],
+                    risk_mode=spec["risk_mode"])
         if spec["adjusted"]:
             r=m.run_q3_day(data,d,soc,lp,lr,ir,safe_updates=trajectories[d],
                           events=tuple(spec["events"]),**common)

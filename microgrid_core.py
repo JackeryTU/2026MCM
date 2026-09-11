@@ -27,6 +27,7 @@ POWER_LIMIT_KW = 5_000.0
 ENERGY_LIMIT = POWER_LIMIT_KW * DT_HOURS
 SEED = 2026
 DEFAULT_ALPHA = 0.80
+DEFAULT_RISK_MODE = "unclustered"
 ISSUES = (0, 6, 12, 18)
 
 
@@ -209,6 +210,31 @@ def _cluster_residuals(
     return centers_l, centers_v, weights
 
 
+def _residual_scenarios(
+    load_residual_kw: np.ndarray,
+    pv_residual_kw: np.ndarray,
+    *,
+    risk_mode: str,
+    max_scenarios: int,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Return either K-means representatives or all historical residual paths."""
+    load_residual_kw = np.asarray(load_residual_kw, dtype=float)
+    pv_residual_kw = np.asarray(pv_residual_kw, dtype=float)
+    if load_residual_kw.ndim != 2 or pv_residual_kw.shape != load_residual_kw.shape:
+        raise ValueError("负荷与光伏残差必须是同形二维矩阵")
+    if risk_mode == "clustered":
+        return _cluster_residuals(
+            load_residual_kw, pv_residual_kw, max_scenarios=max_scenarios
+        )
+    if risk_mode != "unclustered":
+        raise ValueError("risk_mode必须是'clustered'或'unclustered'")
+    n = load_residual_kw.shape[0]
+    if n == 0:
+        zeros = np.zeros((1, load_residual_kw.shape[1]), dtype=float)
+        return zeros, zeros.copy(), np.ones(1)
+    return load_residual_kw.copy(), pv_residual_kw.copy(), np.full(n, 1.0 / n)
+
+
 def weighted_quantile_columns(values: np.ndarray, weights: np.ndarray, quantile: float) -> np.ndarray:
     if values.ndim != 2 or values.shape[0] != weights.size:
         raise ValueError("分位数输入维度不一致")
@@ -234,10 +260,16 @@ def safe_analog_trajectory(
     alpha: float = DEFAULT_ALPHA,
     history_days: int = 60,
     max_scenarios: int = 9,
+    risk_mode: str = DEFAULT_RISK_MODE,
 ) -> tuple[np.ndarray, np.ndarray, dict[str, Any]]:
     start = max(0, day - history_days)
-    c_l, c_v, weights = _cluster_residuals(
-        load_residual_kw[start:day], pv_residual_kw[start:day], max_scenarios=max_scenarios
+    residual_l = load_residual_kw[start:day]
+    residual_v = pv_residual_kw[start:day]
+    c_l, c_v, weights = _residual_scenarios(
+        residual_l,
+        residual_v,
+        risk_mode=risk_mode,
+        max_scenarios=max_scenarios,
     )
     l_scen = np.maximum(0.0, load_point_kw[None, :] + c_l)
     v_scen = np.maximum(0.0, pv_point_kw[None, :] + c_v)
@@ -249,6 +281,8 @@ def safe_analog_trajectory(
         "alpha": alpha,
         "history_start": start,
         "history_end_exclusive": day,
+        "risk_mode": risk_mode,
+        "residual_count": int(residual_l.shape[0]),
         "scenario_count": int(weights.size),
         "scenario_weights": weights.tolist(),
     }
@@ -383,6 +417,7 @@ def solve_schedule(
         ),
         "terminal_value_credit": float(terminal_value * (x[b["soc"].stop - 1] - battery.minimum)),
         "max_eq_residual": float(np.max(np.abs(balance_residual))),
+        "simultaneous_flow_slots": int(np.count_nonzero(np.minimum(x[b["charge"]], x[b["discharge"]]) > 1e-5)),
         "simultaneous_flow_max": float(np.max(np.minimum(x[b["charge"]], x[b["discharge"]]))),
         "status": "optimal",
     }
@@ -459,6 +494,8 @@ def causal_dispatch(
         "cash_cost": settlement + emergency_cost,
         "alternative_cash_cost": alt_settlement + emergency_cost,
         "max_balance_residual": float(np.max(np.abs(residual))),
+        "simultaneous_flow_slots": int(np.count_nonzero(np.minimum(charge, discharge) > 1e-5)),
+        "simultaneous_flow_max": float(np.max(np.minimum(charge, discharge))),
     }
 
 
@@ -505,12 +542,15 @@ def run_q2_day(
     emergency_multiplier: float = 5.0,
     history_days: int = 60,
     max_scenarios: int = 9,
+    risk_mode: str = DEFAULT_RISK_MODE,
 ) -> dict[str, Any]:
     price = predict_price(data, day) if variable_price else data.typical_price
     settlement_price = data.variable_price[day] if variable_price else data.typical_price
     if safe_pair is None:
         safe_l, safe_v, meta = safe_analog_trajectory(
-            day, load_point[day], pv_point[day], load_residual, pv_residual, alpha=alpha, history_days=history_days, max_scenarios=max_scenarios
+            day, load_point[day], pv_point[day], load_residual, pv_residual,
+            alpha=alpha, history_days=history_days,
+            max_scenarios=max_scenarios, risk_mode=risk_mode,
         )
     else:
         safe_l, safe_v, meta = safe_pair
@@ -564,6 +604,7 @@ def safe_update_trajectory(
     alpha: float = DEFAULT_ALPHA,
     history_days: int = 60,
     max_scenarios: int = 9,
+    risk_mode: str = DEFAULT_RISK_MODE,
 ) -> tuple[np.ndarray, np.ndarray, dict[str, Any]]:
     issue = ISSUES[issue_index]
     start_slot = issue * 6
@@ -594,7 +635,9 @@ def safe_update_trajectory(
     else:
         r_l = np.empty((0, n))
         r_v = np.empty((0, n))
-    c_l, c_v, weights = _cluster_residuals(r_l, r_v, max_scenarios=max_scenarios)
+    c_l, c_v, weights = _residual_scenarios(
+        r_l, r_v, risk_mode=risk_mode, max_scenarios=max_scenarios
+    )
     l_scen = np.maximum(0.0, l_point[None, :] + c_l)
     v_scen = np.maximum(0.0, pv_point[None, :] + c_v)
     net_q = weighted_quantile_columns(l_scen - v_scen, weights, alpha)
@@ -606,6 +649,8 @@ def safe_update_trajectory(
         "issue_hour": int(issue),
         "history_start": int(hist_start),
         "history_end_exclusive": int(day),
+        "risk_mode": risk_mode,
+        "residual_count": int(hist_ids.size),
         "scenario_count": int(weights.size),
         "alpha": float(alpha),
         "scenario_weights": weights.tolist(),
@@ -652,18 +697,26 @@ def run_q3_day(
     alpha: float = DEFAULT_ALPHA,
     safe_updates: list[tuple[np.ndarray, np.ndarray, dict[str, Any]]] | None = None,
     events: tuple[int, ...] = ISSUES,
+    allowed_issue_hours: tuple[int, ...] = ISSUES[1:],
     battery: Battery = DEFAULT_BATTERY,
     emergency_multiplier: float = 5.0,
     history_days: int = 60,
     max_scenarios: int = 9,
+    risk_mode: str = DEFAULT_RISK_MODE,
 ) -> dict[str, Any]:
     if not events or events[0] != 0 or tuple(sorted(set(events))) != events or any(h < 0 or h >= 24 or int(h) != h for h in events):
         raise ValueError("更新时刻必须从0开始，严格递增且在[0,24)内")
+    allowed_issue_hours = tuple(allowed_issue_hours)
+    if tuple(sorted(set(allowed_issue_hours))) != allowed_issue_hours or any(h not in ISSUES[1:] for h in allowed_issue_hours):
+        raise ValueError("获准新发布时间必须是{6,12,18}的严格递增子集")
+    readable_issues = (0,) + allowed_issue_hours
     price = predict_price(data, day) if variable_price else data.typical_price
     settlement_price = data.variable_price[day] if variable_price else data.typical_price
     if safe_updates is None:
         safe_l0, safe_v0, meta0 = safe_update_trajectory(
-            data, day, 0, load_point[day], load_residual, pv_issue_residual, alpha=alpha, history_days=history_days, max_scenarios=max_scenarios
+            data, day, 0, load_point[day], load_residual, pv_issue_residual,
+            alpha=alpha, history_days=history_days,
+            max_scenarios=max_scenarios, risk_mode=risk_mode,
         )
     else:
         safe_l0, safe_v0, meta0 = safe_updates[0]
@@ -694,25 +747,44 @@ def run_q3_day(
         )
     }
     soc_trace = [float(soc0)]
-    update_meta = [meta0]
+    update_meta = [{
+        **meta0,
+        "decision_hour": 0,
+        "source_issue_hour": 0,
+        "is_new_official_release": True,
+        "allowed_issue_hours": list(allowed_issue_hours),
+    }]
     update_solutions: list[dict[str, Any]] = []
+    target_soc = np.full(N_SLOTS + 1, np.nan, dtype=float)
+    safe_net_kw = np.full(N_SLOTS, np.nan, dtype=float)
     current_soc = float(soc0)
 
     for i, issue in enumerate(events):
         start = issue * 6
         end = events[i + 1] * 6 if i + 1 < len(events) else N_SLOTS
         if i == 0:
+            safe_l, safe_v = safe_l0, safe_v0
             contract_remaining = p0[start:]
             update_solution = initial
         else:
-            latest_index = max(j for j, h in enumerate(ISSUES) if h <= issue)
+            source_issue = max(h for h in readable_issues if h <= issue)
+            latest_index = ISSUES.index(source_issue)
             if safe_updates is None:
                 source = safe_update_trajectory(
-                    data, day, latest_index, load_point[day], load_residual, pv_issue_residual, alpha=alpha, history_days=history_days, max_scenarios=max_scenarios
+                    data, day, latest_index, load_point[day], load_residual,
+                    pv_issue_residual, alpha=alpha, history_days=history_days,
+                    max_scenarios=max_scenarios, risk_mode=risk_mode,
                 )
             else:
                 source = safe_updates[latest_index]
             safe_l, safe_v, meta = nowcast_trajectory(data, day, issue, source)
+            meta = {
+                **meta,
+                "decision_hour": int(issue),
+                "source_issue_hour": int(source_issue),
+                "is_new_official_release": bool(issue == source_issue),
+                "allowed_issue_hours": list(allowed_issue_hours),
+            }
             update_meta.append(meta)
             remaining_price = predict_price(data, day, issue) if variable_price else price[start:]
             update_solution = solve_schedule(
@@ -727,6 +799,8 @@ def run_q3_day(
             update_solution["planning_price"] = remaining_price
             contract_remaining = update_solution["grid_kwh"]
         update_solutions.append(update_solution)
+        target_soc[start:end + 1] = update_solution["soc_kwh"][: end - start + 1]
+        safe_net_kw[start:end] = (safe_l - safe_v)[: end - start]
         segment_contract = contract_remaining[: end - start]
         final_contract[start:end] = segment_contract
         segment = causal_dispatch(
@@ -755,8 +829,11 @@ def run_q3_day(
         "actual": actual,
         "update_meta": update_meta,
         "update_solutions": update_solutions,
+        "target_soc_kwh": target_soc,
+        "safe_net_kw": safe_net_kw,
         "planning_price": price,
         "events": events,
+        "allowed_issue_hours": allowed_issue_hours,
     }
 
 

@@ -1,5 +1,5 @@
 {
-  "command": "python run_all.py --project-root . --alpha 0.8",
+  "command": "python run_all.py --project-root . --alpha 0.8 --risk-mode unclustered",
   "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
   "platform": "Windows-11-10.0.26200-SP0",
   "packages": {
@@ -11,6 +11,7 @@
   "seed": 2026,
   "parameters": {
     "alpha": 0.8,
+    "risk_mode": "unclustered",
     "eta_charge": 0.9,
     "eta_discharge": 0.9,
     "soc_min_kwh": 1200,
@@ -47,8 +48,11 @@
   "hash_checks": "omitted per explicit user request; no hashes calculated or compared",
   "outputs": [
     "results\\experiments",
+    "results\\national_award",
     "results\\p1_cold_start.json",
     "results\\p1_regression.json",
+    "results\\p1_regression_independent.json",
+    "results\\p1_regression_national_award.json",
     "results\\p1_smoke.json",
     "results\\q2_每日汇总.csv",
     "results\\q2_逐时结果.csv",
@@ -59,16 +63,20 @@
     "results\\q4_3_每日汇总.csv",
     "results\\q4_3_逐时结果.csv",
     "results\\README.md",
+    "results\\reproduction_logs",
     "results\\result1.xlsx",
     "results\\result2.xlsx",
     "results\\result3.xlsx",
     "results\\result4-2.xlsx",
     "results\\result4-3.xlsx",
+    "results\\主运行记录.json",
     "results\\代表日历次更新.csv",
     "results\\典型日汇总.csv",
     "results\\原始数据剖析.csv",
     "results\\图表统计.csv",
     "results\\复现清单.json",
+    "results\\实验审计.json",
+    "results\\工作簿审计.json",
     "results\\核心指标.json",
     "results\\表1_代表日购电.csv",
     "results\\表2_代表日储能.csv",
@@ -77,17 +85,17 @@
     "results\\问题1_逐时结果.csv",
     "results\\预测误差指标.csv"
   ],
-  "runtime_seconds": 109.83923983573914,
+  "runtime_seconds": 222.48127055168152,
   "source_files": [
     {
       "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\microgrid_core.py",
-      "size_bytes": 30664,
-      "modified_time_ns": 1789052606567416200
+      "size_bytes": 34002,
+      "modified_time_ns": 1789103423820467400
     },
     {
       "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\run_all.py",
-      "size_bytes": 23063,
-      "modified_time_ns": 1789054603289886100
+      "size_bytes": 23723,
+      "modified_time_ns": 1789103429623638100
     },
     {
       "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\evaluate_results.py",

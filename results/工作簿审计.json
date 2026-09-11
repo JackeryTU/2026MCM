@@ -9,25 +9,25 @@
     },
     {
       "file": "result2.xlsx",
-      "filled_cells": 64211,
+      "filled_cells": 63143,
       "formula_count": 0,
       "status": "PASS"
     },
     {
       "file": "result3.xlsx",
-      "filled_cells": 110099,
+      "filled_cells": 109610,
       "formula_count": 0,
       "status": "PASS"
     },
     {
       "file": "result4-2.xlsx",
-      "filled_cells": 64229,
+      "filled_cells": 63227,
       "formula_count": 0,
       "status": "PASS"
     },
     {
       "file": "result4-3.xlsx",
-      "filled_cells": 110117,
+      "filled_cells": 109670,
       "formula_count": 0,
       "status": "PASS"
     }

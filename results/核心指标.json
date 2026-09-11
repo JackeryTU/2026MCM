@@ -1,6 +1,7 @@
 {
   "seed": 2026,
   "alpha": 0.8,
+  "risk_mode": "unclustered",
   "time_mapping": "input timestamp is natural 10-minute interval endpoint; official template header retained by position",
   "q1": {
     "purchase_kwh": 59482.6981674023,
@@ -15,58 +16,58 @@
   "annual_feb_dec": {
     "q2": {
       "days": 334,
-      "plan_kwh": 24505245.923331857,
-      "final_contract_kwh": 24505245.923331857,
-      "cash_cost_yuan": 18764165.93342194,
-      "alternative_cash_cost_yuan": 18764165.93342194,
-      "emergency_kwh": 578081.5435773833,
-      "unused_contract_kwh": 4123779.9048769586,
-      "pv_curtailed_kwh": 1950263.9847542914,
-      "soc_end_kwh": 10609.771281566384,
+      "plan_kwh": 24703183.50702332,
+      "final_contract_kwh": 24703183.50702332,
+      "cash_cost_yuan": 18446381.685584377,
+      "alternative_cash_cost_yuan": 18446381.685584377,
+      "emergency_kwh": 499461.61793698,
+      "unused_contract_kwh": 4217462.441203058,
+      "pv_curtailed_kwh": 1977439.0051563606,
+      "soc_end_kwh": 10645.784799766761,
       "max_balance_residual_kwh": 3.694822225952521e-13
     },
     "q3": {
       "days": 334,
-      "plan_kwh": 24623849.843820192,
-      "final_contract_kwh": 23894844.221065704,
-      "cash_cost_yuan": 16279696.690460613,
-      "alternative_cash_cost_yuan": 17076049.296414606,
-      "emergency_kwh": 115458.14570383352,
-      "unused_contract_kwh": 3093394.843209086,
-      "pv_curtailed_kwh": 1841583.5121787754,
-      "soc_end_kwh": 10649.434159285278,
+      "plan_kwh": 24974321.281667456,
+      "final_contract_kwh": 24063658.975016955,
+      "cash_cost_yuan": 16222449.295710206,
+      "alternative_cash_cost_yuan": 17025691.963905223,
+      "emergency_kwh": 100703.51599374649,
+      "unused_contract_kwh": 3232703.5560496906,
+      "pv_curtailed_kwh": 1863872.6197491507,
+      "soc_end_kwh": 10645.784650922635,
       "max_balance_residual_kwh": 3.410605131648481e-13
     },
     "q4_2": {
       "days": 334,
-      "plan_kwh": 24513576.97666406,
-      "final_contract_kwh": 24513576.97666406,
-      "cash_cost_yuan": 19254498.43940144,
-      "alternative_cash_cost_yuan": 19254498.43940144,
-      "emergency_kwh": 575898.3508341654,
-      "unused_contract_kwh": 4100533.5809429735,
-      "pv_curtailed_kwh": 1969275.566435357,
-      "soc_end_kwh": 10613.513264120855,
-      "max_balance_residual_kwh": 3.694822225952521e-13
+      "plan_kwh": 24710948.776234694,
+      "final_contract_kwh": 24710948.776234694,
+      "cash_cost_yuan": 18924373.19845593,
+      "alternative_cash_cost_yuan": 18924373.19845593,
+      "emergency_kwh": 498851.05413195636,
+      "unused_contract_kwh": 4198994.129071556,
+      "pv_curtailed_kwh": 1992637.63267498,
+      "soc_end_kwh": 10651.118094294772,
+      "max_balance_residual_kwh": 4.547473508864641e-13
     },
     "q4_3": {
       "days": 334,
-      "plan_kwh": 24630306.50346248,
-      "final_contract_kwh": 23901965.092639573,
-      "cash_cost_yuan": 16735118.324558932,
-      "alternative_cash_cost_yuan": 17490654.789468836,
-      "emergency_kwh": 115938.21192851543,
-      "unused_contract_kwh": 3085161.9487350355,
-      "pv_curtailed_kwh": 1848622.3307717426,
-      "soc_end_kwh": 10651.745417687422,
+      "plan_kwh": 24981118.97141345,
+      "final_contract_kwh": 24073093.1951501,
+      "cash_cost_yuan": 16670494.99857288,
+      "alternative_cash_cost_yuan": 17431464.96332042,
+      "emergency_kwh": 100932.41292954746,
+      "unused_contract_kwh": 3226185.393850722,
+      "pv_curtailed_kwh": 1869482.9969019294,
+      "soc_end_kwh": 10651.117946249566,
       "max_balance_residual_kwh": 3.410605131648481e-13
     }
   },
   "comparisons": {
-    "fixed_price_adjustment_saving_yuan": 2484469.2429613266,
-    "variable_price_adjustment_saving_yuan": 2519380.114842508,
-    "q3_primary_vs_alternative_settlement_yuan": 796352.6059539933,
-    "q4_3_primary_vs_alternative_settlement_yuan": 755536.4649099037
+    "fixed_price_adjustment_saving_yuan": 2223932.3898741715,
+    "variable_price_adjustment_saving_yuan": 2253878.1998830494,
+    "q3_primary_vs_alternative_settlement_yuan": 803242.6681950167,
+    "q4_3_primary_vs_alternative_settlement_yuan": 760969.9647475388
   },
-  "runtime_seconds": 109.83923983573914
+  "runtime_seconds": 222.48127055168152
 }

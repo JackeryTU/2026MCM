@@ -1,0 +1,263 @@
+{
+  "status": "full_diagnostics_completed_pending_P2",
+  "evaluation": {
+    "warmup": "2025-01-01..2025-01-31",
+    "formal": "2025-02-01..2025-12-31",
+    "days": 334
+  },
+  "parameters": {
+    "alpha": 0.8,
+    "history_days": 60,
+    "max_scenarios": 9,
+    "seed": 2026,
+    "alpha_was_retuned": false
+  },
+  "risk_decision": {
+    "selected_risk_mode": "unclustered",
+    "rule": "Select unclustered only if, in both Q2 and Q3 fixed-price branches, coverage is not lower, pinball loss is not higher, cash cost is not higher, and emergency energy is not higher; otherwise retain clustered.",
+    "tests": [
+      {
+        "strategy": "q2_fixed",
+        "coverage_not_lower": true,
+        "pinball_not_higher": true,
+        "cost_not_higher": true,
+        "emergency_not_higher": true,
+        "passed": true
+      },
+      {
+        "strategy": "q3_fixed",
+        "coverage_not_lower": true,
+        "pinball_not_higher": true,
+        "cost_not_higher": true,
+        "emergency_not_higher": true,
+        "passed": true
+      }
+    ],
+    "tolerances": {
+      "coverage": 1e-12,
+      "pinball_kw": 1e-09,
+      "cash_cost_yuan": 0.0001,
+      "emergency_kwh": 1e-06,
+      "day_cost_yuan": 1e-06
+    },
+    "alpha_was_retuned": false
+  },
+  "risk_ablation": [
+    {
+      "strategy": "q2_fixed",
+      "risk_mode": "clustered",
+      "days": 334,
+      "cash_cost_yuan": 18764165.93342194,
+      "contract_cost_yuan": 15258616.493737802,
+      "emergency_cost_yuan": 3505549.4396841405,
+      "plan_kwh": 24505245.923331857,
+      "final_contract_kwh": 24505245.923331857,
+      "actual_effective_grid_kwh": 20959547.562032282,
+      "emergency_kwh": 578081.5435773833,
+      "emergency_days": 178,
+      "emergency_slots": 2425,
+      "unused_contract_kwh": 4123779.9048769586,
+      "pv_curtailed_kwh": 1950263.9847542914,
+      "charge_kwh": 5632975.200831141,
+      "discharge_kwh": 4562881.118519816,
+      "safe_net_coverage": 0.6830921490352628,
+      "pinball_mean_kw": 232.2886598091388,
+      "soc_end_kwh": 10609.771281566384,
+      "max_balance_residual_kwh": 3.694822225952521e-13,
+      "warmup_end_soc_kwh": 10800.0,
+      "runtime_seconds": 12.624476600001799
+    },
+    {
+      "strategy": "q3_fixed",
+      "risk_mode": "clustered",
+      "days": 334,
+      "cash_cost_yuan": 16279696.690460613,
+      "contract_cost_yuan": 15600098.950802313,
+      "emergency_cost_yuan": 679597.7396582973,
+      "plan_kwh": 24623849.843820192,
+      "final_contract_kwh": 23894844.221065704,
+      "actual_effective_grid_kwh": 20916907.523560453,
+      "emergency_kwh": 115458.14570383352,
+      "emergency_days": 168,
+      "emergency_slots": 1306,
+      "unused_contract_kwh": 3093394.843209086,
+      "pv_curtailed_kwh": 1841583.5121787754,
+      "charge_kwh": 5980368.556166612,
+      "discharge_kwh": 4844234.0397516,
+      "safe_net_coverage": 0.6699725548902196,
+      "pinball_mean_kw": 185.42555774400157,
+      "soc_end_kwh": 10649.434159285278,
+      "max_balance_residual_kwh": 3.410605131648481e-13,
+      "warmup_end_soc_kwh": 10800.0,
+      "runtime_seconds": 52.05979379999917
+    },
+    {
+      "strategy": "q2_fixed",
+      "risk_mode": "unclustered",
+      "days": 334,
+      "cash_cost_yuan": 18446381.685584377,
+      "contract_cost_yuan": 15383249.090563633,
+      "emergency_cost_yuan": 3063132.595020746,
+      "plan_kwh": 24703183.50702332,
+      "final_contract_kwh": 24703183.50702332,
+      "actual_effective_grid_kwh": 20985182.683757246,
+      "emergency_kwh": 499461.61793698,
+      "emergency_days": 158,
+      "emergency_slots": 2069,
+      "unused_contract_kwh": 4217462.441203058,
+      "pv_curtailed_kwh": 1977439.0051563606,
+      "charge_kwh": 5624699.880602252,
+      "discharge_kwh": 4556145.696968033,
+      "safe_net_coverage": 0.7043621091151031,
+      "pinball_mean_kw": 224.5091369092138,
+      "soc_end_kwh": 10645.784799766761,
+      "max_balance_residual_kwh": 3.694822225952521e-13,
+      "warmup_end_soc_kwh": 10800.0,
+      "runtime_seconds": 17.938314300001366
+    },
+    {
+      "strategy": "q3_fixed",
+      "risk_mode": "unclustered",
+      "days": 334,
+      "cash_cost_yuan": 16222449.295710206,
+      "contract_cost_yuan": 15631534.801269189,
+      "emergency_cost_yuan": 590914.4944410184,
+      "plan_kwh": 24974321.281667456,
+      "final_contract_kwh": 24063658.975016955,
+      "actual_effective_grid_kwh": 20931658.934961006,
+      "emergency_kwh": 100703.51599374649,
+      "emergency_days": 155,
+      "emergency_slots": 1143,
+      "unused_contract_kwh": 3232703.5560496906,
+      "pv_curtailed_kwh": 1863872.6197491507,
+      "charge_kwh": 5940713.758207181,
+      "discharge_kwh": 4812116.937961986,
+      "safe_net_coverage": 0.7083957085828343,
+      "pinball_mean_kw": 180.5100308841343,
+      "soc_end_kwh": 10645.784650922635,
+      "max_balance_residual_kwh": 3.410605131648481e-13,
+      "warmup_end_soc_kwh": 10800.0,
+      "runtime_seconds": 55.426278599996294
+    }
+  ],
+  "main_totals": {
+    "q2_fixed": {
+      "days": 334,
+      "cash_cost_yuan": 18446381.685584377,
+      "contract_cost_yuan": 15383249.090563633,
+      "emergency_cost_yuan": 3063132.595020746,
+      "plan_kwh": 24703183.50702332,
+      "final_contract_kwh": 24703183.50702332,
+      "actual_effective_grid_kwh": 20985182.683757246,
+      "emergency_kwh": 499461.61793698,
+      "emergency_days": 158,
+      "emergency_slots": 2069,
+      "unused_contract_kwh": 4217462.441203058,
+      "pv_curtailed_kwh": 1977439.0051563606,
+      "charge_kwh": 5624699.880602252,
+      "discharge_kwh": 4556145.696968033,
+      "safe_net_coverage": 0.7043621091151031,
+      "pinball_mean_kw": 224.5091369092138,
+      "soc_end_kwh": 10645.784799766761,
+      "max_balance_residual_kwh": 3.694822225952521e-13
+    },
+    "q3_fixed": {
+      "days": 334,
+      "cash_cost_yuan": 16222449.295710206,
+      "contract_cost_yuan": 15631534.801269189,
+      "emergency_cost_yuan": 590914.4944410184,
+      "plan_kwh": 24974321.281667456,
+      "final_contract_kwh": 24063658.975016955,
+      "actual_effective_grid_kwh": 20931658.934961006,
+      "emergency_kwh": 100703.51599374649,
+      "emergency_days": 155,
+      "emergency_slots": 1143,
+      "unused_contract_kwh": 3232703.5560496906,
+      "pv_curtailed_kwh": 1863872.6197491507,
+      "charge_kwh": 5940713.758207181,
+      "discharge_kwh": 4812116.937961986,
+      "safe_net_coverage": 0.7083957085828343,
+      "pinball_mean_kw": 180.5100308841343,
+      "soc_end_kwh": 10645.784650922635,
+      "max_balance_residual_kwh": 3.410605131648481e-13
+    },
+    "q4_2_variable": {
+      "days": 334,
+      "cash_cost_yuan": 18924373.19845593,
+      "contract_cost_yuan": 15725934.90088022,
+      "emergency_cost_yuan": 3198438.297575712,
+      "plan_kwh": 24710948.776234694,
+      "final_contract_kwh": 24710948.776234694,
+      "actual_effective_grid_kwh": 21010805.7012951,
+      "emergency_kwh": 498851.05413195636,
+      "emergency_days": 155,
+      "emergency_slots": 2097,
+      "unused_contract_kwh": 4198994.129071556,
+      "pv_curtailed_kwh": 1992637.63267498,
+      "charge_kwh": 5679539.8282557195,
+      "discharge_kwh": 4600561.254602268,
+      "safe_net_coverage": 0.7043621091151031,
+      "pinball_mean_kw": 224.5091369092138,
+      "soc_end_kwh": 10651.118094294772,
+      "max_balance_residual_kwh": 4.547473508864641e-13
+    },
+    "q4_3_variable": {
+      "days": 334,
+      "cash_cost_yuan": 16670494.99857288,
+      "contract_cost_yuan": 16026394.342801578,
+      "emergency_cost_yuan": 644100.6557713023,
+      "plan_kwh": 24981118.97141345,
+      "final_contract_kwh": 24073093.1951501,
+      "actual_effective_grid_kwh": 20947840.21422892,
+      "emergency_kwh": 100932.41292954746,
+      "emergency_days": 154,
+      "emergency_slots": 1163,
+      "unused_contract_kwh": 3226185.393850722,
+      "pv_curtailed_kwh": 1869482.9969019294,
+      "charge_kwh": 5996324.822151069,
+      "discharge_kwh": 4857157.099790742,
+      "safe_net_coverage": 0.7083957085828343,
+      "pinball_mean_kw": 180.5100308841343,
+      "soc_end_kwh": 10651.117946249566,
+      "max_balance_residual_kwh": 3.410605131648481e-13
+    }
+  },
+  "information_value": {
+    "full_vs_frozen_saving_yuan": 381887.2843223955,
+    "full_vs_frozen_saving_percent": 2.299924977319664,
+    "full_vs_frozen_emergency_reduction_kwh": 28433.212828787684,
+    "shapley_saving_yuan": [
+      {
+        "release_hour": 6,
+        "shapley_saving_yuan": 126227.87481368394
+      },
+      {
+        "release_hour": 12,
+        "shapley_saving_yuan": 188849.92501675306
+      },
+      {
+        "release_hour": 18,
+        "shapley_saving_yuan": 66809.4844919589
+      }
+    ],
+    "interpretation_limit": "This isolates access to official PV releases while retaining the same 0/6/12/18 re-optimization opportunities; it is not the total Q2-to-Q3 benefit."
+  },
+  "planning_execution": {
+    "max_planning_simultaneous_flow_kwh": 0.0,
+    "max_execution_simultaneous_flow_kwh": 0.0,
+    "max_balance_residual_kwh": 4.547473508864641e-13,
+    "main_variant_target_soc_mae_kwh": {
+      "q2_fixed": 1272.2375108660342,
+      "q3_fixed": 801.7611588388169,
+      "q4_2_variable": 1320.5664366784545,
+      "q4_3_variable": 840.8220484965442
+    }
+  },
+  "low_pv_q20_days": {
+    "q2_fixed": 72,
+    "q3_fixed": 72,
+    "q4_2_variable": 72,
+    "q4_3_variable": 72
+  },
+  "hash_checks": "omitted per explicit user request; no hashes calculated or compared; no cryptographic integrity guarantee"
+}

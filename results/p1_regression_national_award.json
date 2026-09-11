@@ -1,0 +1,70 @@
+{
+  "status": "author_tests_passed_not_independent_gate",
+  "checks": [
+    "hourly_point_endpoint_mapping",
+    "cold_start_single_duplicate_and_zero_variance",
+    "piecewise_settlement_and_emergency",
+    "20_random_days_future_actual_perturbation",
+    "intraday_nowcast_price_and_decision_nonanticipativity",
+    "unclustered_risk_and_eight_release_set_semantics",
+    "jan1_through_feb1_all_four_variants_continuous_soc",
+    "candidate_event_slices_and_no_storage"
+  ],
+  "sampled_days": [
+    10,
+    28,
+    36,
+    62,
+    64,
+    109,
+    126,
+    128,
+    131,
+    164,
+    223,
+    227,
+    236,
+    251,
+    259,
+    281,
+    294,
+    295,
+    310,
+    324
+  ],
+  "jan31_soc_kwh": {
+    "adjusted=False,variable=False": 10800.0,
+    "adjusted=True,variable=False": 10800.0,
+    "adjusted=False,variable=True": 10800.0,
+    "adjusted=True,variable=True": 10800.0
+  },
+  "file_snapshot": [
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\microgrid_core.py",
+      "size_bytes": 34002,
+      "modified_time_ns": 1789103423820467400
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\test_core.py",
+      "size_bytes": 11918,
+      "modified_time_ns": 1789095506974822500
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\smoke_test.py",
+      "size_bytes": 3904,
+      "modified_time_ns": 1789052765473978100
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\题目分析报告.md",
+      "size_bytes": 33748,
+      "modified_time_ns": 1789094574175738600
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\术语表格.md",
+      "size_bytes": 10029,
+      "modified_time_ns": 1789094824865424000
+    }
+  ],
+  "hash_checks": "omitted per explicit user request; no hashes calculated or compared",
+  "runtime_seconds": 25.801051999995252
+}

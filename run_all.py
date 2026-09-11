@@ -21,6 +21,7 @@ from evaluate_results import forecast_diagnostics, validate_day, write_represent
 
 from microgrid_core import (
     DEFAULT_ALPHA,
+    DEFAULT_RISK_MODE,
     DT_HOURS,
     ISSUES,
     N_SLOTS,
@@ -71,6 +72,7 @@ def precompute_safe_trajectories(
     pv_residual,
     issued_residual,
     alpha: float,
+    risk_mode: str,
 ):
     q2_cache = []
     q3_cache = []
@@ -83,6 +85,7 @@ def precompute_safe_trajectories(
                 load_residual,
                 pv_residual,
                 alpha=alpha,
+                risk_mode=risk_mode,
             )
         )
         updates = []
@@ -96,6 +99,7 @@ def precompute_safe_trajectories(
                     load_residual,
                     issued_residual,
                     alpha=alpha,
+                    risk_mode=risk_mode,
                 )
             )
         q3_cache.append(updates)
@@ -117,6 +121,7 @@ def simulate_variant(
     q2_cache,
     q3_cache,
     alpha: float,
+    risk_mode: str,
 ) -> list[dict[str, Any]]:
     results: list[dict[str, Any]] = []
     soc = SOC_INITIAL
@@ -132,6 +137,7 @@ def simulate_variant(
                 issued_residual,
                 variable_price=variable_price,
                 alpha=alpha,
+                risk_mode=risk_mode,
                 safe_updates=q3_cache[day],
             )
         else:
@@ -145,6 +151,7 @@ def simulate_variant(
                 pv_residual,
                 variable_price=variable_price,
                 alpha=alpha,
+                risk_mode=risk_mode,
                 safe_pair=q2_cache[day],
             )
         result["date"] = data.dates[day]
@@ -386,6 +393,11 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--project-root", default=".")
     parser.add_argument("--alpha", type=float, default=DEFAULT_ALPHA)
+    parser.add_argument(
+        "--risk-mode", choices=("unclustered", "clustered"),
+        default=DEFAULT_RISK_MODE,
+        help="residual trajectory treatment; the formal national-award run uses unclustered",
+    )
     parser.add_argument("--skip-csv", action="store_true")
     args = parser.parse_args()
     root = Path(args.project_root).resolve()
@@ -399,14 +411,15 @@ def main() -> int:
     pv_point, pv_residual = build_analog_forecasts(data.actual_pv_kw, data.typical_pv_kw, weekday_weight=False)
     issued_residual = official_pv_residuals(data)
     q2_cache, q3_cache = precompute_safe_trajectories(
-        data, load_point, pv_point, load_residual, pv_residual, issued_residual, args.alpha
+        data, load_point, pv_point, load_residual, pv_residual, issued_residual,
+        args.alpha, args.risk_mode,
     )
 
     q1 = run_q1(data)
-    q2 = simulate_variant(data, adjusted=False, variable_price=False, load_point=load_point, pv_point=pv_point, load_residual=load_residual, pv_residual=pv_residual, issued_residual=issued_residual, q2_cache=q2_cache, q3_cache=q3_cache, alpha=args.alpha)
-    q3 = simulate_variant(data, adjusted=True, variable_price=False, load_point=load_point, pv_point=pv_point, load_residual=load_residual, pv_residual=pv_residual, issued_residual=issued_residual, q2_cache=q2_cache, q3_cache=q3_cache, alpha=args.alpha)
-    q4_2 = simulate_variant(data, adjusted=False, variable_price=True, load_point=load_point, pv_point=pv_point, load_residual=load_residual, pv_residual=pv_residual, issued_residual=issued_residual, q2_cache=q2_cache, q3_cache=q3_cache, alpha=args.alpha)
-    q4_3 = simulate_variant(data, adjusted=True, variable_price=True, load_point=load_point, pv_point=pv_point, load_residual=load_residual, pv_residual=pv_residual, issued_residual=issued_residual, q2_cache=q2_cache, q3_cache=q3_cache, alpha=args.alpha)
+    q2 = simulate_variant(data, adjusted=False, variable_price=False, load_point=load_point, pv_point=pv_point, load_residual=load_residual, pv_residual=pv_residual, issued_residual=issued_residual, q2_cache=q2_cache, q3_cache=q3_cache, alpha=args.alpha, risk_mode=args.risk_mode)
+    q3 = simulate_variant(data, adjusted=True, variable_price=False, load_point=load_point, pv_point=pv_point, load_residual=load_residual, pv_residual=pv_residual, issued_residual=issued_residual, q2_cache=q2_cache, q3_cache=q3_cache, alpha=args.alpha, risk_mode=args.risk_mode)
+    q4_2 = simulate_variant(data, adjusted=False, variable_price=True, load_point=load_point, pv_point=pv_point, load_residual=load_residual, pv_residual=pv_residual, issued_residual=issued_residual, q2_cache=q2_cache, q3_cache=q3_cache, alpha=args.alpha, risk_mode=args.risk_mode)
+    q4_3 = simulate_variant(data, adjusted=True, variable_price=True, load_point=load_point, pv_point=pv_point, load_residual=load_residual, pv_residual=pv_residual, issued_residual=issued_residual, q2_cache=q2_cache, q3_cache=q3_cache, alpha=args.alpha, risk_mode=args.risk_mode)
     attach_variant_metadata(q2, variable_price=False)
     attach_variant_metadata(q3, variable_price=False)
     attach_variant_metadata(q4_2, variable_price=True)
@@ -476,6 +489,7 @@ def main() -> int:
     metrics = {
         "seed": SEED,
         "alpha": args.alpha,
+        "risk_mode": args.risk_mode,
         "time_mapping": "input timestamp is natural 10-minute interval endpoint; official template header retained by position",
         "q1": q1_metrics,
         "annual_feb_dec": annual,
@@ -496,13 +510,13 @@ def main() -> int:
         "platform": platform.platform(),
         "packages": {"numpy": np.__version__, "pandas": pd.__version__, "scipy": scipy.__version__, "sklearn": sklearn.__version__},
         "seed": SEED,
-        "parameters": {"alpha": args.alpha, "eta_charge": 0.9, "eta_discharge": 0.9, "soc_min_kwh": 1200, "soc_max_kwh": 10800, "power_limit_kw": 5000},
+        "parameters": {"alpha": args.alpha, "risk_mode": args.risk_mode, "eta_charge": 0.9, "eta_discharge": 0.9, "soc_min_kwh": 1200, "soc_max_kwh": 10800, "power_limit_kw": 5000},
         "input_files": [file_metadata(p) for p in inputs],
         "hash_checks": "omitted per explicit user request; no hashes calculated or compared",
         "outputs": [str(p.relative_to(root)) for p in sorted(results_dir.glob("*"))],
         "runtime_seconds": metrics["runtime_seconds"],
     }
-    manifest["command"] = f"python run_all.py --project-root . --alpha {args.alpha}"
+    manifest["command"] = f"python run_all.py --project-root . --alpha {args.alpha} --risk-mode {args.risk_mode}"
     manifest["source_files"] = [file_metadata(p) for p in (root/"microgrid_core.py", root/"run_all.py", root/"evaluate_results.py")]
     manifest["validation"] = "every simulated day checked for physical feasibility, LP residuals, simultaneous flow and SOC continuity"
     (results_dir / "主运行记录.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
