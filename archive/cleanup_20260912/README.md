@@ -1,0 +1,30 @@
+# 2026-09-12 清理归档
+
+本目录保存从活动工作区移出的旧版内容和临时产物。整理采用移动而非永久删除，原目录结构被保留，必要时可逐项恢复。这里的文件不参与模型运行、两版论文构建或最终提交。
+
+## 已归档内容
+
+- `paper/figs_450dpi/`：已复制进两版论文 `figs/` 的中间高分辨率导出目录。
+- `paper_tools/`：论文编译期间使用的临时工具副本。
+- `checkpoints/Checkpoint-V1/`：旧参考稿检查点。
+- `参考支撑材料.zip`：与旧参考稿配套的支撑包，不对应当前两版论文。
+- `reviews/过程归档/03_论文核查与渲染/` 下的旧参考稿、旧论文逐页渲染和旧 AI 使用详情渲染。
+- `reviews/过程归档/04_独立复现/p2_reproduction/`：旧版 P2 隔离复现副本；新版 `programmer_v2_p2/` 仍保留在活动审查区。
+- `reviews/过程归档/05_支撑包解压副本/reference_support_unpacked/`：重复解压副本；另一份核查副本仍保留。
+- `reviews/过程归档/06_工具临时产物/`：工具冒烟测试、临时导出和缓存。
+- `results_versioned/` 下 `programmer_v2_smoke/` 及三份 smoke／作者临时 JSON。
+- 根目录和 `utils/` 下的 Python 字节码缓存。
+
+整理时共移动 610 个文件，约 160.70 MiB。项目未按用户要求计算或比较任何哈希。
+
+## 未归档的保护对象
+
+- `paper/normal/` 与 `paper/explained/` 的源码、12 张入文图和编译 PDF；
+- `results/`、`figures/`；
+- `results_versioned/programmer_v2_final/`、`figures_versioned/programmer_v2_final/`；
+- `results_versioned/selection/`；
+- `reviews/过程归档/01_验收回执/`、`02_规则与口径/`；
+- `reviews/过程归档/04_独立复现/programmer_v2_p2/`；
+- `reviews/过程归档/05_支撑包解压副本/support_unpack_check_20260911_0230/`。
+
+恢复时只移动明确需要的子项，并先确认目标位置不存在，避免覆盖当前文件。

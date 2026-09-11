@@ -15,7 +15,7 @@ import pandas as pd
 from PIL import Image
 from scipy.stats import spearmanr
 
-from microgrid_core import DT_HOURS, ISSUES, build_analog_forecasts, load_inputs, official_pv_residuals
+from microgrid_core import DT_HOURS, ISSUES, build_forecast_archive, load_inputs, official_pv_residuals
 from utils.plot_style import PALETTE, add_panel_labels, audit_design, audit_layout
 
 
@@ -53,7 +53,7 @@ def export_checked(fig, figures_dir: Path, name: str, size: tuple[float, float])
         fig,
         str(figures_dir / name),
         formats=["svg", "png"],
-        dpi=300,
+        dpi=450,
         size_inches=size,
         grayscale_preview=False,
         tight=False,
@@ -64,8 +64,9 @@ def export_checked(fig, figures_dir: Path, name: str, size: tuple[float, float])
     qa_dir = figures_dir / "_qa"
     qa_dir.mkdir(parents=True, exist_ok=True)
     with Image.open(figures_dir / f"{name}.png") as source:
-        assert source.size == (round(size[0]*300), round(size[1]*300))
-        source.convert("L").save(qa_dir / f"{name}_grayscale.png", dpi=(300,300))
+        expected = (round(size[0]*450), round(size[1]*450))
+        assert all(abs(actual - target) <= 1 for actual, target in zip(source.size, expected))
+        source.convert("L").save(qa_dir / f"{name}_grayscale.png", dpi=(450,450))
     plt.close(fig)
 
 
@@ -81,23 +82,31 @@ def month_tick_positions(dates: pd.DatetimeIndex) -> tuple[list[int], list[str]]
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--project-root", default=".")
+    parser.add_argument("--results-dir", default="results")
+    parser.add_argument("--figures-dir", default="figures")
     args = parser.parse_args()
     root = Path(args.project_root).resolve()
-    figures = root / "figures"
+    requested_results = Path(args.results_dir)
+    requested_figures = Path(args.figures_dir)
+    results = (requested_results if requested_results.is_absolute() else root / requested_results).resolve()
+    figures = (requested_figures if requested_figures.is_absolute() else root / requested_figures).resolve()
+    for label, path in (("--results-dir", results), ("--figures-dir", figures)):
+        if path == root or root not in path.parents:
+            raise ValueError(f"{label} must resolve inside --project-root")
     figures.mkdir(parents=True, exist_ok=True)
     setup_style(journal="general", lang="zh", use_sciplots=True, serif_for_zh=True)
     plt.rcParams["legend.frameon"] = False
 
     data = load_inputs(root)
-    q1 = pd.read_csv(root / "results" / "问题1_逐时结果.csv")
-    q2d = pd.read_csv(root / "results" / "q2_每日汇总.csv", parse_dates=["date"])
-    q3d = pd.read_csv(root / "results" / "q3_每日汇总.csv", parse_dates=["date"])
-    q42d = pd.read_csv(root / "results" / "q4_2_每日汇总.csv", parse_dates=["date"])
-    q43d = pd.read_csv(root / "results" / "q4_3_每日汇总.csv", parse_dates=["date"])
-    q2i = pd.read_csv(root / "results" / "q2_逐时结果.csv", parse_dates=["date"])
-    q3i = pd.read_csv(root / "results" / "q3_逐时结果.csv", parse_dates=["date"])
-    q43i = pd.read_csv(root / "results" / "q4_3_逐时结果.csv", parse_dates=["date"])
-    metrics = json.loads((root / "results" / "核心指标.json").read_text(encoding="utf-8"))
+    q1 = pd.read_csv(results / "问题1_逐时结果.csv")
+    q2d = pd.read_csv(results / "q2_每日汇总.csv", parse_dates=["date"])
+    q3d = pd.read_csv(results / "q3_每日汇总.csv", parse_dates=["date"])
+    q42d = pd.read_csv(results / "q4_2_每日汇总.csv", parse_dates=["date"])
+    q43d = pd.read_csv(results / "q4_3_每日汇总.csv", parse_dates=["date"])
+    q2i = pd.read_csv(results / "q2_逐时结果.csv", parse_dates=["date"])
+    q3i = pd.read_csv(results / "q3_逐时结果.csv", parse_dates=["date"])
+    q43i = pd.read_csv(results / "q4_3_逐时结果.csv", parse_dates=["date"])
+    metrics = json.loads((results / "核心指标.json").read_text(encoding="utf-8"))
     hours = np.arange(144) / 6.0
 
     # raw q1: typical profiles
@@ -162,7 +171,8 @@ def main() -> int:
     export_checked(fig, figures, "raw_q2_pv_load_relation", (4.65,3.65))
 
     # process q2: strict-causal load forecast validation
-    load_point, _ = build_analog_forecasts(data.actual_load_kw, data.typical_load_kw, weekday_weight=True)
+    forecast_model = metrics.get("forecast_model", "F1")
+    load_point = build_forecast_archive(data)[forecast_model]["load_kw"]
     start = int(np.flatnonzero(data.dates == pd.Timestamp("2025-02-01"))[0])
     truth = data.actual_load_kw[start:].reshape(-1)
     pred = load_point[start:].reshape(-1)
@@ -227,9 +237,7 @@ def main() -> int:
     export_checked(fig, figures, "process_q3_contract_updates", (6.3, 3.55))
 
     # result q3: paired daily comparison
-    q30 = pd.read_csv(root/"results/experiments/q3_0h_daily.csv", parse_dates=["date"])
-    q36 = pd.read_csv(root/"results/experiments/q3_6h_daily.csv", parse_dates=["date"])
-    merged = q30[q30.date>="2025-02-01"].merge(q36[q36.date>="2025-02-01"], on="date", suffixes=("_q2", "_q3"))
+    merged = q2d.merge(q3d, on="date", suffixes=("_q2", "_q3"))
     assert len(merged)==334
     x = merged["cash_cost_yuan_q2"] / 10000
     y = merged["cash_cost_yuan_q3"] / 10000
@@ -240,7 +248,7 @@ def main() -> int:
     ax.plot([low, high], [low, high], color=COLORS["contrast"], ls="--", lw=1.0)
     better = float(np.mean(y < x) * 100)
     ax.text(0.03, 0.96, f"费用下降天数占比={better:.1f}%", transform=ax.transAxes, va="top")
-    ax.set(xlabel="相同0时信息、仅0时规划 (万元/日)", ylabel="每6小时更新 (万元/日)", xlim=(low*.95, high*1.05), ylim=(low*.95, high*1.05))
+    ax.set(xlabel="日前无调整策略 (万元/日)", ylabel="官方预测滚动更新策略 (万元/日)", xlim=(low*.95, high*1.05), ylim=(low*.95, high*1.05))
     cbar = fig.colorbar(sc, ax=ax, pad=0.02)
     cbar.set_label("应急电量降幅 (MWh/日)")
     export_checked(fig, figures, "result_q3_adjustment_benefit", (4.65, 3.75))
@@ -284,49 +292,17 @@ def main() -> int:
     axes[1].set_xlabel("价格与调整策略")
     fixed_saving = 100 * (costs[0] - costs[1]) / costs[0]
     variable_saving = 100 * (costs[2] - costs[3]) / costs[2]
-    axes[0].text(0.5, costs[:2].max() * 1.03, f"节约 {fixed_saving:.1f}%", ha="center")
-    axes[0].text(2.5, costs[2:].max() * 1.03, f"节约 {variable_saving:.1f}%", ha="center")
+    def cost_change_label(saving_percent: float) -> str:
+        if saving_percent >= 0:
+            return f"节约 {saving_percent:.1f}%"
+        return f"费用增加 {-saving_percent:.1f}%"
+
+    axes[0].text(0.5, costs[:2].max() * 1.03, cost_change_label(fixed_saving), ha="center")
+    axes[0].text(2.5, costs[2:].max() * 1.03, cost_change_label(variable_saving), ha="center")
     axes[0].set_ylim(0, costs.max() * 1.16)
     axes[1].set_ylim(0, emergency.max() * 1.12)
     add_panel_labels(axes, x_offset_pt=-7)
     export_checked(fig, figures, "result_q4_strategy_comparison", (6.3, 4.55))
-
-    experiments=pd.read_csv(root/"results/experiments/实验总表.csv").set_index("name")
-    b=experiments.loc[["q2_safe","q2_point","q2_typical","q2_no_storage"]]
-    fig,ax=plt.subplots(figsize=(6.3,3.5),layout="constrained")
-    labs=["主策略","点预测","典型日","无储能"]
-    ax.bar(labs,b.settlement_yuan/1e6,color=COLORS["purchase"],label="合同结算")
-    ax.bar(labs,b.emergency_yuan/1e6,bottom=b.settlement_yuan/1e6,color=COLORS["neutral"],label="应急购电")
-    ax.set(xlabel="日前策略",ylabel="334日费用 (百万元)",ylim=(0,32))
-    ax.legend(ncol=2,loc="upper left")
-    export_checked(fig,figures,"result_q2_baselines",(6.3,3.5))
-
-    fig,axes=plt.subplots(2,1,figsize=(6.3,4.5),layout="constrained",sharex=True,height_ratios=[1.2,1])
-    for prefix,label,color,marker,offset in (("q3","固定价",COLORS["purchase"],"o",-.08),("q43","变价",COLORS["neutral"],"s",.08)):
-        b=experiments.loc[[f"{prefix}_{k}" for k in ("0h","12h","6h","2h")]]
-        for ax,col in zip(axes,("cash_cost_yuan","alternative_cash_cost_yuan")):
-            ax.scatter(np.arange(4)+offset,b[col]/1e6,color=color,marker=marker,s=28,label=label)
-            ax.set_ylabel("费用 (百万元)")
-    axes[0].legend(ncol=2,loc="upper right")
-    axes[0].text(.02,.1,"主结算规则",transform=axes[0].transAxes)
-    axes[1].text(.02,.1,"替代规则：同策略重计费",transform=axes[1].transAxes)
-    axes[1].set_xticks(range(4),["仅0时","0/12时","每6小时","每2小时*"])
-    axes[1].set_xlabel("更新集合（*中间时刻为因果预测修正）")
-    add_panel_labels(axes,x_offset_pt=-7)
-    export_checked(fig,figures,"result_q3_update_frequency",(6.3,4.5))
-
-    fig,axes=plt.subplots(2,1,figsize=(6.3,4.5),layout="constrained",sharex=True,height_ratios=[1.2,1])
-    for prefix,base,label,color,style in (("q2","q2_safe","固定价日前",COLORS["purchase"],"-o"),("q43","q43_6h","变价滚动",COLORS["neutral"],"--s")):
-        names=[base if a==.8 else f"{prefix}_alpha_{a:.2f}" for a in (.7,.75,.8,.85,.9,.95)]
-        b=experiments.loc[names]
-        axes[0].plot(b.alpha,b.cash_cost_yuan/1e6,style,color=color,label=label,markersize=3)
-        axes[1].plot(b.alpha,b.emergency_kwh/1000,style,color=color,markersize=3)
-    axes[0].set_ylabel("费用 (百万元)")
-    axes[1].set(xlabel="保守分位数参数 alpha",ylabel="应急电量 (MWh)")
-    axes[0].legend(ncol=2,loc="upper right")
-    for ax in axes: ax.axvline(.8,color=COLORS["neutral"],ls=":",lw=.8)
-    add_panel_labels(axes,x_offset_pt=-7)
-    export_checked(fig,figures,"result_q4_alpha_sensitivity",(6.3,4.5))
 
     stats = pd.DataFrame(
         [
@@ -341,8 +317,8 @@ def main() -> int:
             {"figure": "result_q4_strategy_comparison", "metric": "variable_price_saving_percent", "value": variable_saving},
         ]
     )
-    stats.to_csv(root / "results" / "图表统计.csv", index=False, encoding="utf-8-sig")
-    print(f"Generated 16 logical figures in {figures}")
+    stats.to_csv(results / "图表统计.csv", index=False, encoding="utf-8-sig")
+    print(f"Generated 13 logical figures in {figures} from {results}")
     return 0
 
 

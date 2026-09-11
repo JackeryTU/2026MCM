@@ -33,6 +33,10 @@ Thumbs.db
 *.bak
 ~$*
 
+# 可恢复的本地清理归档：只跟踪说明，不把 160 MiB 旧副本重新纳入仓库
+archive/cleanup_20260912/**
+!archive/cleanup_20260912/README.md
+
 # 注意：不要全局忽略 *.pdf；参考初稿和提交 PDF 需要纳入版本管理。
 # 大体积附件是否使用 Git LFS，应在确认实际文件大小后决定。
 

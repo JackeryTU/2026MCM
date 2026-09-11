@@ -1,0 +1,155 @@
+{
+  "command": "python -X utf8 reproduce_programmer_v2.py --project-root . --output-dir results_versioned/programmer_v2_final --figures-dir figures_versioned/programmer_v2_final",
+  "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "packages": {
+    "numpy": "2.4.1",
+    "pandas": "3.0.0",
+    "scipy": "1.17.0",
+    "sklearn": "1.8.0"
+  },
+  "seed": 2026,
+  "parameters": {
+    "alpha": 0.8,
+    "risk_mode": "unclustered",
+    "controller": "mpc",
+    "mpc_horizon_slots": 36,
+    "tracking_weight": 0.01,
+    "eta_charge": 0.9,
+    "eta_discharge": 0.9,
+    "soc_min_kwh": 1200,
+    "soc_max_kwh": 10800,
+    "power_limit_kw": 5000
+  },
+  "input_files": [
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\过程归档\\04_独立复现\\programmer_v2_p2\\data\\C题.pdf",
+      "size_bytes": 354389,
+      "modified_time_ns": 1789037892594912000
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\过程归档\\04_独立复现\\programmer_v2_p2\\data\\附件\\附件1.xlsx",
+      "size_bytes": 16003,
+      "modified_time_ns": 1789037892616492800
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\过程归档\\04_独立复现\\programmer_v2_p2\\data\\附件\\附件2.xlsx",
+      "size_bytes": 907128,
+      "modified_time_ns": 1789037892643719300
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\过程归档\\04_独立复现\\programmer_v2_p2\\data\\附件\\附件3.xlsx",
+      "size_bytes": 293526,
+      "modified_time_ns": 1789037892659510500
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\过程归档\\04_独立复现\\programmer_v2_p2\\data\\附件\\附件4.xlsx",
+      "size_bytes": 409790,
+      "modified_time_ns": 1789037892675557100
+    }
+  ],
+  "hash_checks": "omitted per explicit user request; reproducibility snapshot uses absolute path, byte size and modification time only",
+  "outputs": [
+    "results_versioned\\programmer_v2_final\\manifest_nohash.json",
+    "results_versioned\\programmer_v2_final\\q2_每日汇总.csv",
+    "results_versioned\\programmer_v2_final\\q2_逐时结果.csv",
+    "results_versioned\\programmer_v2_final\\q3_每日汇总.csv",
+    "results_versioned\\programmer_v2_final\\q3_逐时结果.csv",
+    "results_versioned\\programmer_v2_final\\q4_2_每日汇总.csv",
+    "results_versioned\\programmer_v2_final\\q4_2_逐时结果.csv",
+    "results_versioned\\programmer_v2_final\\q4_3_每日汇总.csv",
+    "results_versioned\\programmer_v2_final\\q4_3_逐时结果.csv",
+    "results_versioned\\programmer_v2_final\\result1.xlsx",
+    "results_versioned\\programmer_v2_final\\result2.xlsx",
+    "results_versioned\\programmer_v2_final\\result3.xlsx",
+    "results_versioned\\programmer_v2_final\\result4-2.xlsx",
+    "results_versioned\\programmer_v2_final\\result4-3.xlsx",
+    "results_versioned\\programmer_v2_final\\主运行记录.json",
+    "results_versioned\\programmer_v2_final\\代表日历次更新.csv",
+    "results_versioned\\programmer_v2_final\\典型日汇总.csv",
+    "results_versioned\\programmer_v2_final\\原始数据剖析.csv",
+    "results_versioned\\programmer_v2_final\\图表统计.csv",
+    "results_versioned\\programmer_v2_final\\复现清单.json",
+    "results_versioned\\programmer_v2_final\\工作簿审计.json",
+    "results_versioned\\programmer_v2_final\\核心指标.json",
+    "results_versioned\\programmer_v2_final\\表1_代表日购电.csv",
+    "results_versioned\\programmer_v2_final\\表2_代表日储能.csv",
+    "results_versioned\\programmer_v2_final\\表3_代表日应急.csv",
+    "results_versioned\\programmer_v2_final\\问题1_四小时汇总.csv",
+    "results_versioned\\programmer_v2_final\\问题1_逐时结果.csv",
+    "results_versioned\\programmer_v2_final\\预测误差指标.csv",
+    "figures_versioned\\programmer_v2_final\\_qa\\process_q1_price_dispatch_grayscale.png",
+    "figures_versioned\\programmer_v2_final\\_qa\\process_q2_forecast_validation_grayscale.png",
+    "figures_versioned\\programmer_v2_final\\_qa\\process_q3_contract_updates_grayscale.png",
+    "figures_versioned\\programmer_v2_final\\_qa\\process_q4_price_dispatch_grayscale.png",
+    "figures_versioned\\programmer_v2_final\\_qa\\raw_q1_typical_profiles_grayscale.png",
+    "figures_versioned\\programmer_v2_final\\_qa\\raw_q2_annual_netload_grayscale.png",
+    "figures_versioned\\programmer_v2_final\\_qa\\raw_q2_pv_load_relation_grayscale.png",
+    "figures_versioned\\programmer_v2_final\\_qa\\raw_q3_forecast_error_grayscale.png",
+    "figures_versioned\\programmer_v2_final\\_qa\\raw_q4_price_variability_grayscale.png",
+    "figures_versioned\\programmer_v2_final\\_qa\\result_q1_optimal_schedule_grayscale.png",
+    "figures_versioned\\programmer_v2_final\\_qa\\result_q2_annual_risk_grayscale.png",
+    "figures_versioned\\programmer_v2_final\\_qa\\result_q3_adjustment_benefit_grayscale.png",
+    "figures_versioned\\programmer_v2_final\\_qa\\result_q4_strategy_comparison_grayscale.png",
+    "figures_versioned\\programmer_v2_final\\process_q1_price_dispatch.png",
+    "figures_versioned\\programmer_v2_final\\process_q1_price_dispatch.svg",
+    "figures_versioned\\programmer_v2_final\\process_q2_forecast_validation.png",
+    "figures_versioned\\programmer_v2_final\\process_q2_forecast_validation.svg",
+    "figures_versioned\\programmer_v2_final\\process_q3_contract_updates.png",
+    "figures_versioned\\programmer_v2_final\\process_q3_contract_updates.svg",
+    "figures_versioned\\programmer_v2_final\\process_q4_price_dispatch.png",
+    "figures_versioned\\programmer_v2_final\\process_q4_price_dispatch.svg",
+    "figures_versioned\\programmer_v2_final\\raw_q1_typical_profiles.png",
+    "figures_versioned\\programmer_v2_final\\raw_q1_typical_profiles.svg",
+    "figures_versioned\\programmer_v2_final\\raw_q2_annual_netload.png",
+    "figures_versioned\\programmer_v2_final\\raw_q2_annual_netload.svg",
+    "figures_versioned\\programmer_v2_final\\raw_q2_pv_load_relation.png",
+    "figures_versioned\\programmer_v2_final\\raw_q2_pv_load_relation.svg",
+    "figures_versioned\\programmer_v2_final\\raw_q3_forecast_error.png",
+    "figures_versioned\\programmer_v2_final\\raw_q3_forecast_error.svg",
+    "figures_versioned\\programmer_v2_final\\raw_q4_price_variability.png",
+    "figures_versioned\\programmer_v2_final\\raw_q4_price_variability.svg",
+    "figures_versioned\\programmer_v2_final\\result_q1_optimal_schedule.png",
+    "figures_versioned\\programmer_v2_final\\result_q1_optimal_schedule.svg",
+    "figures_versioned\\programmer_v2_final\\result_q2_annual_risk.png",
+    "figures_versioned\\programmer_v2_final\\result_q2_annual_risk.svg",
+    "figures_versioned\\programmer_v2_final\\result_q3_adjustment_benefit.png",
+    "figures_versioned\\programmer_v2_final\\result_q3_adjustment_benefit.svg",
+    "figures_versioned\\programmer_v2_final\\result_q4_strategy_comparison.png",
+    "figures_versioned\\programmer_v2_final\\result_q4_strategy_comparison.svg"
+  ],
+  "runtime_seconds": 2215.087625026703,
+  "source_files": [
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\过程归档\\04_独立复现\\programmer_v2_p2\\microgrid_core.py",
+      "size_bytes": 64653,
+      "modified_time_ns": 1789132674028371500
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\过程归档\\04_独立复现\\programmer_v2_p2\\run_all.py",
+      "size_bytes": 26886,
+      "modified_time_ns": 1789132646094345300
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\过程归档\\04_独立复现\\programmer_v2_p2\\evaluate_results.py",
+      "size_bytes": 6830,
+      "modified_time_ns": 1789130302557964500
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\过程归档\\04_独立复现\\programmer_v2_p2\\audit_results.py",
+      "size_bytes": 8109,
+      "modified_time_ns": 1789136024814084300
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\过程归档\\04_独立复现\\programmer_v2_p2\\plot_all.py",
+      "size_bytes": 18187,
+      "modified_time_ns": 1789139781879498100
+    },
+    {
+      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reviews\\过程归档\\04_独立复现\\programmer_v2_p2\\reproduce_programmer_v2.py",
+      "size_bytes": 5318,
+      "modified_time_ns": 1789139953060596300
+    }
+  ],
+  "validation": "annual physical checks, official-workbook audit, per-file figure compliance, q1-q4 coverage audit; all commands must exit 0"
+}
