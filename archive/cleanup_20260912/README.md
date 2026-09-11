@@ -12,19 +12,17 @@
 - `reviews/过程归档/04_独立复现/p2_reproduction/`：旧版 P2 隔离复现副本；新版 `programmer_v2_p2/` 仍保留在活动审查区。
 - `reviews/过程归档/05_支撑包解压副本/reference_support_unpacked/`：重复解压副本；另一份核查副本仍保留。
 - `reviews/过程归档/06_工具临时产物/`：工具冒烟测试、临时导出和缓存。
-- `results_versioned/` 下 `programmer_v2_smoke/` 及三份 smoke／作者临时 JSON。
+- `results_versioned/` 下 `programmer_v2_smoke/` 及三份 smoke／作者临时 JSON；其中旧版临时结果已按本次清理要求删除，归档目录不再保留该子目录。
 - 根目录和 `utils/` 下的 Python 字节码缓存。
 
 整理时共移动 610 个文件，约 160.70 MiB。项目未按用户要求计算或比较任何哈希。
 
 ## 未归档的保护对象
 
-- `paper/normal/` 与 `paper/explained/` 的源码、12 张入文图和编译 PDF；
-- `results/`、`figures/`；
-- `results_versioned/programmer_v2_final/`、`figures_versioned/programmer_v2_final/`；
-- `results_versioned/selection/`；
+- 根目录的 `参考初稿-正常版-LaTeX/`、`参考初稿-详解版-LaTeX/` 及对应 PDF；两版均为 AI 辅助参考初稿，不是正式参赛论文；
+- `results/`、`figures/`，它们是当前唯一的活动结果和候选图目录；
 - `reviews/过程归档/01_验收回执/`、`02_规则与口径/`；
 - `reviews/过程归档/04_独立复现/programmer_v2_p2/`；
 - `reviews/过程归档/05_支撑包解压副本/support_unpack_check_20260911_0230/`。
 
-恢复时只移动明确需要的子项，并先确认目标位置不存在，避免覆盖当前文件。
+正式论文以后由论文手从空的 `paper/` 工作区重新建立。恢复旧稿或旧数据前，应先确认确有必要，并避免覆盖当前文件。
