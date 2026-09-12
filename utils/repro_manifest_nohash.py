@@ -41,7 +41,7 @@ def build_manifest(
 
     return {
         "schema_version": 2,
-        "hash_checks": "omitted per explicit user request; metadata is not content authentication",
+        "hash_checks": "omitted in L1 Lite; metadata is not content authentication",
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "random_seed": seed,
         "input_files": files,

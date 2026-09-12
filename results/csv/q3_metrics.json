@@ -1,0 +1,613 @@
+{
+  "days": 365,
+  "configs": [
+    {
+      "tag": "main",
+      "mode": "stratified",
+      "H": 36,
+      "allowed": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "updates": [
+        1,
+        2,
+        3
+      ],
+      "note": "主配置：分层储备 + H=36 + 三次调整",
+      "keep": true,
+      "metrics": {
+        "cash_total": 14968496.843265679,
+        "plan_kwh": 22886635.15205593,
+        "contract_kwh": 22881901.555786304,
+        "adjust_up_kwh": 525660.0277627781,
+        "adjust_down_kwh": 530393.6240324058,
+        "charge_kwh": 6733809.167002924,
+        "discharge_kwh": 5454385.425272369,
+        "unused_contract_kwh": 2058092.3600531733,
+        "emergency_kwh": 87488.7580637784,
+        "emergency_slots": 3331,
+        "S_min": 1200.0,
+        "S_max": 10800.0,
+        "S_end": 10800.0,
+        "updates": 1002,
+        "clip_charge": 1652,
+        "clip_discharge": 3948,
+        "fallback": 0,
+        "lp_ms_median": 4.459999996470287,
+        "lp_ms_p95": 16.53112499479903,
+        "lp_ms_max": 134.07050000387244
+      },
+      "coverage": {
+        "Ncov": 0.8943155355954757,
+        "pinball": 52.86139132500156,
+        "resid_MAE_kW": 217.1732781867168,
+        "resid_RMSE_kW": 296.7100240586232
+      },
+      "gates": {
+        "balance_max_kWh": 2.2737367544323206e-13,
+        "overlap_max_kWh": 0.0,
+        "charge_emergency_max_kWh": 2.2737367544323206e-13,
+        "bound_p": -0.0,
+        "bound_q": -0.0,
+        "bound_x": 4.092726157978177e-12,
+        "bound_y": 1.8189894035458565e-12,
+        "bound_v": -0.0,
+        "bound_u": -0.0,
+        "bound_w": -0.0,
+        "bound_S": 0.0,
+        "soc_chain_max_kWh": 0.0,
+        "soc_end_mismatch_kWh": 0.0,
+        "settle_flow_max_yuan": 2.9103830456733704e-11,
+        "official_days": 334
+      },
+      "S_end": 10800.0
+    },
+    {
+      "tag": "uniform",
+      "mode": "uniform",
+      "H": 36,
+      "allowed": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "updates": [
+        1,
+        2,
+        3
+      ],
+      "note": "对照：统一逐槽分位储备 + H=36",
+      "keep": true,
+      "metrics": {
+        "cash_total": 14906791.435054004,
+        "plan_kwh": 22679417.338920455,
+        "contract_kwh": 22674249.004658252,
+        "adjust_up_kwh": 526065.7635395564,
+        "adjust_down_kwh": 531234.0978017575,
+        "charge_kwh": 6751481.171367129,
+        "discharge_kwh": 5468756.918593876,
+        "unused_contract_kwh": 1888266.909242345,
+        "emergency_kwh": 106350.11507094195,
+        "emergency_slots": 4492,
+        "S_min": 1200.0,
+        "S_max": 10800.0,
+        "S_end": 10736.478014999999,
+        "updates": 1002,
+        "clip_charge": 1849,
+        "clip_discharge": 3810,
+        "fallback": 0,
+        "lp_ms_median": 4.474650006159209,
+        "lp_ms_p95": 16.097049992822576,
+        "lp_ms_max": 124.89019997883588
+      },
+      "coverage": {
+        "Ncov": 0.8655189620758483,
+        "pinball": 52.9435254839372,
+        "resid_MAE_kW": 217.1732781867168,
+        "resid_RMSE_kW": 296.7100240586232
+      },
+      "gates": {
+        "balance_max_kWh": 2.2737367544323206e-13,
+        "overlap_max_kWh": 0.0,
+        "charge_emergency_max_kWh": 2.2737367544323206e-13,
+        "bound_p": -0.0,
+        "bound_q": -0.0,
+        "bound_x": 2.0463630789890885e-12,
+        "bound_y": 1.8189894035458565e-12,
+        "bound_v": -0.0,
+        "bound_u": -0.0,
+        "bound_w": -0.0,
+        "bound_S": 0.0,
+        "soc_chain_max_kWh": 0.0,
+        "soc_end_mismatch_kWh": 0.0,
+        "settle_flow_max_yuan": 1.4551915228366852e-11,
+        "official_days": 334
+      },
+      "S_end": 10736.478014999999
+    },
+    {
+      "tag": "h72",
+      "mode": "stratified",
+      "H": 72,
+      "allowed": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "updates": [
+        1,
+        2,
+        3
+      ],
+      "note": "对照：分层储备 + H=72",
+      "keep": true,
+      "metrics": {
+        "cash_total": 14966969.648486722,
+        "plan_kwh": 22886635.15205593,
+        "contract_kwh": 22880277.09804903,
+        "adjust_up_kwh": 524127.8019401963,
+        "adjust_down_kwh": 530485.8559470971,
+        "charge_kwh": 6734242.193440994,
+        "discharge_kwh": 5454736.176687206,
+        "unused_contract_kwh": 2058020.211713868,
+        "emergency_kwh": 87755.20825595023,
+        "emergency_slots": 3337,
+        "S_min": 1200.0,
+        "S_max": 10800.0,
+        "S_end": 10800.0,
+        "updates": 1002,
+        "clip_charge": 1654,
+        "clip_discharge": 3948,
+        "fallback": 0,
+        "lp_ms_median": 6.447299994761124,
+        "lp_ms_p95": 21.56134999677306,
+        "lp_ms_max": 127.22180000855587
+      },
+      "coverage": {
+        "Ncov": 0.8943155355954757,
+        "pinball": 52.86139132500156,
+        "resid_MAE_kW": 217.1732781867168,
+        "resid_RMSE_kW": 296.7100240586232
+      },
+      "gates": {
+        "balance_max_kWh": 2.2737367544323206e-13,
+        "overlap_max_kWh": 0.0,
+        "charge_emergency_max_kWh": 2.2737367544323206e-13,
+        "bound_p": -0.0,
+        "bound_q": -0.0,
+        "bound_x": 4.092726157978177e-12,
+        "bound_y": 1.8189894035458565e-12,
+        "bound_v": -0.0,
+        "bound_u": -0.0,
+        "bound_w": -0.0,
+        "bound_S": 0.0,
+        "soc_chain_max_kWh": 0.0,
+        "soc_end_mismatch_kWh": 0.0,
+        "settle_flow_max_yuan": 2.9103830456733704e-11,
+        "official_days": 334
+      },
+      "S_end": 10800.0
+    },
+    {
+      "tag": "abl_none",
+      "mode": "stratified",
+      "H": 36,
+      "allowed": [
+        0
+      ],
+      "updates": [],
+      "note": "消融 空集：仅 0:00 预报，仍共享每 10 min 重算机会",
+      "keep": false,
+      "metrics": {
+        "cash_total": 15587243.578201748,
+        "plan_kwh": 23937009.857311644,
+        "contract_kwh": 23937009.857311644,
+        "adjust_up_kwh": 0.0,
+        "adjust_down_kwh": 0.0,
+        "charge_kwh": 7038381.753853209,
+        "discharge_kwh": 5701089.2206211,
+        "unused_contract_kwh": 2791107.6953681037,
+        "emergency_kwh": 142668.74786883942,
+        "emergency_slots": 2964,
+        "S_min": 1200.0,
+        "S_max": 10800.0,
+        "S_end": 10800.0,
+        "updates": 0,
+        "clip_charge": 1986,
+        "clip_discharge": 4051,
+        "fallback": 0,
+        "lp_ms_median": 4.263750015525147,
+        "lp_ms_p95": 16.34972498868592,
+        "lp_ms_max": 118.17819997668266
+      },
+      "coverage": {
+        "Ncov": 0.8968937125748503,
+        "pinball": 78.27435296100924,
+        "resid_MAE_kW": 310.99072945504827,
+        "resid_RMSE_kW": 455.14556505136665
+      },
+      "gates": {
+        "balance_max_kWh": 2.2737367544323206e-13,
+        "overlap_max_kWh": 0.0,
+        "charge_emergency_max_kWh": 2.2737367544323206e-13,
+        "bound_p": -0.0,
+        "bound_q": -0.0,
+        "bound_x": 4.092726157978177e-12,
+        "bound_y": 2.2737367544323206e-13,
+        "bound_v": -0.0,
+        "bound_u": -0.0,
+        "bound_w": -0.0,
+        "bound_S": 0.0,
+        "soc_chain_max_kWh": 0.0,
+        "soc_end_mismatch_kWh": 0.0,
+        "settle_flow_max_yuan": 1.4551915228366852e-11,
+        "official_days": 334
+      }
+    },
+    {
+      "tag": "abl_1",
+      "mode": "stratified",
+      "H": 36,
+      "allowed": [
+        0,
+        1
+      ],
+      "updates": [
+        1
+      ],
+      "note": "消融 {6}",
+      "keep": false,
+      "metrics": {
+        "cash_total": 15324029.746438863,
+        "plan_kwh": 23212522.088690016,
+        "contract_kwh": 23176400.39634803,
+        "adjust_up_kwh": 498880.25354802253,
+        "adjust_down_kwh": 535001.9458900057,
+        "charge_kwh": 6709892.068287106,
+        "discharge_kwh": 5435012.575312557,
+        "unused_contract_kwh": 2358779.4959013257,
+        "emergency_kwh": 113901.88966935752,
+        "emergency_slots": 3210,
+        "S_min": 1200.0,
+        "S_max": 10800.0,
+        "S_end": 10800.0,
+        "updates": 334,
+        "clip_charge": 1842,
+        "clip_discharge": 4058,
+        "fallback": 0,
+        "lp_ms_median": 4.550849989755079,
+        "lp_ms_p95": 16.58454999414971,
+        "lp_ms_max": 100.26840001228265
+      },
+      "coverage": {
+        "Ncov": 0.8947105788423154,
+        "pinball": 60.37254814766962,
+        "resid_MAE_kW": 245.2407902146633,
+        "resid_RMSE_kW": 341.79327384262825
+      },
+      "gates": {
+        "balance_max_kWh": 2.2737367544323206e-13,
+        "overlap_max_kWh": 0.0,
+        "charge_emergency_max_kWh": 2.2737367544323206e-13,
+        "bound_p": -0.0,
+        "bound_q": -0.0,
+        "bound_x": 2.0463630789890885e-12,
+        "bound_y": 1.0231815394945443e-12,
+        "bound_v": -0.0,
+        "bound_u": -0.0,
+        "bound_w": -0.0,
+        "bound_S": 0.0,
+        "soc_chain_max_kWh": 0.0,
+        "soc_end_mismatch_kWh": 0.0,
+        "settle_flow_max_yuan": 1.4551915228366852e-11,
+        "official_days": 334
+      }
+    },
+    {
+      "tag": "abl_2",
+      "mode": "stratified",
+      "H": 36,
+      "allowed": [
+        0,
+        2
+      ],
+      "updates": [
+        2
+      ],
+      "note": "消融 {12}",
+      "keep": false,
+      "metrics": {
+        "cash_total": 15178645.359031428,
+        "plan_kwh": 23247894.99532724,
+        "contract_kwh": 23296983.356966645,
+        "adjust_up_kwh": 342749.85998378805,
+        "adjust_down_kwh": 293661.4983443889,
+        "charge_kwh": 6843461.0782692935,
+        "discharge_kwh": 5543203.4733981285,
+        "unused_contract_kwh": 2327679.4016949856,
+        "emergency_kwh": 86403.22089438923,
+        "emergency_slots": 2948,
+        "S_min": 1200.0,
+        "S_max": 10800.0,
+        "S_end": 10800.0,
+        "updates": 334,
+        "clip_charge": 1839,
+        "clip_discharge": 3976,
+        "fallback": 0,
+        "lp_ms_median": 4.491900006541982,
+        "lp_ms_p95": 16.28565001010429,
+        "lp_ms_max": 191.31369999377057
+      },
+      "coverage": {
+        "Ncov": 0.8953759148369926,
+        "pinball": 62.74748750116346,
+        "resid_MAE_kW": 251.44319708493896,
+        "resid_RMSE_kW": 360.6052977611312
+      },
+      "gates": {
+        "balance_max_kWh": 2.2737367544323206e-13,
+        "overlap_max_kWh": 0.0,
+        "charge_emergency_max_kWh": 2.2737367544323206e-13,
+        "bound_p": -0.0,
+        "bound_q": -0.0,
+        "bound_x": 4.092726157978177e-12,
+        "bound_y": 1.8189894035458565e-12,
+        "bound_v": -0.0,
+        "bound_u": -0.0,
+        "bound_w": -0.0,
+        "bound_S": 0.0,
+        "soc_chain_max_kWh": 0.0,
+        "soc_end_mismatch_kWh": 0.0,
+        "settle_flow_max_yuan": 1.4551915228366852e-11,
+        "official_days": 334
+      }
+    },
+    {
+      "tag": "abl_3",
+      "mode": "stratified",
+      "H": 36,
+      "allowed": [
+        0,
+        3
+      ],
+      "updates": [
+        3
+      ],
+      "note": "消融 {18}",
+      "keep": false,
+      "metrics": {
+        "cash_total": 15281353.413587226,
+        "plan_kwh": 23922276.24167073,
+        "contract_kwh": 23983190.824554868,
+        "adjust_up_kwh": 65781.28415236143,
+        "adjust_down_kwh": 4866.701268223999,
+        "charge_kwh": 7178128.552720444,
+        "discharge_kwh": 5814291.116402394,
+        "unused_contract_kwh": 2661927.3482061382,
+        "emergency_kwh": 95155.807646974,
+        "emergency_slots": 3046,
+        "S_min": 1200.0,
+        "S_max": 10800.0,
+        "S_end": 10792.234779073642,
+        "updates": 334,
+        "clip_charge": 1892,
+        "clip_discharge": 3951,
+        "fallback": 0,
+        "lp_ms_median": 4.76709999202285,
+        "lp_ms_p95": 16.188850007893052,
+        "lp_ms_max": 101.37109999777749
+      },
+      "coverage": {
+        "Ncov": 0.8952511643379907,
+        "pinball": 75.78254602634895,
+        "resid_MAE_kW": 310.92616846975034,
+        "resid_RMSE_kW": 455.10719184957645
+      },
+      "gates": {
+        "balance_max_kWh": 2.2737367544323206e-13,
+        "overlap_max_kWh": 0.0,
+        "charge_emergency_max_kWh": 2.2737367544323206e-13,
+        "bound_p": -0.0,
+        "bound_q": -0.0,
+        "bound_x": 2.2737367544323206e-12,
+        "bound_y": 1.8189894035458565e-12,
+        "bound_v": -0.0,
+        "bound_u": -0.0,
+        "bound_w": -0.0,
+        "bound_S": 0.0,
+        "soc_chain_max_kWh": 0.0,
+        "soc_end_mismatch_kWh": 0.0,
+        "settle_flow_max_yuan": 1.4551915228366852e-11,
+        "official_days": 334
+      }
+    },
+    {
+      "tag": "abl_1_2",
+      "mode": "stratified",
+      "H": 36,
+      "allowed": [
+        0,
+        1,
+        2
+      ],
+      "updates": [
+        1,
+        2
+      ],
+      "note": "消融 {6,12}",
+      "keep": false,
+      "metrics": {
+        "cash_total": 15010282.406692263,
+        "plan_kwh": 22897627.64048758,
+        "contract_kwh": 22883641.41665446,
+        "adjust_up_kwh": 515315.9482908705,
+        "adjust_down_kwh": 529302.172123994,
+        "charge_kwh": 6713082.01605152,
+        "discharge_kwh": 5437596.433001731,
+        "unused_contract_kwh": 2076124.463307304,
+        "emergency_kwh": 92337.00850578333,
+        "emergency_slots": 3299,
+        "S_min": 1200.0,
+        "S_max": 10800.0,
+        "S_end": 10800.0,
+        "updates": 668,
+        "clip_charge": 1713,
+        "clip_discharge": 3990,
+        "fallback": 0,
+        "lp_ms_median": 4.226149991154671,
+        "lp_ms_p95": 12.563300006149802,
+        "lp_ms_max": 81.59689998137765
+      },
+      "coverage": {
+        "Ncov": 0.893920492348636,
+        "pinball": 52.980893791640135,
+        "resid_MAE_kW": 217.18837188086792,
+        "resid_RMSE_kW": 296.74640944231714
+      },
+      "gates": {
+        "balance_max_kWh": 2.2737367544323206e-13,
+        "overlap_max_kWh": 0.0,
+        "charge_emergency_max_kWh": 2.2737367544323206e-13,
+        "bound_p": -0.0,
+        "bound_q": -0.0,
+        "bound_x": 2.0463630789890885e-12,
+        "bound_y": 1.8189894035458565e-12,
+        "bound_v": -0.0,
+        "bound_u": -0.0,
+        "bound_w": -0.0,
+        "bound_S": 0.0,
+        "soc_chain_max_kWh": 0.0,
+        "soc_end_mismatch_kWh": 0.0,
+        "settle_flow_max_yuan": 1.4551915228366852e-11,
+        "official_days": 334
+      }
+    },
+    {
+      "tag": "abl_1_3",
+      "mode": "stratified",
+      "H": 36,
+      "allowed": [
+        0,
+        1,
+        3
+      ],
+      "updates": [
+        1,
+        3
+      ],
+      "note": "消融 {6,18}",
+      "keep": false,
+      "metrics": {
+        "cash_total": 15199272.581073053,
+        "plan_kwh": 23189712.85165236,
+        "contract_kwh": 23184730.51000738,
+        "adjust_up_kwh": 533402.6042388419,
+        "adjust_down_kwh": 538384.9458838217,
+        "charge_kwh": 6779734.695917074,
+        "discharge_kwh": 5491585.103692831,
+        "unused_contract_kwh": 2308496.4610009855,
+        "emergency_kwh": 96972.22305411095,
+        "emergency_slots": 3309,
+        "S_min": 1200.0,
+        "S_max": 10800.0,
+        "S_end": 10800.0,
+        "updates": 668,
+        "clip_charge": 1735,
+        "clip_discharge": 3953,
+        "fallback": 0,
+        "lp_ms_median": 3.708950011059642,
+        "lp_ms_p95": 6.828825018601492,
+        "lp_ms_max": 80.63279997440986
+      },
+      "coverage": {
+        "Ncov": 0.89416999334664,
+        "pinball": 59.565395486869306,
+        "resid_MAE_kW": 245.16587213039196,
+        "resid_RMSE_kW": 341.72402630326826
+      },
+      "gates": {
+        "balance_max_kWh": 2.2737367544323206e-13,
+        "overlap_max_kWh": 0.0,
+        "charge_emergency_max_kWh": 2.2737367544323206e-13,
+        "bound_p": -0.0,
+        "bound_q": -0.0,
+        "bound_x": 2.0463630789890885e-12,
+        "bound_y": 2.2737367544323206e-13,
+        "bound_v": -0.0,
+        "bound_u": -0.0,
+        "bound_w": -0.0,
+        "bound_S": 0.0,
+        "soc_chain_max_kWh": 0.0,
+        "soc_end_mismatch_kWh": 0.0,
+        "settle_flow_max_yuan": 1.4551915228366852e-11,
+        "official_days": 334
+      }
+    },
+    {
+      "tag": "abl_2_3",
+      "mode": "stratified",
+      "H": 36,
+      "allowed": [
+        0,
+        2,
+        3
+      ],
+      "updates": [
+        2,
+        3
+      ],
+      "note": "消融 {12,18}",
+      "keep": false,
+      "metrics": {
+        "cash_total": 15086848.61833207,
+        "plan_kwh": 23231935.891309682,
+        "contract_kwh": 23281575.361139223,
+        "adjust_up_kwh": 347518.56613078,
+        "adjust_down_kwh": 297879.0963012357,
+        "charge_kwh": 6912046.6174498275,
+        "discharge_kwh": 5598767.680996308,
+        "unused_contract_kwh": 2235196.2940855613,
+        "emergency_kwh": 81150.49726952834,
+        "emergency_slots": 3096,
+        "S_min": 1200.0,
+        "S_max": 10800.0,
+        "S_end": 10788.97682005759,
+        "updates": 668,
+        "clip_charge": 1796,
+        "clip_discharge": 3915,
+        "fallback": 0,
+        "lp_ms_median": 4.02330000360962,
+        "lp_ms_p95": 6.818474997999147,
+        "lp_ms_max": 88.76669997698627
+      },
+      "coverage": {
+        "Ncov": 0.8939620758483033,
+        "pinball": 61.41432748224054,
+        "resid_MAE_kW": 251.42810339078784,
+        "resid_RMSE_kW": 360.5753563866443
+      },
+      "gates": {
+        "balance_max_kWh": 2.2737367544323206e-13,
+        "overlap_max_kWh": 0.0,
+        "charge_emergency_max_kWh": 2.2737367544323206e-13,
+        "bound_p": -0.0,
+        "bound_q": -0.0,
+        "bound_x": 4.092726157978177e-12,
+        "bound_y": 1.8189894035458565e-12,
+        "bound_v": -0.0,
+        "bound_u": -0.0,
+        "bound_w": -0.0,
+        "bound_S": 0.0,
+        "soc_chain_max_kWh": 0.0,
+        "soc_end_mismatch_kWh": 0.0,
+        "settle_flow_max_yuan": 1.4551915228366852e-11,
+        "official_days": 334
+      }
+    }
+  ]
+}

@@ -1,155 +1,52 @@
 {
-  "command": "python -X utf8 reproduce_programmer_v2.py --project-root . --output-dir results --figures-dir figures",
-  "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
-  "platform": "Windows-11-10.0.26200-SP0",
-  "packages": {
-    "numpy": "2.4.1",
-    "pandas": "3.0.0",
-    "scipy": "1.17.0",
-    "sklearn": "1.8.0"
-  },
-  "seed": 2026,
-  "parameters": {
-    "alpha": 0.8,
-    "risk_mode": "unclustered",
-    "controller": "mpc",
-    "mpc_horizon_slots": 36,
-    "tracking_weight": 0.01,
-    "eta_charge": 0.9,
-    "eta_discharge": 0.9,
-    "soc_min_kwh": 1200,
-    "soc_max_kwh": 10800,
-    "power_limit_kw": 5000
-  },
-  "input_files": [
-    {
-      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\data\\C题.pdf",
-      "size_bytes": 354389,
-      "modified_time_ns": 1789037892594912000
-    },
-    {
-      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\data\\附件\\附件1.xlsx",
-      "size_bytes": 16003,
-      "modified_time_ns": 1789037892616492800
-    },
-    {
-      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\data\\附件\\附件2.xlsx",
-      "size_bytes": 907128,
-      "modified_time_ns": 1789037892643719400
-    },
-    {
-      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\data\\附件\\附件3.xlsx",
-      "size_bytes": 293526,
-      "modified_time_ns": 1789037892659510500
-    },
-    {
-      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\data\\附件\\附件4.xlsx",
-      "size_bytes": 409790,
-      "modified_time_ns": 1789037892675557000
+  "schema_version": 3,
+  "hash_checks": "omitted in L1 Lite; metadata is not content authentication",
+  "updated_at_local": "2026-09-12T19:20:00+08:00",
+  "random_seed": 0,
+  "evaluation_window": "2025-02-01/2025-12-31",
+  "official_days": 334,
+  "runtime": {
+    "name": "python",
+    "version": "3.14.2",
+    "platform": "Windows 11",
+    "dependencies": {
+      "numpy": "2.4.1",
+      "pandas": "3.0.0",
+      "scipy": "1.17.0",
+      "openpyxl": "3.1.5"
     }
+  },
+  "key_parameters": {
+    "level": "L1 Lite",
+    "alpha": 0.9,
+    "W": 30,
+    "H": 36,
+    "Q2_executor": "mpc",
+    "Q3_updates_hour": [6, 12, 18],
+    "Q4_price_base": "median30",
+    "figures": false
+  },
+  "commands": [
+    "python 问题1_求解.py --no-figures",
+    "python 问题2_求解.py --no-figures --workers 4",
+    "python 问题3_求解.py --days 365 --workers 4",
+    "python 问题4_求解.py --days 365 --workers 4",
+    "python 补充敏感性计算.py --workers 4",
+    "python 汇总结果.py"
   ],
-  "hash_checks": "omitted per explicit user request; reproducibility snapshot uses absolute path, byte size and modification time only",
-  "outputs": [
-    "results\\manifest_nohash.json",
-    "results\\q2_每日汇总.csv",
-    "results\\q2_逐时结果.csv",
-    "results\\q3_每日汇总.csv",
-    "results\\q3_逐时结果.csv",
-    "results\\q4_2_每日汇总.csv",
-    "results\\q4_2_逐时结果.csv",
-    "results\\q4_3_每日汇总.csv",
-    "results\\q4_3_逐时结果.csv",
-    "results\\result1.xlsx",
-    "results\\result2.xlsx",
-    "results\\result3.xlsx",
-    "results\\result4-2.xlsx",
-    "results\\result4-3.xlsx",
-    "results\\主运行记录.json",
-    "results\\代表日历次更新.csv",
-    "results\\典型日汇总.csv",
-    "results\\原始数据剖析.csv",
-    "results\\图表统计.csv",
-    "results\\复现清单.json",
-    "results\\工作簿审计.json",
-    "results\\核心指标.json",
-    "results\\表1_代表日购电.csv",
-    "results\\表2_代表日储能.csv",
-    "results\\表3_代表日应急.csv",
-    "results\\问题1_四小时汇总.csv",
-    "results\\问题1_逐时结果.csv",
-    "results\\预测误差指标.csv",
-    "figures\\_qa\\process_q1_price_dispatch_grayscale.png",
-    "figures\\_qa\\process_q2_forecast_validation_grayscale.png",
-    "figures\\_qa\\process_q3_contract_updates_grayscale.png",
-    "figures\\_qa\\process_q4_price_dispatch_grayscale.png",
-    "figures\\_qa\\raw_q1_typical_profiles_grayscale.png",
-    "figures\\_qa\\raw_q2_annual_netload_grayscale.png",
-    "figures\\_qa\\raw_q2_pv_load_relation_grayscale.png",
-    "figures\\_qa\\raw_q3_forecast_error_grayscale.png",
-    "figures\\_qa\\raw_q4_price_variability_grayscale.png",
-    "figures\\_qa\\result_q1_optimal_schedule_grayscale.png",
-    "figures\\_qa\\result_q2_annual_risk_grayscale.png",
-    "figures\\_qa\\result_q3_adjustment_benefit_grayscale.png",
-    "figures\\_qa\\result_q4_strategy_comparison_grayscale.png",
-    "figures\\process_q1_price_dispatch.png",
-    "figures\\process_q1_price_dispatch.svg",
-    "figures\\process_q2_forecast_validation.png",
-    "figures\\process_q2_forecast_validation.svg",
-    "figures\\process_q3_contract_updates.png",
-    "figures\\process_q3_contract_updates.svg",
-    "figures\\process_q4_price_dispatch.png",
-    "figures\\process_q4_price_dispatch.svg",
-    "figures\\raw_q1_typical_profiles.png",
-    "figures\\raw_q1_typical_profiles.svg",
-    "figures\\raw_q2_annual_netload.png",
-    "figures\\raw_q2_annual_netload.svg",
-    "figures\\raw_q2_pv_load_relation.png",
-    "figures\\raw_q2_pv_load_relation.svg",
-    "figures\\raw_q3_forecast_error.png",
-    "figures\\raw_q3_forecast_error.svg",
-    "figures\\raw_q4_price_variability.png",
-    "figures\\raw_q4_price_variability.svg",
-    "figures\\result_q1_optimal_schedule.png",
-    "figures\\result_q1_optimal_schedule.svg",
-    "figures\\result_q2_annual_risk.png",
-    "figures\\result_q2_annual_risk.svg",
-    "figures\\result_q3_adjustment_benefit.png",
-    "figures\\result_q3_adjustment_benefit.svg",
-    "figures\\result_q4_strategy_comparison.png",
-    "figures\\result_q4_strategy_comparison.svg"
-  ],
-  "runtime_seconds": 2417.559794664383,
-  "source_files": [
-    {
-      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\microgrid_core.py",
-      "size_bytes": 64653,
-      "modified_time_ns": 1789132674028371500
-    },
-    {
-      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\run_all.py",
-      "size_bytes": 26886,
-      "modified_time_ns": 1789132646094345200
-    },
-    {
-      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\evaluate_results.py",
-      "size_bytes": 6830,
-      "modified_time_ns": 1789130302557964500
-    },
-    {
-      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\audit_results.py",
-      "size_bytes": 8109,
-      "modified_time_ns": 1789136024814084400
-    },
-    {
-      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\plot_all.py",
-      "size_bytes": 18187,
-      "modified_time_ns": 1789139781879498000
-    },
-    {
-      "path": "C:\\Users\\lenovo\\Desktop\\Mathmodel\\2026MCM\\2026MCM-1.1-Sol\\reproduce_programmer_v2.py",
-      "size_bytes": 5318,
-      "modified_time_ns": 1789139953060596200
-    }
-  ],
-  "validation": "annual physical checks, official-workbook audit, per-file figure compliance, q1-q4 coverage audit; all commands must exit 0"
+  "completed_calculations": {
+    "Q2_parameter_scenarios": 7,
+    "Q3_information_ablation_combinations": 8,
+    "Q4_price_and_oracle_scenarios": 11,
+    "structural_sensitivity_rows": 10,
+    "error_multiplier_rows": 4
+  },
+  "validation": {
+    "Q1_numeric_ok": true,
+    "Q2_numeric_ok": true,
+    "Q3_numeric_ok": true,
+    "Q4_all_numeric_ok": true,
+    "supplementary_all_numeric_ok": true,
+    "official_answer_workbooks_ok": true
+  }
 }

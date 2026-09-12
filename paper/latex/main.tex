@@ -1,0 +1,246 @@
+\documentclass[UTF8,12pt,a4paper]{ctexart}
+\usepackage{amsmath,amssymb,bm,booktabs,longtable,array,multirow}
+\usepackage{geometry,graphicx,float,caption,xcolor,enumitem}
+\usepackage[hidelinks]{hyperref}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\setlength{\parindent}{2em}\setlength{\parskip}{0.25em}
+\renewcommand{\baselinestretch}{1.28}
+\captionsetup[table]{position=above,font=small}
+\setlist{nosep,leftmargin=2em}
+\newcommand{\keywords}[1]{\par\noindent\textbf{关键词：}#1}
+\newcommand{\figslot}[4][3.2cm]{\begin{center}\refstepcounter{figure}
+\fbox{\parbox[c][#1][c]{0.88\textwidth}{\centering\small #2}}\par
+\small 图~\thefigure\quad #3\label{#4}\end{center}}
+
+\title{微网与外部电网的分层预测、风险修正与滚动购电策略}
+\author{}\date{}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+针对光伏出力、负荷和外网电价逐步由确定变为不确定的微网购电问题，本文建立“预测—风险修正—合同优化—滚动执行—现金结算”的统一模型。首先将功率按10分钟间隔换算为电量，在储能容量、功率、效率和荷电状态约束下建立线性规划。问题一采用确定性日前线性规划，得到全天计划购电量$59482.70\ \mathrm{kWh}$、现金购电费$35126.95$元，日初与日末储电量均为$6000\ \mathrm{kWh}$。问题二采用F1因果预测，以最近30日净负荷残差的0.9经验分位构造安全轨迹，再用预测驱动的36槽滚动线性规划执行。2025年2月1日至12月31日总费用为$14917501.49$元，应急购电量为$156695.85\ \mathrm{kWh}$。
+
+问题三把0:00、6:00、12:00和18:00的官方光伏预报组织为事件流：0:00确定原合同，后三个时点以实时储电量重算剩余合同，并始终相对原合同进行一次结算。该方案总费用为$14968496.84$元，应急购电量降至$87488.76\ \mathrm{kWh}$；相对冻结合同基线节省约$134.68$万元，说明日内更新具有经济价值。问题四进一步分离预测电价和结算电价。波动电价下，固定合同模式费用为$17258751.73$元，可调合同模式费用为$15769829.13$元，后者节省$1488922.60$元，并将应急购电量由$425014.50\ \mathrm{kWh}$降至$86353.65\ \mathrm{kWh}$。
+
+全年回放中，母线平衡最大误差不超过$2.85\times10^{-13}\ \mathrm{kWh}$，未出现储能越界、同时充放电或求解回退。模型将合同、物理执行和现金结算明确分层，既保证信息使用的因果性，也便于按新预报和新价格逐层扩展。
+\keywords{微网购电；线性规划；分位风险修正；滚动优化；光伏预测；储能调度}
+\end{abstract}
+\clearpage
+
+\section{问题重述}
+某并网型微网由小区负荷、光伏发电、储能设备和外部电网组成。外网购电既要保证供能不低于负荷，又要利用储能完成低价充电和高价放电。题目按信息条件逐步增加难度：问题一给定典型日数据；问题二引入全年负荷和光伏波动及5倍价格的紧急购电；问题三允许在0:00、6:00、12:00和18:00依据新光伏预报调整合同；问题四再引入实时波动电价。最终需要给出各问模型、指定日期结果以及五份完整结果工作簿。
+
+储能额定容量为$12000\ \mathrm{kWh}$，运行电量限制在$1200$至$10800\ \mathrm{kWh}$，最大充放电功率为$5000\ \mathrm{kW}$，充放电效率均取0.9。2025年1月1日0:00的储电量为$6000\ \mathrm{kWh}$，每日按144个10分钟槽离散。
+
+\section{问题分析}
+四问共享同一物理系统，但信息集和结算规则不同。若把所有变量放入一个优化模型，容易把尚未发生的真实负荷、光伏或价格误当成已知量。本文把系统拆为合同决策层、物理执行层和现金结算层：决策层只使用当时可得信息；执行层根据合同、预测和实时状态决定首槽动作；结算层在真实量到达后计费。由此严格区分计划购电量、最终合同量和实际有效供能。
+
+问题一是确定性线性规划。问题二的难点是预测误差与5倍应急价格之间的权衡，因此先比较F0、F1、F2，再用净负荷残差分位形成安全轨迹。问题三必须让预报发布时间、合同生效时间、实际SOC和结算基准严格对齐。问题四还需把预测价格与真实结算价格分开，不能把附件4的全年真实价格当作0:00已知信息。全文技术路线见图\ref{fig:route}。
+\figslot[4.2cm]{附件1--4数据 $\rightarrow$ F0/F1/F2预测 $\rightarrow$ 分位风险安全轨迹 $\rightarrow$ 日前合同LP $\rightarrow$ 贪心/滚动LP执行 $\rightarrow$ 现金结算 $\rightarrow$ 压力与灵敏度验证。\par Q1--Q4以不同颜色分支标注介入点。}{全文技术路线图}{fig:route}
+
+\section{数据处理与基本画像}
+\subsection{数据结构与时间对齐}
+附件1含144个典型日电价、负荷和光伏预测点；附件2和附件4连续覆盖2025年365天，每天144个点；附件3每天在四个时刻发布未来24小时整点光伏预报。原始负荷和光伏为kW，进入模型前换算为
+\begin{equation}E_t=P_t\Delta t,\qquad \Delta t=\frac{1}{6}\ \mathrm{h}.\label{eq:power-energy}\end{equation}
+因此单槽最大充放电量为$B_{\max}=5000/6=833.3333\ \mathrm{kWh}$。原始标签从00:10至次日00:00，按时段结束时刻解释；计算按原始行序进行，输出保留题目模板列序。
+
+\subsection{典型日与全年分布}
+图\ref{fig:data-day}用于观察电价、负荷和光伏的日内错峰，从而说明储能低价吸收、高价释放的时间条件。
+\figslot{附件1电价使用右轴，负荷与光伏预测功率使用左轴；横轴为144个10分钟时段，并标注峰谷价区间。}{附件1典型日电价、负荷与光伏预测功率}{fig:data-day}
+附件2呈现日内周期和季节差异。图\ref{fig:data-heatmap}为日期$\times$时刻热力图，用于说明选择春分、夏至、秋分和冬至附近日期作为代表日的依据。
+\figslot{上下两幅分别为全年负荷和光伏功率热力图，纵轴为日期、横轴为时刻，采用统一单位并分别设置色标。}{2025年负荷与光伏功率热力图}{fig:data-heatmap}
+校正后的光伏预测误差总体随提前期增加：提前1小时MAE为$19.53\ \mathrm{kW}$，提前6小时为$92.83\ \mathrm{kW}$，提前8小时为$191.89\ \mathrm{kW}$。图\ref{fig:data-lead}预留1--24小时完整曲线，直接支撑按预见期分层估计风险尺度。
+\figslot{横轴为提前期1--24 h，纵轴为光伏预测MAE；以辅线表示RMSE并标注关键提前期。}{光伏预测误差随提前期的变化}{fig:data-lead}
+
+\section{模型假设与符号说明}
+\subsection{基本假设}
+\begin{enumerate}
+\item 外购电非负，不允许向外网售电；题面未给并网功率上限，故不另设上限。
+\item 光伏允许弃光且无额外罚金；已购但未使用的合同电量不退款。
+\item $\eta_c=\eta_d=0.9$；若0.9解释为往返效率，则在灵敏度中改取$\sqrt{0.9}$。
+\item 决策只能使用已完成观测、当前SOC、当前合同及已发布预测。
+\item 紧急购电只补可行放电后的缺口，不主动用于储能充电。
+\item Q2--Q4从2025年1月1日连续传递SOC，1月预运行，2月1日至12月31日正式统计。
+\end{enumerate}
+
+\subsection{主要符号与统一约束}
+主要符号集中列于表\ref{tab:symbols}，其余索引和统计指标在首次出现处定义。
+\begin{table}[H]\centering\small\caption{主要符号及单位}\label{tab:symbols}
+\begin{tabular}{cll}\toprule 符号&含义&单位\\\midrule
+$L_t,V_t$&真实负荷、可用光伏电量&kWh/槽\\
+$p_t,q_t,g_t$&原计划、最终调整合同、当前合同&kWh/槽\\
+$x_t,y_t,S_t$&充电、放电、储电量&kWh/槽，kWh\\
+$u_t,w_t,v_t$&紧急购电、弃购、利用光伏&kWh/槽\\
+$c_t,\widehat c_t$&真实、预测电价&元/kWh\\
+$W,\alpha,H$&残差窗口、分位、滚动时域&日，--，槽\\\bottomrule
+\end{tabular}\end{table}
+储能状态转移与边界为
+\begin{align}
+S_{t+1}&=S_t+\eta_cx_t-\frac{y_t}{\eta_d},\label{eq:soc}\\
+1200\le S_t&\le10800,\qquad0\le x_t,y_t\le833.3333.\label{eq:battery-bound}
+\end{align}
+执行层母线平衡为
+\begin{equation}g_t-w_t+v_t+y_t+u_t=L_t+x_t,quad0\le v_t\le V_t,quad0\le w_t\le g_t.\label{eq:bus-balance}\end{equation}
+连续LP在费用目标后加入极小吞吐正则以选择退化最优解；该正则不计入现金结算。
+
+\section{问题一：确定性日前购电模型}
+\subsection{模型建立}
+令$g_t=p_t$，规划层满足
+\begin{equation}g_t+v_t+y_t=L_t+x_t,qquad0\le v_t\le V_t,\label{eq:q1-balance}\end{equation}
+并设置$S_1=S_{145}=6000$。目标为
+\begin{equation}\min C_1=\sum_{t=1}^{144}c_tg_t.\label{eq:q1-obj}\end{equation}
+模型为连续线性规划，使用HiGHS求解器完成计算\cite{virtanen2020scipy}。
+\figslot{光伏分别流向负荷和储能，外网分别流向负荷和储能，储能流向负荷；标注$\eta_c,\eta_d$、$B_{\max}$及SOC边界。}{微网能量流与储能约束示意图}{fig:q1-flow}
+
+\subsection{求解结果与校验}
+全天购电量为$59482.70\ \mathrm{kWh}$，现金购电费为$35126.95$元，日初、日末储电量均为$6000\ \mathrm{kWh}$。指定时段结果见表\ref{tab:q1-slots}。
+\begin{table}[H]\centering\caption{问题一指定时段购电量}\label{tab:q1-slots}
+\begin{tabular}{cccccc}\toprule10:00&12:00&14:00&16:00&18:00&20:00\\\midrule
+0.00&480.41&0.00&445.43&531.89&0.00\\\bottomrule
+\multicolumn{6}{c}{单位：kWh；每列对应其后10分钟时段。}\end{tabular}\end{table}
+\begin{table}[H]\centering\caption{问题一分时段充放电结果}\label{tab:q1-blocks}
+\begin{tabular}{crr}\toprule 时段&充电量/kWh&放电量/kWh\\\midrule
+0:00--4:00&4500.00&0.00\\4:00--8:00&833.33&6365.84\\
+8:00--12:00&4787.96&1703.00\\12:00--16:00&5286.04&91.10\\
+16:00--20:00&0.00&5780.13\\20:00--24:00&5333.33&2859.87\\\bottomrule
+\end{tabular}\end{table}
+表\ref{tab:q1-blocks}给出分段充放电结果。图\ref{fig:q1-dispatch}--\ref{fig:q1-blockbar}预留调度、SOC和分段充放电证据。SOC最小值为$1200\ \mathrm{kWh}$、最大值为$10800\ \mathrm{kWh}$。
+\figslot{144槽计划购电、负荷和光伏同图，并以浅色背景标出峰谷电价区间。}{问题一全天购电、负荷与光伏功率}{fig:q1-dispatch}
+\figslot{SOC折线叠加$1200$和$10800\ \mathrm{kWh}$边界虚线，标出日初、日末$6000\ \mathrm{kWh}$。}{问题一储能SOC全天轨迹}{fig:q1-soc}
+\figslot{六个4小时区间的充电量与放电量分组柱状图。}{问题一分时段充放电量}{fig:q1-blockbar}
+母线平衡最大残差为$2.27\times10^{-13}\ \mathrm{kWh}$，SOC递推最大残差为$8.31\times10^{-13}\ \mathrm{kWh}$。循环SOC还满足
+\begin{equation}\sum_ty_t=\eta_c\eta_d\sum_tx_t,quad
+\sum_tg_t=\sum_tL_t-\sum_tV_t+(1-\eta_c\eta_d)\sum_tx_t,\label{eq:q1-identity}\end{equation}
+两式残差均低于$10^{-11}\ \mathrm{kWh}$。
+
+\section{问题二：风险修正的日前合同与滚动执行}
+\subsection{因果预测模型}
+所有预测只使用目标日之前的数据。F1用7日前同槽负荷和此前7日同槽光伏均值；F2使用7、14、21日前同槽负荷中位数；F0为90日加权基线。误差见表\ref{tab:forecast-error}，F1在负荷和净负荷两项上优于F2，故作为中心预测。
+\begin{table}[H]\centering\caption{三类中心预测误差对比}\label{tab:forecast-error}
+\begin{tabular}{lrrrr}\toprule 模型&负荷MAE&光伏MAE&净负荷MAE&净负荷RMSE\\\midrule
+F0（历史基线）&722.57&335.92&804.08&1074.83\\F1&176.80&153.40&273.35&389.97\\F2&187.90&153.40&284.35&403.25\\\bottomrule
+\multicolumn{5}{c}{单位：kW。}\end{tabular}\end{table}
+\figslot{F0、F1、F2在负荷MAE、光伏MAE、净负荷MAE和RMSE上的分组柱状图。}{F0、F1、F2预测误差对比}{fig:q2-forecast}
+
+\subsection{分位安全轨迹}
+令$\widehat N_{d,t}=\widehat L_{d,t}-\widehat V_{d,t}$，历史残差为
+\begin{equation}e^N_{j,t}=N_{j,t}-\widehat N_{j,t},\qquad j<d.\label{eq:q2-residual}\end{equation}
+用最近$W$个已完成日构造
+\begin{equation}\widetilde N_{d,t}=\widehat N_{d,t}+Q_\alpha\{e^N_{j,t}:d-W\le j<d\}.\label{eq:q2-safe}\end{equation}
+主配置取$W=30,\alpha=0.9$，并通过
+\begin{equation}\widetilde V_{d,t}=\max(\widehat V_{d,t},-\widetilde N_{d,t},0),\quad
+\widetilde L_{d,t}=\widetilde V_{d,t}+\widetilde N_{d,t}\label{eq:q2-reconstruct}\end{equation}
+保持重构后的负荷和光伏非负。
+\figslot{代表日的实际净负荷、F1中心预测与0.9分位安全轨迹；阴影表示风险余量。}{中心预测、安全轨迹与实际净负荷}{fig:q2-safe}
+
+\subsection{合同、执行与年度结果}
+每天0:00求解日前合同
+\begin{equation}\min\sum_{t=1}^{144}c_tp_t-\lambda(S_{145}-S_{\min}),\label{eq:q2-contract}\end{equation}
+其中$\lambda$不计入现金。之后每10分钟求解未来$H=36$槽的滚动LP并只执行首槽动作；本槽真实量随后进入统一裁剪器。现金费用为
+\begin{equation}C_2=\sum_t(c_tp_t+5c_tu_t).\label{eq:q2-cash}\end{equation}
+该结构借鉴预测控制处理约束和不确定性的思想\cite{hu2021mpc,schwenzer2021mpc}，但本文只研究题目给定的能量与合同层。
+
+334天总费用为$14917501.49$元，合同电量为$23165422.82\ \mathrm{kWh}$。应急购电量为$156695.85\ \mathrm{kWh}$，年末SOC为$10736.48\ \mathrm{kWh}$。
+
+12月费用最高，为$1809391.25$元；6月应急购电量达到$32188.53\ \mathrm{kWh}$，说明风险暴露具有季节差异。
+\figslot{$\alpha\in\{0.8,0.9,0.95\}$、$W\in\{21,30,45\}$下的全年费用和应急购电量。}{风险分位与残差窗口灵敏度}{fig:q2-sensitivity}
+\figslot[4.0cm]{2025-03-20、06-21、09-23、12-21四面板；叠加购电量与SOC并统一坐标范围。}{四个代表日的购电与SOC结果}{fig:q2-days}
+\figslot{2--12月现金费用柱状图与应急购电量折线图。}{问题二月度费用与应急购电量}{fig:q2-month}
+
+\section{问题三：预报事件驱动的合同调整}
+\subsection{官方预报校正与分层风险}
+对目标日$d$、发布时刻$r$和提前期$h$，使用历史同版本误差校正：
+\begin{equation}\widehat V^{\mathrm{cal}}_{d,r,h}=\max\left(0,\widehat V^{\mathrm{raw}}_{d,r,h}+\operatorname{mean}_{j<d}e^V_{j,r,h}\right).\label{eq:q3-calibrate}\end{equation}
+校正后插值到10分钟网格。按0--1、1--2、\ldots、5--6小时划分六层，在层内标准化残差后估计共同分位，再乘回单调非减的经验尺度，以反映长期预报更不确定的事实。
+
+\subsection{事件驱动合同调整}
+0:00生成原合同$p_t$；6:00、12:00、18:00冻结已执行槽，以当时真实SOC重算剩余合同。令
+\begin{equation}q_t=p_t+\delta_t^+-\delta_t^-,\qquad\delta_t^+,\delta_t^-\ge0.\label{eq:q3-adjust}\end{equation}
+剩余时域目标为
+\begin{equation}\min\sum_{t\in\mathcal T_r}[c_tp_t+1.5c_t\delta_t^++0.5c_t\delta_t^-]-\lambda_r(S_{145}-S_{\min}).\label{eq:q3-update-obj}\end{equation}
+最终合同始终相对0:00原合同结算一次：
+\begin{equation}C_{3,t}=c_t\min(p_t,q_t)+1.5c_t(q_t-p_t)^++0.5c_t(p_t-q_t)^++5c_tu_t.\label{eq:q3-cash}\end{equation}
+
+\subsection{结果与信息价值}
+主配置总费用为$14968496.84$元，最终合同电量为$22881901.56\ \mathrm{kWh}$。累计上调量为$525660.03\ \mathrm{kWh}$，累计下调量为$530393.62\ \mathrm{kWh}$，应急购电量为$87488.76\ \mathrm{kWh}$。
+
+1002次授权更新均成功，安全轨迹逐槽覆盖率为$89.43\%$。
+
+冻结合同的同口径基线费用为$16315304.85$元。允许三个日内时点调整后节省$1346808.01$元，降幅约$8.25\%$，说明其他时刻预报值得引入。各时刻边际价值仍需通过8组订阅组合区分，不能用Q2与Q3费用差代替。新增事件的盈亏平衡成本为
+\begin{equation}\kappa^*=\frac{C_{\mathrm{old}}-C_{\mathrm{new}}}{\Delta n},\qquad\Delta n>0.\label{eq:kappa}\end{equation}
+\figslot{$\mathcal S=\varnothing,\{6\},\{12\},\{18\},\{6,12\},\{6,18\},\{12,18\},\{6,12,18\}$八组费用与应急量。}{问题三预报信息消融结果}{fig:q3-ablation}
+\figslot{不同组合增加一个更新时间后的净收益与$\kappa^*$。}{单次预报更新的边际收益与盈亏平衡成本}{fig:q3-kappa}
+\figslot{代表日原计划$p_t$与最终合同$q_t$，填色区分上调和下调并标注6/12/18。}{问题三原计划与最终调整合同}{fig:q3-contract}
+
+\section{问题四：波动电价下的购电策略}
+\subsection{因果价格预测}
+附件4给出真实结算价格，但0:00不能预知全天真值。四种基线误差见表\ref{tab:price-error}。近7日均值MAE最小，主配置采用近30日中位数以降低异常价格对中心位置的影响；最终应由现金费用共同裁决。
+\begin{table}[H]\centering\small\caption{四种0:00价格预测基线误差}\label{tab:price-error}
+\begin{tabular}{lrrrr}\toprule 基线&MAE&RMSE&尖峰MAE&最大绝对误差\\\midrule
+昨日同槽&0.08433&0.12384&0.09226&0.53200\\近7日均值&0.08267&0.10527&0.09686&0.49669\\
+近30日均值&0.08748&0.11351&0.10835&0.54015\\近30日中位数&0.08328&0.12074&0.09880&0.62360\\\bottomrule
+\multicolumn{5}{c}{单位：元/kWh。}\end{tabular}\end{table}
+日内只用已完成槽的价格误差做衰减修正。Q4-2沿用固定合同结构，Q4-3沿用事件驱动调整结构；规划使用预测价格，结算使用真实价格。
+\figslot{四种价格预测候选的MAE、RMSE和尖峰MAE分组柱状图。}{波动电价预测候选误差对比}{fig:q4-price-error}
+
+\subsection{结果比较}
+\begin{table}[H]\centering\caption{问题四两种模式的年度结果}\label{tab:q4-result}
+\begin{tabular}{lrrr}\toprule 模式&总费用/元&应急购电量/kWh&更新次数\\\midrule
+Q4-2固定合同&17258751.73&425014.50&0\\Q4-3可调合同&15769829.13&86353.65&1002\\\bottomrule\end{tabular}\end{table}
+表\ref{tab:q4-result}显示，Q4-3相对Q4-2节省约$148.89$万元，降幅为$8.63\%$。应急购电减少约$33.87$万kWh，降幅为$79.68\%$。
+
+与固定电价结果相比，Q4-2费用增加$2341250.24$元，Q4-3增加$801332.29$元。该差值包含价格水平变化、预测误差和调度响应，不能全部解释为单一预测损失。
+\figslot{固定电价Q2/Q3与波动电价Q4-2/Q4-3费用分组对比。}{固定与波动电价下的费用比较}{fig:q4-cost-compare}
+\figslot{近30日中位数预测方案与0:00已知真实价格的理想基准费用差，分别展示Q4-2和Q4-3。}{实际价格预测与理想信息基准的费用差}{fig:q4-oracle}
+
+\section{模型检验与灵敏度分析}
+\subsection{数值与物理检验}
+Q1--Q4逐项检查母线平衡、SOC递推、变量边界、互斥、跨日连续和现金流水。Q2和Q3最大母线平衡误差为$2.27\times10^{-13}\ \mathrm{kWh}$，Q4为$2.84\times10^{-13}\ \mathrm{kWh}$；所有方案中$\min(x_t,y_t)=0$，SOC位于$[1200,10800]$，年度运行没有求解回退，现金汇总与逐槽流水最大差不超过$2.91\times10^{-11}$元。
+
+\subsection{结构敏感性设计}
+后续实验必须在相同信息集和结算口径下重新求解，而不是只把参数代入现有结果。图\ref{fig:sens-efficiency}--\ref{fig:sens-gamma}分别对应效率解释、初始SOC、容量与功率和误差倍率压力测试。
+\figslot{比较$(\eta_c,\eta_d)=(0.9,0.9)$与$(\sqrt{0.9},\sqrt{0.9})$下费用和应急量。}{充放电效率解释敏感性}{fig:sens-efficiency}
+\figslot{初始SOC取20\%、50\%、80\%额定容量，比较费用、应急量和期末SOC。}{初始SOC敏感性}{fig:sens-initial-soc}
+\figslot{容量和功率分别取基准的80\%、100\%、120\%，展示费用及约束活跃程度。}{储能容量与功率上限敏感性}{fig:sens-capacity}
+\figslot{横轴为误差倍率$\gamma=0.5,1,1.5,2$，纵轴为总费用和应急购电量。}{预测误差倍率压力测试}{fig:sens-gamma}
+
+\section{模型评价与推广}
+\subsection{优点}
+\begin{enumerate}
+\item 四问共享储能和母线模型，只替换信息集、合同权限和价格过程，递进关系清楚。
+\item 预测只读历史数据，真实量在动作确定后进入裁剪与结算，避免事后信息泄漏。
+\item 原计划、最终合同、应急和弃购分别记账，多次调整相对原合同只结算一次。
+\item 核心问题均为连续LP，滚动求解中位耗时约2.4 ms，全年无回退。
+\end{enumerate}
+\subsection{局限与推广}
+题面未给并网容量和售电机制，本文采用外购电无上限且不可反送；若实际存在容量限制，应增加约束。经验分位描述历史残差边际尾部，不等同完整联合概率模型。10分钟聚合忽略槽内测量延迟，实际部署需缩短步长或加入延迟模型。当前8组消融、理想价格信息和结构灵敏度尚处于图位预留阶段，主配置结论不等同全参数最优性证明。
+
+模型可扩展到含风电、可控负荷和多储能的园区微网。新增能源可在母线平衡中加入供给变量；新增需求响应则加入移峰变量与舒适度约束。若允许售电或出现负电价，应采用显式充放电互斥的混合整数模型，防止循环套利。微网分层控制的一般背景可参见相关综述\cite{bouzid2015microgrid}。
+
+\section{结论}
+问题一得到全天计划购电量$59482.70\ \mathrm{kWh}$和现金购电费$35126.95$元；问题二用F1预测和0.9分位安全轨迹管理净负荷误差，334天总费用为$1491.75$万元；问题三在0/6/12/18事件点用实际SOC重算合同，应急购电降至$8.75$万kWh，相对冻结合同节省约$134.68$万元；问题四中可调合同方案比固定合同方案节省约$148.89$万元，并显著减少高价应急购电。
+
+上述结论建立在不可售电、无并网功率上限、充放电效率分别为0.9及10分钟离散等假设上。完成图\ref{fig:q3-ablation}和图\ref{fig:sens-efficiency}--\ref{fig:sens-gamma}对应实验后，可进一步判断各预报时点和储能参数的稳健价值。
+
+\clearpage
+\section*{AI工具使用声明}
+本队在模型梳理、Python代码调试、结果一致性检查、LaTeX排版和语言修改过程中使用了生成式人工智能编码与写作辅助工具（Codex）。AI工具用于提出检查思路、协助定位程序问题和形成文字草稿；题意理解、模型选择、参数决定、程序运行、数值核验和最终文字取舍均由参赛队员负责。所有进入论文的公式和数值均应由参赛队结合题目附件、源代码和结果文件逐项复核。典型交互记录及人工修改说明将在支撑材料的《AI工具使用详情》中如实整理。
+
+\bibliographystyle{plain}\bibliography{references}
+
+\clearpage\appendix
+\section{支撑材料文件清单}
+完整可运行程序包括：\texttt{microgrid\_core.py}、\texttt{solution\_lib.py}、问题一至问题四求解程序，以及统一入口\texttt{run\_lite.py}。结果文件包括\texttt{result1.xlsx}至\texttt{result4-3.xlsx}五份工作簿。
+
+正式提交时，上述程序、结果表及AI工具使用详情应按当届规则放入支撑材料压缩包；赛题原始附件不重复提交。
+
+\section{核心算法步骤}
+\begin{enumerate}
+\item 读取附件1--4，校验日期、时段、缺失值和单位，将kW换算为kWh/槽；
+\item 依据决策时点构造F1中心预测、官方光伏预报版本和价格预测；
+\item 使用历史同版本残差形成安全净负荷，求解0:00日前合同；
+\item 每槽求解36步滚动LP并执行首槽动作，真实量到达后进行可行性裁剪；
+\item Q3/Q4-3在6:00、12:00、18:00以当前SOC重算剩余合同；
+\item 按各问规则逐槽结算，检查母线平衡、SOC边界、互斥和现金汇总。
+\end{enumerate}
+\end{document}
