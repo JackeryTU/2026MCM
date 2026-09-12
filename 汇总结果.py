@@ -29,6 +29,11 @@ def clean_tables() -> dict[str, pd.DataFrame]:
     q4c = read("问题4_方案对比.csv")
     st = read("模型评价_结构敏感性.csv")
     ps = read("模型评价_误差倍率压力测试.csv")
+    tv = read("终端价值敏感性.csv")
+    diag = read("总体主表_费用与执行诊断.csv")
+    settle = read("结算歧义敏感性.csv")
+    risk = read("尾部风险_日费用VaR_CVaR.csv")
+    month = read("尾部风险_月度配对差.csv")
     common = ["group", "scenario", "eta_c", "eta_d", "capacity_kWh",
               "power_kW", "S0_kWh", "cash_total", "相对基准费用变化_元",
               "相对基准费用变化_pct", "contract_kwh", "emergency_kwh",
@@ -39,18 +44,21 @@ def clean_tables() -> dict[str, pd.DataFrame]:
     return {"Q2参数敏感性": q2s, "Q2参照方案": q2r,
             "Q3八组信息消融": q3a, "Q3方案对比": q3c,
             "Q4价格预测误差": q4e, "Q4方案与理想基准": q4c,
-            "结构敏感性": st, "误差倍率压力测试": ps}
+            "结构敏感性": st, "误差倍率压力测试": ps,
+            "终端价值敏感性": tv, "费用执行诊断": diag,
+            "结算歧义敏感性": settle, "尾部风险": risk,
+            "月度配对差": month}
 
 
 def key_summary(tables: dict[str, pd.DataFrame]) -> pd.DataFrame:
     q1 = read("问题1_汇总.csv").iloc[0]
-    q2 = tables["Q2参数敏感性"].query("预测器 == 'F1' and W == 30 and alpha == 0.9").iloc[0]
+    q2 = tables["Q2参数敏感性"].query("方案.str.startswith('主配置')", engine="python").iloc[0]
     q3 = tables["Q3八组信息消融"].query("tag == 'main'").iloc[0]
     q4 = tables["Q4方案与理想基准"].set_index("tag")
     return pd.DataFrame([
         {"问题": "Q1", "方案": "确定性LP", "现金费用_元": q1["全天购电费_元"],
          "合同购电量_kWh": q1["全天计划购电量_kWh"], "应急购电量_kWh": 0.0},
-        {"问题": "Q2", "方案": "F1-W30-alpha0.9", "现金费用_元": q2["cash_total"],
+        {"问题": "Q2", "方案": "F1-W35-alpha0.805-H49", "现金费用_元": q2["cash_total"],
          "合同购电量_kWh": q2["contract_kwh"], "应急购电量_kWh": q2["emergency_kwh"]},
         {"问题": "Q3", "方案": "S={6,12,18}", "现金费用_元": q3["现金总费_元"],
          "合同购电量_kWh": q3["最终合同量_kWh"], "应急购电量_kWh": q3["应急购电量_kWh"]},

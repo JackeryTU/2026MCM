@@ -115,7 +115,7 @@ def point_error_metrics(kind: str, data: dict) -> dict:
 # ---------------------------------------------------------------------------
 # 年度回放
 # ---------------------------------------------------------------------------
-def run_year_q2(data: dict, kind: str = "F1", alpha: float = 0.9, W: int = 30,
+def run_year_q2(data: dict, kind: str = "F1", alpha: float = 0.805, W: int = 35,
                 price_mode: str = "fixed", resid: np.ndarray | None = None,
                 no_battery: bool = False, horizon: int = 36,
                 n_days: int = 365, executor: str = "mpc",
@@ -640,8 +640,8 @@ def rolling_execute_q34(g_contract, load_pred_kwh, pv_ver_kwh, load_kwh, pv_kwh,
 
 
 def run_year_q34(data: dict, prof: np.ndarray | None = None, kind: str = "F1",
-                 alpha: float = 0.9, W: int = 30, mode: str = "stratified",
-                 H: int = 36, allowed=(0, 1, 2, 3), updates=(1, 2, 3),
+                 alpha: float = 0.7725, W: int = 35, mode: str = "stratified",
+                 H: int = 6, allowed=(0, 1, 2, 3), updates=(1, 2, 3),
                  pv_source: str = "archive", price_mode: str = "fixed",
                  price_base: str = "median30", settle_price: str = "fixed",
                  time_limit: float = 5.0, n_days: int = 365,

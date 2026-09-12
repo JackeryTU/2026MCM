@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """问题二：周期预测 + 残差分位安全轨迹 + 日前合同 LP + 滚动 MPC 执行。
 
-主配置：F1 中心预测、W=30 日残差窗、alpha=0.9；2025-01-01 0:00 由 6000 kWh
+主配置：F1 中心预测、W=35 日残差窗、alpha=0.805、H=49；2025-01-01 0:00 由 6000 kWh
 连续预运行，正式输出 2025-02-01—12-31 共 334 天。
 输出：results/result2.xlsx、results/csv/、figures/问题2/。
 """
@@ -31,12 +31,12 @@ def _sens_init(data: dict) -> None:
 
 
 def _sens_worker(cfg: tuple) -> dict:
-    kind, W, alpha, tag = cfg
+    kind, W, alpha, tag, horizon = cfg
     data = _SENS_G["data"]
     resid = sl.net_residual_matrix(kind, data)
-    run = sl.run_year_q2(data, kind, alpha, W, resid=resid)
+    run = sl.run_year_q2(data, kind, alpha, W, resid=resid, horizon=horizon)
     out = {k: v for k, v in sl.year_metrics(run).items() if k != "daily_cash"}
-    out.update({"方案": tag, "预测器": kind, "W": W, "alpha": alpha})
+    out.update({"方案": tag, "预测器": kind, "W": W, "alpha": alpha, "H": horizon})
     if tag.startswith("主配置"):
         out["_run"] = run
     return out
@@ -44,13 +44,15 @@ def _sens_worker(cfg: tuple) -> dict:
 
 def sensitivity(data: dict, resid_cache: dict, workers: int = 1) -> pd.DataFrame:
     configs = [
-        ("F1", 30, 0.9, "主配置 F1-W30-a0.9"),
-        ("F1", 30, 0.8, "分位 a=0.8"),
-        ("F1", 30, 0.95, "分位 a=0.95"),
-        ("F1", 21, 0.9, "窗口 W=21"),
-        ("F1", 45, 0.9, "窗口 W=45"),
-        ("F2", 30, 0.9, "预测器 F2"),
-        ("F0", 30, 0.9, "预测器 F0"),
+        ("F1", 35, 0.805, "主配置 F1-W35-a0.805-H49", 49),
+        ("F1", 35, 0.800, "分位 a=0.800", 49),
+        ("F1", 35, 0.810, "分位 a=0.810", 49),
+        ("F1", 35, 0.805, "时域 H=48", 48),
+        ("F1", 35, 0.805, "时域 H=50", 50),
+        ("F1", 30, 0.805, "窗口 W=30", 49),
+        ("F1", 45, 0.805, "窗口 W=45", 49),
+        ("F2", 35, 0.805, "预测器 F2", 49),
+        ("F0", 35, 0.805, "预测器 F0", 49),
     ]
     if workers > 1:
         with Pool(workers, initializer=_sens_init, initargs=(data,)) as pool:
@@ -59,12 +61,12 @@ def sensitivity(data: dict, resid_cache: dict, workers: int = 1) -> pd.DataFrame
         return pd.DataFrame(packed), base
     rows = []
     base = None
-    for kind, W, alpha, tag in configs:
+    for kind, W, alpha, tag, horizon in configs:
         if kind not in resid_cache:
             resid_cache[kind] = sl.net_residual_matrix(kind, data)
-        run = sl.run_year_q2(data, kind, alpha, W, resid=resid_cache[kind])
+        run = sl.run_year_q2(data, kind, alpha, W, resid=resid_cache[kind], horizon=horizon)
         m = {k: v for k, v in sl.year_metrics(run).items() if k != "daily_cash"}
-        m.update({"方案": tag, "预测器": kind, "W": W, "alpha": alpha})
+        m.update({"方案": tag, "预测器": kind, "W": W, "alpha": alpha, "H": horizon})
         rows.append(m)
         if tag.startswith("主配置"):
             base = run
@@ -204,8 +206,8 @@ def main() -> None:
 
     if args.main_only:
         resid = sl.net_residual_matrix("F1", data)
-        run = sl.run_year_q2(data, "F1", 0.9, 30, resid=resid,
-                             n_days=args.days, executor=args.executor)
+        run = sl.run_year_q2(data, "F1", 0.805, 35, resid=resid,
+                             horizon=49, n_days=args.days, executor=args.executor)
         gates = sl.check_run(run)
         with open(sl.CSV / "问题2_门禁.json", "w", encoding="utf-8") as fh:
             json.dump(gates, fh, ensure_ascii=False, indent=2)

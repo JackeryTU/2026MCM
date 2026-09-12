@@ -6,7 +6,7 @@
 * 0:00 求原计划合同 p = q(0)；6:00/12:00/18:00 三次获准调整得到最终合同 q；
 * 三次调整严格按日内时序触发，并使用调整时刻的实际 SOC；
 * 风险储备在净负荷残差上按预见期分层校准（stratified），对照统一逐槽分位（uniform）；
-* 执行层用 §7.2 滚动 LP（H=36，对照 H=72）+ §7.3 槽内裁剪；
+* 执行层用 §7.2 滚动 LP（H=6，对照 H=72）+ §7.3 槽内裁剪；
 * 结算按 §8.2：c min(p,q) + 1.5c(q-p)^+ + 0.5c(p-q)^+ + 5c u；
 * 1 月连续预运行，正式输出 2025-02-01—12-31 共 334 天。
 
@@ -49,10 +49,10 @@ def _cfg(tag, mode, H, allowed, updates, note, keep=False):
 def build_configs() -> list:
     """主配置、两项对照与 7 组信息消融（S 包含于 {6,12,18}）。"""
     cfgs = [
-        _cfg("main", "stratified", 36, FULL_SET, (1, 2, 3),
-             "主配置：分层储备 + H=36 + 三次调整", keep=True),
-        _cfg("uniform", "uniform", 36, FULL_SET, (1, 2, 3),
-             "对照：统一逐槽分位储备 + H=36", keep=True),
+        _cfg("main", "stratified", 6, FULL_SET, (1, 2, 3),
+             "主配置：分层储备 + H=6 + 三次调整", keep=True),
+        _cfg("uniform", "uniform", 6, FULL_SET, (1, 2, 3),
+             "对照：统一逐槽分位储备 + H=6", keep=True),
         _cfg("h72", "stratified", 72, FULL_SET, (1, 2, 3),
              "对照：分层储备 + H=72", keep=True),
     ]
@@ -66,7 +66,7 @@ def build_configs() -> list:
         ((0, 2, 3), (2, 3), "消融 {12,18}"),
     ]:
         tag = "abl_" + ("_".join(str(h) for h in updates) or "none")
-        cfgs.append(_cfg(tag, "stratified", 36, allowed, updates, note,
+        cfgs.append(_cfg(tag, "stratified", 6, allowed, updates, note,
                          keep=True))
     return cfgs
 
@@ -103,13 +103,13 @@ def _coverage(data, prof, allowed, mode, alpha, W, d0=31, d1=365):
 
 def _worker(cfg):
     data, prof, n_days = _G["data"], _G["prof"], _G["n_days"]
-    run = sl.run_year_q34(data, prof, "F1", 0.9, 30, cfg["mode"], cfg["H"],
+    run = sl.run_year_q34(data, prof, "F1", 0.7725, 35, cfg["mode"], cfg["H"],
                           cfg["allowed"], cfg["updates"], "archive", "fixed",
                           "median30", "fixed", 5.0, n_days)
     out = dict(cfg)
     if n_days > 31:
         out["metrics"] = sl.year_metrics_q34(run, 31)
-        out["coverage"] = _coverage(data, prof, cfg["allowed"], cfg["mode"], 0.9, 30)
+        out["coverage"] = _coverage(data, prof, cfg["allowed"], cfg["mode"], 0.7725, 35)
         out["gates"] = sl.check_run_q34(run, 31)
     if cfg["keep"]:
         out["arrays"] = {k: run[k] for k in KEYS}
@@ -255,7 +255,7 @@ def main():
     sl.CSV.mkdir(parents=True, exist_ok=True)
 
     data = mc.load_inputs()
-    prof = sl.build_pv_archive(data, 30)
+    prof = sl.build_pv_archive(data, 35)
     cfgs = build_configs()
     if args.main_only:
         cfgs = cfgs[:1]

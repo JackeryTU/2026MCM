@@ -9,7 +9,7 @@
   历史为空时回退附件 1 典型日价。
 * Q4-2（购电模式一）：0:00 一次性签订合同，日内不调整；
 * Q4-3（购电模式二）：6/12/18 三个时点获准调整合同（复用问题三机制）；
-* 两种模式沿用问题三的官方光伏预报档案、分层风险储备、H=36 滚动 LP 执行和槽内裁剪。
+* 两种模式沿用问题三的官方光伏预报档案、分层风险储备、H=6 滚动 LP 执行和槽内裁剪。
 * 结算：合同、调整、应急一律按附件 4 同期真实价。
 * 理想信息基准：0:00 即知全天真实价（oracle），其余不变，只作价格信息参考。
 
@@ -85,7 +85,7 @@ def _init(data, prof, n_days=NTOT):
 def _worker(cfg):
     data, prof = _G["data"], _G["prof"]
     n_days = _G["n_days"]
-    run = sl.run_year_q34(data, prof, "F1", 0.9, 30, "stratified", 36, FULL_SET,
+    run = sl.run_year_q34(data, prof, "F1", 0.7725, 35, "stratified", 6, FULL_SET,
                           cfg["updates"], cfg["pv"], cfg["price_mode"],
                           cfg["base"], "actual", 5.0, n_days)
     out = dict(cfg)
@@ -131,7 +131,7 @@ def price_error_table(data, offset=OFFSET, end=NTOT):
     return pd.DataFrame(rows)
 
 
-def coverage_of(data, prof, alpha=0.9, W=30, mode="stratified", d0=OFFSET,
+def coverage_of(data, prof, alpha=0.7725, W=35, mode="stratified", d0=OFFSET,
                 d1=NTOT):
     """分层风险安全轨迹对实测净负荷的覆盖率与 Pinball（§11.4）。"""
     resid, pv_ver = sl.q3_net_residual(data, prof, FULL_SET, "F1", "archive")
@@ -233,7 +233,7 @@ def main():
     sl.CSV.mkdir(parents=True, exist_ok=True)
 
     data = mc.load_inputs()
-    prof = sl.build_pv_archive(data, 30)
+    prof = sl.build_pv_archive(data, 35)
     cfgs = build_configs()
     if args.main_only:
         keep_tags = {"Q4-2_" + DEFAULT_BASE, "Q4-3_" + DEFAULT_BASE}

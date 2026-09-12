@@ -46,8 +46,8 @@ def _worker(cfg: dict) -> dict:
     data = mc.load_inputs()
     resid = sl.net_residual_matrix("F1", data)
     gamma = float(cfg.get("gamma", 1.0))
-    run = sl.run_year_q2(data, "F1", 0.9, 30, resid=resid * gamma,
-                         n_days=365, executor="mpc")
+    run = sl.run_year_q2(data, "F1", 0.805, 35, resid=resid * gamma,
+                         horizon=49, n_days=365, executor="mpc")
     metrics = sl.year_metrics(run)
     gates = sl.check_run(run)
     return {

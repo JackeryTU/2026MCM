@@ -4,7 +4,7 @@
   "charge_emergency_max_kWh": 2.2737367544323206e-13,
   "bound_p": -0.0,
   "bound_q": -0.0,
-  "bound_x": 4.092726157978177e-12,
+  "bound_x": 1.1368683772161603e-13,
   "bound_y": 1.8189894035458565e-12,
   "bound_v": -0.0,
   "bound_u": -0.0,
@@ -15,10 +15,10 @@
   "settle_flow_max_yuan": 2.9103830456733704e-11,
   "official_days": 334,
   "coverage": {
-    "Ncov": 0.8943155355954757,
-    "pinball": 52.86139132500156,
-    "resid_MAE_kW": 217.1732781867168,
-    "resid_RMSE_kW": 296.7100240586232
+    "Ncov": 0.7694610778443114,
+    "pinball": 84.89467907926583,
+    "resid_MAE_kW": 217.13441801514674,
+    "resid_RMSE_kW": 296.69976589176406
   },
   "all_numeric_ok": true
 }

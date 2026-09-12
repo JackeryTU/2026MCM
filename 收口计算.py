@@ -84,9 +84,13 @@ def diag_row(label, arrays, price, q3, data):
 
 def settlement_sensitivity(data, q3, q4):
     rows = []
+    q3_main = {k[len("main_"):]: v for k, v in q3.items()
+               if k.startswith("main_")}
+    q4_main = {k[len("Q4-3_median30_"):]: v for k, v in q4.items()
+               if k.startswith("Q4-3_median30_")}
     specs = [
-        ("Q3主方案", q3["main_"], fixed_price(data), True),
-        ("Q4-3_median30", q4["Q4-3_median30_"], actual_price(data), True),
+        ("Q3主方案", q3_main, fixed_price(data), True),
+        ("Q4-3_median30", q4_main, actual_price(data), True),
     ]
     # Q3 八组组合：直接使用保存的逐槽数组，重算两种口径及排序。
     for tag in ("main", "abl_none", "abl_1", "abl_2", "abl_3", "abl_1_2", "abl_1_3", "abl_2_3"):
@@ -112,7 +116,7 @@ def tail_risk(label, daily, dates):
     q = float(np.quantile(x, 0.95, method="linear"))
     tail = x[x >= q]
     i = int(np.argmax(x))
-    d = pd.Timestamp(dates[OFF:END][i]).date()
+    d = pd.Timestamp(str(dates[OFF:END][i])).date()
     return {"方案": label, "日均费用_元": float(x.mean()), "VaR95_元": q,
             "CVaR95_元": float(tail.mean()), "最坏日费用_元": float(x.max()),
             "最坏日": str(d), "最坏5日均费用_元": float(np.sort(x)[-5:].mean())}
@@ -150,9 +154,12 @@ def time_audit(data, q2, q3, q4):
         for shift in (-1, 0, 1):
             pp = np.roll(price, shift, axis=1)
             p = fee_parts(a["P"], a["Q"] if q3flag else a["P"], a["U"], pp, q3flag)
-            rows.append({"方案":label, "价格整体平移槽数":shift, "重放费用_元":p["total_A"][OFF:END].sum(),
-                         "相对原映射_元":p["total_A"][OFF:END].sum() - rows[-1]["重放费用_元"] if shift == 0 else np.nan})
-    return pd.concat([boundary, pd.DataFrame(rows)], ignore_index=True)
+            rows.append({"方案":label, "价格整体平移槽数":shift,
+                         "重放费用_元":p["total_A"][OFF:END].sum()})
+    audit = pd.DataFrame(rows)
+    baseline = audit.loc[audit["价格整体平移槽数"] == 0].set_index("方案")["重放费用_元"]
+    audit["相对原映射_元"] = audit["重放费用_元"] - audit["方案"].map(baseline)
+    return pd.concat([df, boundary, audit], ignore_index=True)
 
 
 def main():
@@ -167,7 +174,7 @@ def main():
     q4a = {k[len("Q4-3_median30_"):]: v for k, v in q4.items() if k.startswith("Q4-3_median30_")}
     q4b = {k[len("Q4-2_median30_"):]: v for k, v in q4.items() if k.startswith("Q4-2_median30_")}
 
-    main_rows = [diag_row("Q2-F1-W30-alpha0.9", q2a, np.tile(data["price1"], (END,1)), False, data),
+    main_rows = [diag_row("Q2-F1-W35-alpha0.805-H49", q2a, np.tile(data["price1"], (END,1)), False, data),
                  diag_row("Q3-S={6,12,18}", q3a, np.tile(data["price1"], (END,1)), True, data),
                  diag_row("Q4-2-median30", q4b, data["price_act"], False, data),
                  diag_row("Q4-3-median30", q4a, data["price_act"], True, data)]
@@ -196,7 +203,7 @@ def main():
     pd.DataFrame(rows).to_csv(CSV / "重点日期_统一诊断表.csv", index=False, encoding="utf-8-sig")
 
     risk = pd.DataFrame([
-        tail_risk("Q2-F1-W30-alpha0.9", q2["cash"], dates),
+        tail_risk("Q2-F1-W35-alpha0.805-H49", q2["cash"], dates),
         tail_risk("Q3-S={6,12,18}", q3["main_cash"], dates),
         tail_risk("Q4-2-median30", q4["Q4-2_median30_cash"], dates),
         tail_risk("Q4-3-median30", q4["Q4-3_median30_cash"], dates),
