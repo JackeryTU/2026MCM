@@ -95,7 +95,7 @@ def write_csv(sol: dict, met: dict) -> None:
     CSV.mkdir(parents=True, exist_ok=True)
     idx = np.arange(mc.T)
     df = pd.DataFrame({
-        "槽序号": idx + 1,
+        "时段序号": idx + 1,
         "自然区间": [f"{mc.slot_label_start(i)}-{mc.slot_label_end(i)}" for i in idx],
         "电价_元每kWh": sol["c"],
         "负荷_kWh": sol["load_kwh"],
@@ -105,9 +105,9 @@ def write_csv(sol: dict, met: dict) -> None:
         "计划购电量_kWh": sol["g"],
         "充电量_kWh": sol["x"],
         "放电量_kWh": sol["y"],
-        "槽末储电量_kWh": sol["S"][1:],
+        "时段末储电量_kWh": sol["S"][1:],
     })
-    df.to_csv(CSV / "问题1_逐槽计划.csv", index=False, encoding="utf-8-sig")
+    df.to_csv(CSV / "问题1_逐时段计划.csv", index=False, encoding="utf-8-sig")
 
     blocks = pd.DataFrame({
         "时间段": ["0:00-4:00", "4:00-8:00", "8:00-12:00", "12:00-16:00",

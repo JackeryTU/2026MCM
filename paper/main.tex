@@ -58,7 +58,7 @@
 
 % 正文全局设置：小四宋体，1.5倍行距，段首缩进2字符
 \zihao{-4}\songti
-\renewcommand{\baselinestretch}{1.5}
+\renewcommand{\baselinestretch}{1.35}
 \setlength{\parindent}{2em}
 
 % 页码设置：页脚居中，无页眉线
@@ -68,7 +68,7 @@
 \renewcommand{\headrulewidth}{0pt}
 
 % 自定义加粗命令，突出结果
-\newcommand{\res}[1]{\textbf{#1}}
+\newcommand{\res}[1]{\textbf{\boldmath #1}}
 % 将正文中的表格统一延迟到附录排版，图片保持原位置
 \makeatletter
 \makeatother
@@ -77,24 +77,21 @@
 % ========== 摘要专用页（竞赛要求：摘要页页码=1！） ==========
 \setcounter{page}{1}
 \begin{center}
-    \heiti\zihao{3} 考虑预测误差与日内调整的微网购电优化策略
+    \heiti\zihao{3} 预测驱动的微网购电分层滚动优化与日内合同调整策略
 \end{center}
 \vspace{10pt}
 \begin{center}
     \heiti\zihao{4} 摘\quad 要
 \end{center}
 \vspace{5pt}
-针对负荷、光伏和电价不确定，以及储能跨时段耦合、购电合同受限等问题，本文以线性规划（LP）和模型预测控制（MPC）为核心：用历史预测生成源荷与价格基线，用经验分位将预测残差转化为合同风险裕度，并通过滚动优化和真实闭环结算评价策略。
+\setlength{\parindent}{2em}
+\noindent\hspace*{2em}针对负荷、光伏与电价不确定、储能跨时段耦合及合同日内不可修改等问题，本文在非前视信息约束下，构建分层滚动优化框架，结合历史点预测、残差经验分位风险修正、线性规划（LP）和模型预测控制（MPC）；结算时使用真实负荷与光伏（问题四另使用真实电价）评估各方案。
 
-针对问题一，基于典型日全信息建立以购电费用最小为目标的线性规划（LP）模型，综合考虑功率平衡、储能荷电状态递推、充放电功率上限和日末状态闭环约束。调用 HiGHS 线性规划求解器得到典型日最优购电量为 \res{$59482.70\ \mathrm{kWh}$}，购电费用为 \res{$35126.95$ 元}，且储能始末均为 $6000\ \mathrm{kWh}$。
+\noindent\hspace*{2em}问题一基于典型日全信息建立确定性LP模型，考虑功率平衡、储能SOC递推、充放电功率上限和日始末电量闭环。求得典型日购电量为\res{$59482.70\ \mathrm{kWh}$}、购电费用为\res{$35126.95$元}，较无储能情形的\res{$61789.94\ \mathrm{kWh}$}下降$3.73\%$。问题二拓展至全年334天，比较F1/F2历史预测器，并以净负荷残差经验分位构造安全轨迹；由报童模型得到理论分位$0.8$，主方案取$W=35,\alpha=0.805,H=49$，年度现金费用为\res{$14786101.35$元}，应急购电量为\res{$245483.29\ \mathrm{kWh}$}。
 
-针对问题二，引入全年连续运行、每日0:00签订合同且日内不可调整、缺口按5倍电价应急购电等约束，采用 F1/F2 历史预测并以净负荷残差经验分位进行风险修正。基于报童模型得到理论分位 $0.8$，主方案取 $W=35,\alpha=0.805,H=49$，滚动 LP 完成334天闭环仿真；年度现金总费用为 \res{$14786101.35$ 元}，应急购电量为 \res{$245483.29\ \mathrm{kWh}$}。
+\noindent\hspace*{2em}问题三构建“日前合同优化—日内滚动LP执行”的两层框架，在0:00、6:00、12:00和18:00依据新光伏预报与实际储能状态修正未执行合同。主方案取$W=35,\alpha=0.7725,H=6$，年度费用为\res{$14664345.40$元}，较不使用日内新预报的方案节省\res{$566030.72$元}，单次合同更新的盈亏平衡成本约为\res{$564.90$元}。问题四进一步考虑只能由历史数据预测的分时波动电价，对比固定合同与可调合同：可调合同费用为\res{$15465962.60$元}，较固定合同的\res{$17378687.69$元}下降$11.01\%$，应急购电量下降$63.14\%$；相对已知真实电价的理想下界$15383049.81$元，仅增加$0.54\%$。
 
-针对问题三，针对全年334天、144个10分钟时段及多个日内信息更新节点的规模特征，设计“日前合同外层优化 + 日内滚动 LP 内层执行”的分层框架，在0:00、6:00、12:00和18:00依据新光伏预报与实际储能状态调整尚未执行合同。主方案采用 $W=35,\alpha=0.7725,H=6$，总费用为 \res{$14664345.40$ 元}，相对不使用日内新预报的方案减少 \res{$566030.72$ 元}。
-
-针对问题四，引入实际电价随机波动及其历史可得性约束，沿用 F1 负荷预测与官方光伏预报，采用近30日价格中位数预测，并通过固定合同与可调合同的闭环仿真比较扩展性。结果表明，固定合同和可调合同费用分别为 \res{$17378687.69$ 元}和 \res{$15465962.60$ 元}；允许日内调整后，应急购电量下降 \res{$63.14\%$}，说明合同灵活性能够显著削弱价格与源荷预测误差的叠加风险。
-
-综合四个问题，在本文2025年数据和给定结算规则下，日内合同调整同时降低了年度现金费用和应急购电量；模型满足功率平衡、储能边界及跨日连续性约束。该框架可作为含储能园区微网的样本内调度基线，但迁移到其他年份或市场规则时仍需重新标定风险分位和合同参数。
+\noindent\hspace*{2em}结果表明，日内合同调整能够同时降低年度现金费用和应急购电风险；各方案均满足功率平衡、储能边界及跨日连续性约束，相关残差处于$10^{-13}$量级。敏感性分析显示，储能功率上限属于高敏感参数，预测误差倍率的影响具有非单调性。在本文数据范围内，该框架可作为含储能园区微网的调度基线，迁移到其他年份或市场规则时需重新标定参数。
 \par\noindent\textbf{关键词}：微网购电；线性规划；风险修正；滚动优化；合同调整；波动电价
 
 \newpage
@@ -217,14 +214,17 @@
 \addcontentsline{toc}{section}{AI 工具使用声明}
 本参赛队在竞赛过程中使用了AI工具，主要用于建模方案比较、参数分析、代码调试、图示设计和语言润色等，详细使用情况见支撑材料。
 
-
-\newpage
 \begin{thebibliography}{99}
-    \bibitem{1} 姜启源, 谢金星, 叶俊. 数学模型(第五版)[M]. 北京: 高等教育出版社, 2018.
-    \bibitem{2} 李航. 统计学习方法[M]. 北京: 清华大学出版社,2019.
-    \bibitem{3} Ropke S, Pisinger D. An adaptive large neighborhood search heuristic for the pickup and delivery problem with time windows[J]. Transportation Science,2006,40(4):455-472.
-    \bibitem{4} Bouzid A M, Guerrero J M, Chériti A, et al. A survey on control of electric power distributed generation systems for microgrid applications[J]. Renewable and Sustainable Energy Reviews, 2015,44:751-766.
-    \bibitem{5} Virtanen P, Gommers R, Oliphant T E, et al. SciPy 1.0: Fundamental algorithms for scientific computing in python[J]. Nature Methods, 2020,17(3):261-272.
+    \small
+    \setlength{\itemsep}{0pt}
+    \bibitem{thirunavukkarasu2022optimization} Thirunavukkarasu M, et al. Role of Optimization Techniques in Microgrid Energy Management Systems---A Review[J]. Energy Strategy Reviews, 2022,43:100899. DOI:10.1016/j.esr.2022.100899.
+    \bibitem{nemati2018unitcommitment} Nemati M, et al. Optimization of Unit Commitment and Economic Dispatch in Microgrids Based on Genetic Algorithm and MILP[J]. Applied Energy, 2018,210:944--963. DOI:10.1016/j.apenergy.2017.07.007.
+    \bibitem{hong2020forecasting} Hong T, Pinson P, Wang Y, Weron R, Yang D, Zareipour H. Energy Forecasting: A Review and Outlook[J]. IEEE Open Journal of the Power and Energy Society, 2020,7:1--20. DOI:10.1109/OAJPE.2020.3029979.
+    \bibitem{iheanetu2022pvforecasting} Iheanetu K J. Solar Photovoltaic Power Forecasting: A Review[J]. Sustainability, 2022,14(24):17005. DOI:10.3390/su142417005.
+    \bibitem{parisio2016stochasticmpc} Parisio A, Rikos E, Glielmo L. Stochastic Model Predictive Control for Economic/Environmental Operation Management of Microgrids: An Experimental Case Study[J]. Journal of Process Control, 2016,43:24--37. DOI:10.1016/j.jprocont.2016.04.008.
+    \bibitem{vahedipour2018reliability} Vahedipour-Dahraie M, Anvari-Moghaddam A, Guerrero J M. Evaluation of Reliability in Risk-Constrained Scheduling of Autonomous Microgrids with Demand Response and Renewable Resources[J]. IET Renewable Power Generation, 2018,12(6):657--667. DOI:10.1049/iet-rpg.2017.0720.
+    \bibitem{bouzid2015microgrid} Bouzid A M, Guerrero J M, Chériti A, et al. A Survey on Control of Electric Power Distributed Generation Systems for Microgrid Applications[J]. Renewable and Sustainable Energy Reviews, 2015,44:751--766. DOI:10.1016/j.rser.2015.01.016.
+    \bibitem{virtanen2020scipy} Virtanen P, Gommers R, Oliphant T E, et al. SciPy 1.0: Fundamental Algorithms for Scientific Computing in Python[J]. Nature Methods, 2020,17(3):261--272. DOI:10.1038/s41592-019-0686-2.
 \end{thebibliography}
 
 \clearpage
@@ -248,8 +248,11 @@
 \input{sections/appendix_required_tables.tex}
 
 \clearpage
+\input{sections/appendix_support_files.tex}
+
+\clearpage
 \section{完整程序代码}
-本附录嵌入支撑材料中用于结果复现的全部Python源代码。
+本附录嵌入支撑材料中用于结果复现的全部Python源代码；各文件的用途与运行方式见附录\ref{tab:support-manifest}（支撑材料清单）。
 \begingroup
 \setlength{\columnsep}{10pt}
 \lstset{basicstyle=\ttfamily\tiny,breaklines=true,breakatwhitespace=false,columns=fullflexible,numbers=none,frame=none,aboveskip=0pt,belowskip=0pt,showspaces=false,showstringspaces=false,showtabs=false}

@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 import os
 import time
 from multiprocessing import Pool
@@ -66,7 +65,6 @@ def _worker(cfg: dict) -> dict:
 def configs() -> list[dict]:
     return [
         {"group": "基准", "scenario": "基准"},
-        {"group": "效率", "scenario": "eta=sqrt(0.9)", "eta": math.sqrt(0.9)},
         {"group": "初始SOC", "scenario": "初始SOC=20%", "soc_ratio": 0.2},
         {"group": "初始SOC", "scenario": "初始SOC=80%", "soc_ratio": 0.8},
         {"group": "容量", "scenario": "容量-20%", "capacity_factor": 0.8},
@@ -94,7 +92,6 @@ def main() -> None:
             rows = pool.map(_worker, cfgs)
     base = next(r for r in rows if r["scenario"] == "基准")
     for group, scenario, extra in [
-        ("效率", "eta=0.9/0.9", {"eta": 0.9}),
         ("初始SOC", "初始SOC=50%", {"soc_ratio": 0.5}),
         ("误差倍率", "gamma=1.0", {"gamma": 1.0}),
     ]:

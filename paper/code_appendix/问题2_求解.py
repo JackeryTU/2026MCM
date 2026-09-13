@@ -50,7 +50,6 @@ def sensitivity(data: dict, resid_cache: dict, workers: int = 1) -> pd.DataFrame
         ("F1", 30, 0.805, "窗口 W=30", 49),
         ("F1", 45, 0.805, "窗口 W=45", 49),
         ("F2", 35, 0.805, "预测器 F2", 49),
-        ("F0", 35, 0.805, "预测器 F0", 49),
     ]
     if workers > 1:
         with Pool(workers, initializer=_sens_init, initargs=(data,)) as pool:
@@ -174,7 +173,7 @@ def figures(data: dict, run: dict, base: dict, sens: pd.DataFrame, day: int = 26
                color=ps.PALETTE["primary"], width=0.55)
         ax.set_title(name)
         ax.set_ylabel("年度现金费/万元")
-    lab = ["F0", "F1", "F2"]
+    lab = ["F1", "F2"]
 
     vals = [float(sens.loc[sens["预测器"] == k, "cash_total"].iloc[0]) / 1e4 for k in lab]
     axes[2].bar(lab, vals, color=ps.PALETTE["primary"], width=0.55)
@@ -190,7 +189,7 @@ def main() -> None:
     ap.add_argument("--main-only", action="store_true",
                     help="只运行 F1-W30-alpha0.9 主配置，不跑敏感性和绘图")
     ap.add_argument("--executor", choices=("mpc", "greedy"), default="mpc",
-                    help="执行器；greedy 为不读取当前槽实测的预测驱动贪心")
+                    help="执行器；greedy 为不读取当前时段实测的预测驱动贪心")
     ap.add_argument("--days", type=int, default=365,
                     help="运行前 N 天；小于 365 时只作 Lite 烟雾验证")
     ap.add_argument("--no-figures", action="store_true",
@@ -231,10 +230,10 @@ def main() -> None:
 
 
     err = pd.DataFrame([dict(预测器=k, **sl.point_error_metrics(k, data))
-                        for k in ("F0", "F1", "F2")])
+                        for k in ("F1", "F2")])
     err.to_csv(sl.CSV / "问题2_预测误差对比.csv", index=False, encoding="utf-8-sig")
 
-    resid_cache = {k: sl.net_residual_matrix(k, data) for k in ("F0", "F1", "F2")}
+    resid_cache = {k: sl.net_residual_matrix(k, data) for k in ("F1", "F2")}
     workers = args.workers or min(4, max(1, (os.cpu_count() or 4) - 2))
     sens, run = sensitivity(data, resid_cache, workers=workers)
     sens.to_csv(sl.CSV / "问题2_配置敏感性.csv", index=False, encoding="utf-8-sig")

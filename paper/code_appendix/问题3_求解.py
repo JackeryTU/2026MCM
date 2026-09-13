@@ -28,7 +28,7 @@ def build_configs() -> list:
         _cfg("main", "stratified", 6, FULL_SET, (1, 2, 3),
              "主配置：分层储备 + H=6 + 三次调整", keep=True),
         _cfg("uniform", "uniform", 6, FULL_SET, (1, 2, 3),
-             "对照：统一逐槽分位储备 + H=6", keep=True),
+             "对照：统一逐时段分位储备 + H=6", keep=True),
         _cfg("h72", "stratified", 72, FULL_SET, (1, 2, 3),
              "对照：分层储备 + H=72", keep=True),
     ]
@@ -115,7 +115,7 @@ def slot_table_q3(run, price_day, day_indices):
                 "应急购电_u_kWh": run["U"][d][t],
                 "充电量_kWh": run["X"][d][t],
                 "放电量_kWh": run["Y"][d][t],
-                "槽末储电量_kWh": run["S"][d][t],
+                "时段末储电量_kWh": run["S"][d][t],
                 "合同调整量_kWh": run["Q"][d][t] - run["P"][d][t],
             })
     return pd.DataFrame(rows)
@@ -145,7 +145,7 @@ def ablation_table(records):
             "调整事件数": m["updates"],
             "dn_相对空集": dn,
             "应急购电量_kWh": m["emergency_kwh"],
-            "应急槽数": m["emergency_slots"],
+            "应急时段数": m["emergency_slots"],
             "弃购量_kWh": m["unused_contract_kwh"],
             "期末储电量_kWh": m["S_end"],
             "相对空集节约_元": dc,

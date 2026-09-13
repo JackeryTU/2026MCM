@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
-"""无绘图复现 Q1--Q4 的 L1 Lite 主配置结果。"""
+"""无绘图复现 Q1--Q4 的 L1 Lite 主配置结果。
+
+运行方式：在本目录下执行 `python run_lite.py`；加 `--list` 只列出各复现步骤而不执行。
+依赖 numpy、pandas、scipy（线性规划求解器 HiGHS）。运行前需将赛题附件 1--4 放入
+`data/附件/` 目录；按竞赛规则，支撑材料不重复包含赛题原始数据。
+"""
 from __future__ import annotations
 
 import argparse

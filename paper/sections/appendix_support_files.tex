@@ -1,0 +1,47 @@
+\section{支撑材料清单}
+本论文按竞赛规则提交配套支撑材料压缩包，用于结果复现与使用过程核查。支撑材料按“程序代码、文献资料、AI使用报告”三类组织，文件清单如表\ref{tab:support-manifest}所示，表中路径均以压缩包根目录为基准。
+
+{\small
+\begin{longtable}{p{0.40\textwidth}p{0.52\textwidth}}
+\caption{支撑材料文件清单}\label{tab:support-manifest}\\
+\toprule
+路径 & 说明 \\
+\midrule
+\endfirsthead
+\toprule
+路径 & 说明 \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\multicolumn{2}{l}{\textbf{01\_程序代码/py/}（结果复现的全部源程序）} \\
+\texttt{run\_lite.py} & 全流程运行入口，按顺序调用问题一至问题四求解脚本 \\
+\texttt{microgrid\_core.py} & 公共参数、数据读取、储能与合同线性规划、安全轨迹及预测器等底层函数 \\
+\texttt{solution\_lib.py} & 年度连续仿真与滚动调度执行库；预测、合同优化、MPC执行、结算与校验 \\
+\texttt{问题1\_求解.py} & 问题一：确定性典型日线性规划基准调度 \\
+\texttt{问题2\_求解.py} & 问题二：负荷与光伏预测不确定性下的年度日前购电调度 \\
+\texttt{问题3\_求解.py} & 问题三：含日内购电合同修正的滚动优化策略 \\
+\texttt{问题4\_求解.py} & 问题四：电价预测不确定性下的固定合同与可调合同方案 \\
+\texttt{问题3\_其他时刻增量.py} & 问题三：备选预报更新时刻的增量收益测算 \\
+\texttt{补充敏感性计算.py} & 结构敏感性分析（初始SOC、容量与功率等） \\
+\texttt{终端价值敏感性.py} & 终端价值罚项系数敏感性分析 \\
+\texttt{收口计算.py} & 各子问题收口口径复核与关键数值复算 \\
+\texttt{汇总结果.py} & 汇总各问题输出并生成面向论文的结果表 \\
+\midrule
+\multicolumn{2}{l}{\textbf{02\_文献资料/}（参考文献资料）} \\
+\texttt{*.pdf}（共8篇） & 论文实际引用的参考文献全文\\
+\midrule
+\multicolumn{2}{l}{\textbf{03\_AI使用报告/}（AI工具使用说明）} \\
+\texttt{AI工具使用详情.pdf} & 与论文正文“AI工具使用声明”一致的报告 \\
+\midrule
+\multicolumn{2}{l}{\textbf{04\_结果/}（各问题结果文件）} \\
+\texttt{result1.xlsx} & 问题一典型日优化结果 \\
+\texttt{result2.xlsx} & 问题二年度日前购电优化结果 \\
+\texttt{result3.xlsx} & 问题三日内合同调整优化结果 \\
+\texttt{result4-2.xlsx} & 问题四固定合同方案结果 \\
+\texttt{result4-3.xlsx} & 问题四可调合同方案结果 \\
+\bottomrule
+\end{longtable}
+}
+
+使用说明如下。程序运行环境为Python 3.10及以上，依赖\texttt{numpy}、\texttt{pandas}与\texttt{scipy}（线性规划求解器HiGHS）；复现时在\texttt{01\_程序代码/py/}目录下执行\texttt{python run\_lite.py}，加\texttt{-{}-list}参数可仅列出各复现步骤而不实际运行。按竞赛规则，支撑材料不重复包含赛题提供的原始数据，运行前需将附件1--4放入程序目录的\texttt{data/附件/}下。支撑材料的完整文件名列表另见交付物\texttt{支撑列表/支撑材料文件列表.md}。全部文件与路径均不含学校名称、队员姓名等身份信息。

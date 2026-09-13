@@ -1,7 +1,6 @@
 
 from __future__ import annotations
 
-import datetime as _dt
 import time
 
 import numpy as np
@@ -46,19 +45,6 @@ def predict_center(kind: str, d: int, data: dict):
             vhat = pv_act[max(0, d - 7):d].mean(axis=0)
         else:
             vhat = data["pv1"].copy()
-        return lhat, vhat
-    if kind == "F0":
-        if d == 0:
-            return data["load1"].copy(), data["pv1"].copy()
-        j = np.arange(max(0, d - 90), d)
-        w = np.exp(-(d - j) / 60.0)
-        dow = np.array([(mc.DAY0 + _dt.timedelta(days=int(x))).weekday() for x in j])
-        wl = w * np.where(dow == (mc.DAY0 + _dt.timedelta(days=d)).weekday(), 2.0, 1.0)
-        lhat = (load_act[j] * wl[:, None]).sum(axis=0) / wl.sum()
-        vhat = (pv_act[j] * w[:, None]).sum(axis=0) / w.sum()
-        rho = min(1.0, len(j) / 21.0)
-        lhat = rho * lhat + (1 - rho) * data["load1"]
-        vhat = rho * vhat + (1 - rho) * data["pv1"]
         return lhat, vhat
     raise ValueError(kind)
 
@@ -250,7 +236,7 @@ def slot_table(run: dict, price_day, day_indices, slots=None) -> pd.DataFrame:
                 "应急购电_u_kWh": run["U"][d][t],
                 "充电量_kWh": run["X"][d][t],
                 "放电量_kWh": run["Y"][d][t],
-                "槽末储电量_kWh": run["S"][d][t],
+                "时段末储电量_kWh": run["S"][d][t],
             })
     return pd.DataFrame(rows)
 

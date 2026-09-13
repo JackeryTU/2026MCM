@@ -1,7 +1,0 @@
-### all:"microgrid" AND all:"model predictive control"
-ERR The read operation timed out
-### all:"robust optimization" AND all:"energy management"
-ERR HTTP Error 429: Unknown Error
-### all:"photovoltaic" AND all:"forecasting" AND all:"review"
-ERR HTTP Error 429: Too Many Requests
-DONE

@@ -16,7 +16,7 @@ import solution_lib as sl
 KEYS = ("P", "Q", "X", "Y", "U", "W", "V", "S", "cash", "cash_plan",
         "cash_contract", "plan_x", "plan_y", "plan_s_next")
 BASES = ("prev_day", "mean7", "mean30", "median30")
-BASE_LABEL = {"prev_day": "昨日同槽", "mean7": "近7日均值",
+BASE_LABEL = {"prev_day": "昨日同时段", "mean7": "近7日均值",
               "mean30": "近30日均值", "median30": "近30日中位数",
               "oracle": "0时已知真价（理想信息）"}
 DEFAULT_BASE = "median30"
@@ -142,7 +142,7 @@ def slot_table(run, price_act, day_indices):
                 "应急购电_u_kWh": float(run["U"][d][t]),
                 "充电量_kWh": float(run["X"][d][t]),
                 "放电量_kWh": float(run["Y"][d][t]),
-                "槽末储电量_kWh": float(run["S"][d][t]),
+                "时段末储电量_kWh": float(run["S"][d][t]),
                 "合同调整量_kWh": float(run["Q"][d][t] - run["P"][d][t]),
             })
     return pd.DataFrame(rows)

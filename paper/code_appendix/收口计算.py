@@ -135,14 +135,14 @@ def time_audit(data, q2, q3, q4):
     cols = mc._TIME_COLS
     checks = []
     for i, c in enumerate(cols):
-        checks.append({"槽序号": i + 1, "原始列标签": c, "自然区间": f"{mc.slot_label_start(i)}-{mc.slot_label_end(i)}",
-                       "是否首槽": i == 0, "是否末槽": i == mc.T - 1})
+        checks.append({"时段序号": i + 1, "原始列标签": c, "自然区间": f"{mc.slot_label_start(i)}-{mc.slot_label_end(i)}",
+                       "是否首时段": i == 0, "是否末时段": i == mc.T - 1})
     df = pd.DataFrame(checks)
     boundary = pd.DataFrame([
-        {"审计项":"附件2首列", "结果":cols[0], "判定":"第1槽按0:00-0:10解释"},
-        {"审计项":"附件2末列", "结果":cols[-1], "判定":"第144槽按23:50-24:00解释"},
-        {"审计项":"官方发布槽", "结果":"0,36,72,108", "判定":"对应0/6/12/18时刻"},
-        {"审计项":"重点槽", "结果":"60,72,84,96,108,120", "判定":"对应10:00至20:00起始槽"},
+        {"审计项":"附件2首列", "结果":cols[0], "判定":"第1时段按0:00-0:10解释"},
+        {"审计项":"附件2末列", "结果":cols[-1], "判定":"第144时段按23:50-24:00解释"},
+        {"审计项":"官方发布时间段", "结果":"0,36,72,108", "判定":"对应0/6/12/18时刻"},
+        {"审计项":"重点时段", "结果":"60,72,84,96,108,120", "判定":"对应10:00至20:00起始时段"},
         {"审计项":"跨午夜应急合并", "结果":"不跨午夜", "判定":"连续区间按自然日截断"},
     ])
 
@@ -153,10 +153,10 @@ def time_audit(data, q2, q3, q4):
         for shift in (-1, 0, 1):
             pp = np.roll(price, shift, axis=1)
             p = fee_parts(a["P"], a["Q"] if q3flag else a["P"], a["U"], pp, q3flag)
-            rows.append({"方案":label, "价格整体平移槽数":shift,
+            rows.append({"方案":label, "价格整体平移时段数":shift,
                          "重放费用_元":p["total_A"][OFF:END].sum()})
     audit = pd.DataFrame(rows)
-    baseline = audit.loc[audit["价格整体平移槽数"] == 0].set_index("方案")["重放费用_元"]
+    baseline = audit.loc[audit["价格整体平移时段数"] == 0].set_index("方案")["重放费用_元"]
     audit["相对原映射_元"] = audit["重放费用_元"] - audit["方案"].map(baseline)
     return pd.concat([df, boundary, audit], ignore_index=True)
 
