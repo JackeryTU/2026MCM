@@ -1,0 +1,273 @@
+
+% =============================================================================
+% 数模竞赛模板｜轻量分文件版｜基于队友原论文结构
+% 编译器：XeLaTeX
+% =============================================================================
+\documentclass[12pt,a4paper,fontset=fandol]{ctexart}
+% ====================== 导言区（所有宏包、格式全部放这里，不要拆分！） ======================
+\usepackage{geometry}
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{environ}
+\usepackage{indentfirst}
+\usepackage{caption,subcaption}
+\usepackage{longtable}
+\usepackage{csvsimple}
+\usepackage{multicol}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{algorithm,algorithmic}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+% hyperref必须放在所有宏包末尾！
+\usepackage{hyperref}
+\renewcommand{\topfraction}{0.90}
+\renewcommand{\bottomfraction}{0.80}
+\renewcommand{\textfraction}{0.10}
+\renewcommand{\floatpagefraction}{0.75}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{6}
+
+% 图、表中文名称
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+
+% 代码样式（附录放Python源码用）
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny,
+    frame=single,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    literate={_}{{\_}}1
+}
+
+% 标题格式：中文章节，去掉多余顿号
+\ctexset{
+    section/number=\chinese{section},
+    section/format=\centering\bfseries\large,
+    subsection/number=\arabic{section}.\arabic{subsection},
+    subsection/format=\bfseries
+}
+
+% 正文全局设置：小四宋体，1.5倍行距，段首缩进2字符
+\zihao{-4}\songti
+\renewcommand{\baselinestretch}{1.5}
+\setlength{\parindent}{2em}
+
+% 页码设置：页脚居中，无页眉线
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% 自定义加粗命令，突出结果
+\newcommand{\res}[1]{\textbf{#1}}
+% 将正文中的表格统一延迟到附录排版，图片保持原位置
+\makeatletter
+\makeatother
+% =============================================================================
+\begin{document}
+% ========== 摘要专用页（竞赛要求：摘要页页码=1！） ==========
+\setcounter{page}{1}
+\begin{center}
+    \heiti\zihao{3} 考虑预测误差与日内调整的微网购电优化策略
+\end{center}
+\vspace{10pt}
+\begin{center}
+    \heiti\zihao{4} 摘\quad 要
+\end{center}
+\vspace{5pt}
+针对研究背景中负荷、光伏与电价逐步不确定、储能跨时段耦合以及购电合同受限等难点，本文以线性规划（LP）和模型预测控制（MPC）为核心，融合历史预测、经验分位风险修正、滚动优化与闭环仿真，建立“日前计划—日内执行—实际结算—稳健性检验”的微网购电优化框架。
+
+针对问题一，基于典型日全信息建立以购电费用最小为目标的线性规划（LP）模型，综合考虑功率平衡、储能荷电状态递推、充放电功率上限和日末状态闭环约束。调用 HiGHS 线性规划求解器得到典型日最优购电量为 \res{$59482.70\ \mathrm{kWh}$}，购电费用为 \res{$35126.95$ 元}，且储能始末均为 $6000\ \mathrm{kWh}$。
+
+针对问题二，引入全年连续运行、每日0:00签订合同且日内不可调整、缺口按5倍电价应急购电等约束，采用 F1/F2 历史预测并以净负荷残差经验分位进行风险修正。基于报童模型得到理论分位 $0.8$，主方案取 $W=35,\alpha=0.805,H=49$，滚动 LP 完成334天闭环仿真；年度现金总费用为 \res{$14786101.35$ 元}，应急购电量为 \res{$245483.29\ \mathrm{kWh}$}。
+
+针对问题三，针对全年334天、144个10分钟时段及多个日内信息更新节点的规模特征，设计“日前合同外层优化 + 日内滚动 LP 内层执行”的分层框架，在0:00、6:00、12:00和18:00依据新光伏预报与实际储能状态调整尚未执行合同。主方案采用 $W=35,\alpha=0.7725,H=6$，总费用为 \res{$14664345.40$ 元}，相对不使用日内新预报的方案减少 \res{$566030.72$ 元}。
+
+针对问题四，引入实际电价随机波动及其历史可得性约束，沿用 F1 负荷预测与官方光伏预报，采用近30日价格中位数预测，并通过固定合同与可调合同的闭环仿真比较扩展性。结果表明，固定合同和可调合同费用分别为 \res{$17378687.69$ 元}和 \res{$15465962.60$ 元}；允许日内调整后，应急购电量下降 \res{$63.14\%$}，说明合同灵活性能够显著削弱价格与源荷预测误差的叠加风险。
+
+针对研究背景，本文模型将物理约束、信息边界与费用结算统一到可审计的时序框架中，兼顾可行性、经济性和风险控制；其 LP、MPC 与经验分位方法可推广至含储能的园区微网、综合能源系统及其他滚动购电决策场景。
+\par\noindent\textbf{关键词}：微网购电；线性规划；风险修正；滚动优化；合同调整；波动电价
+
+\newpage
+% ========== 正文开始，无目录！直接进入章节 ==========
+\section{问题重述与分析}
+\input{sections/problem-statement.tex}
+
+\section{模型假设、数据口径与基础物理模型}
+\input{sections/model_assumption.tex}
+
+\section{问题一：确定性典型日购电优化模型}
+\input{sections/problem1.tex}
+
+\section{问题二：基于日初预测的年度日前购电优化}
+\input{sections/problem2.tex}
+
+\section{问题三：考虑日内购电合同修正的微网滚动优化策略}
+\input{sections/problem3.tex}
+
+\section{问题四：考虑电价预测不确定性的微网多时间尺度调度优化}
+\input{sections/problem4.tex}
+
+\section{模型检验与灵敏度分析}
+\input{sections/sensibility.tex}
+
+\section{模型评价与推广}
+\input{sections/evaluation.tex}
+
+\section{结论}
+\input{sections/conclusion.tex}
+
+\iffalse
+\newpage
+\appendix
+\section{题目要求表格与指定日期结果}
+题目要求按指定格式呈现的表格统一列于本附录，以减少正文篇幅。正文保留各表对应的关键结论；完整的逐时段和逐日结果同时保存在题目要求的结果文件中。
+\subsection{问题一：表1与表2}
+\begin{table}[htbp]
+\centering\scriptsize
+\caption{问题一指定时间段购电量及全天汇总}
+\begin{tabular}{cc|cc|cc}
+\toprule 时间段&购电量/kWh&时间段&购电量/kWh&时间段&购电量/kWh\\\midrule
+10:00--10:10&0.00&12:00--12:10&486.40&14:00--14:10&0.00\\
+16:00--16:10&394.93&18:00--18:10&636.98&20:00--20:10&0.00\\\midrule
+全天购电量&59482.70&&&全天购电费/元&35126.95\\\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering\scriptsize
+\caption{问题一分段充放电量及始末储电量}
+\begin{tabular}{ccc|ccc}
+\toprule 时间段&充电量/kWh&放电量/kWh&时间段&充电量/kWh&放电量/kWh\\\midrule
+0:00--4:00&4500.00&0.00&4:00--8:00&833.33&6365.84\\
+8:00--12:00&4787.96&1703.00&12:00--16:00&5286.04&91.10\\
+16:00--20:00&0.00&5780.13&20:00--24:00&5333.33&2859.87\\\midrule
+0:00储电量&\multicolumn{2}{c|}{6000.00 kWh}&24:00储电量&\multicolumn{2}{c}{6000.00 kWh}\\\bottomrule
+\end{tabular}
+\end{table}
+\input{sections/appendix_required_tables.tex}
+\iffalse
+\subsection{问题二：表1、表2与表3}
+\noindent 以下三张表对应题目表1、表2、表3的指定日期结果。
+\begin{longtable}{lll}\caption{问题二指定时段购电量（kWh）}\\\toprule 日期&时间段&购电量\\\midrule\endfirsthead\toprule 日期&时间段&购电量\\\midrule\endhead\bottomrule\endfoot
+\csvreader[respect underscore]{../results/csv/问题2_表1_指定时段.csv}{}{\csvcoli&\csvcolii&\csvcolvii\\}
+\end{longtable}
+\begin{longtable}{lrrrrr}\caption{问题二分段充放电与始末储电量（kWh）}\\\toprule 日期&时间段&充电量&放电量&日初储电量&日末储电量\\\midrule\endfirsthead\toprule 日期&时间段&充电量&放电量&日初储电量&日末储电量\\\midrule\endhead\bottomrule\endfoot
+\csvreader[respect underscore]{../results/csv/问题2_表2_四小时聚合.csv}{}{\csvcoli&\csvcolii&\csvcoliii&\csvcoliv&\csvcolv&\csvcolvi\\}
+\end{longtable}
+\begin{longtable}{lll}\caption{问题二紧急购电量（kWh）}\\\toprule 日期&紧急购电时间段&购电量\\\midrule\endfirsthead\toprule 日期&紧急购电时间段&购电量\\\midrule\endhead\bottomrule\endfoot
+\csvreader[respect underscore]{../results/csv/问题2_表3_紧急购电.csv}{}{\csvcoli&\csvcolii&\csvcoliii\\}
+\end{longtable}
+
+\subsection{问题三：表1、表2与表3}
+\noindent 以下三张表对应题目表1、表2、表3的指定日期结果；表1的购电量为最终调整后的合同购电量。
+\begin{longtable}{lll}\caption{问题三指定时段最终合同购电量（kWh）}\\\toprule 日期&时间段&最终合同购电量\\\midrule\endfirsthead\toprule 日期&时间段&最终合同购电量\\\midrule\endhead\bottomrule\endfoot
+\csvreader[respect underscore]{../results/csv/问题3_表1_指定时段.csv}{}{\csvcoli&\csvcolii&\csvcolvii\\}
+\end{longtable}
+\begin{longtable}{lrrrrr}\caption{问题三分段充放电与始末储电量（kWh）}\\\toprule 日期&时间段&充电量&放电量&日初储电量&日末储电量\\\midrule\endfirsthead\toprule 日期&时间段&充电量&放电量&日初储电量&日末储电量\\\midrule\endhead\bottomrule\endfoot
+\csvreader[respect underscore]{../results/csv/问题3_表2_四小时聚合.csv}{}{\csvcoli&\csvcolii&\csvcoliii&\csvcoliv&\csvcolv&\csvcolvi\\}
+\end{longtable}
+\begin{longtable}{lll}\caption{问题三紧急购电量（kWh）}\\\toprule 日期&紧急购电时间段&购电量\\\midrule\endfirsthead\toprule 日期&紧急购电时间段&购电量\\\midrule\endhead\bottomrule\endfoot
+\csvreader[respect underscore]{../results/csv/问题3_表3_紧急购电.csv}{}{\csvcoli&\csvcolii&\csvcoliii\\}
+\end{longtable}
+
+\clearpage
+\fi
+\section{完整程序代码}
+本附录嵌入支撑材料中用于结果复现的全部Python源代码。各程序均位于“支撑材料/01\_程序代码/py”目录；运行入口为\texttt{run\_lite.py}，其余文件为问题求解、敏感性计算、结果汇总及公共函数模块。
+
+\begingroup
+\setlength{\columnsep}{10pt}
+\setlength{\columnseprule}{0pt}
+\lstset{basicstyle=\ttfamily\tiny,breaklines=true,breakatwhitespace=false,columns=fullflexible,numbers=none,frame=none,aboveskip=0pt,belowskip=0pt,xleftmargin=0pt,xrightmargin=0pt,showspaces=false,showstringspaces=false,showtabs=false}
+\begin{multicols}{2}
+
+\subsection{运行入口与公共模块}
+\lstinputlisting[caption={run\_lite.py}]{code_appendix/run_lite.py}
+\lstinputlisting[caption={microgrid\_core.py}]{code_appendix/microgrid_core.py}
+\lstinputlisting[caption={solution\_lib.py}]{code_appendix/solution_lib.py}
+
+\subsection{四个问题的求解程序}
+\lstinputlisting[caption={问题1\_求解.py}]{code_appendix/问题1_求解.py}
+\lstinputlisting[caption={问题2\_求解.py}]{code_appendix/问题2_求解.py}
+\lstinputlisting[caption={问题3\_求解.py}]{code_appendix/问题3_求解.py}
+\lstinputlisting[caption={问题4\_求解.py}]{code_appendix/问题4_求解.py}
+
+\subsection{补充计算与结果汇总程序}
+\lstinputlisting[caption={问题3\_其他时刻增量.py}]{code_appendix/问题3_其他时刻增量.py}
+\lstinputlisting[caption={补充敏感性计算.py}]{code_appendix/补充敏感性计算.py}
+\lstinputlisting[caption={终端价值敏感性.py}]{code_appendix/终端价值敏感性.py}
+\lstinputlisting[caption={收口计算.py}]{code_appendix/收口计算.py}
+\lstinputlisting[caption={汇总结果.py}]{code_appendix/汇总结果.py}
+\end{multicols}
+\endgroup
+
+\fi
+\newpage
+\section*{AI 工具使用声明}
+\addcontentsline{toc}{section}{AI 工具使用声明}
+本参赛队在竞赛过程中使用了AI工具，主要用于建模方案比较、参数分析、代码调试、图示设计和语言润色等，详细使用情况见支撑材料。
+
+
+\newpage
+\begin{thebibliography}{99}
+    \bibitem{1} 姜启源, 谢金星, 叶俊. 数学模型(第五版)[M]. 北京: 高等教育出版社, 2018.
+    \bibitem{2} 李航. 统计学习方法[M]. 北京: 清华大学出版社,2019.
+    \bibitem{3} Ropke S, Pisinger D. An adaptive large neighborhood search heuristic for the pickup and delivery problem with time windows[J]. Transportation Science,2006,40(4):455-472.
+    \bibitem{4} Bouzid A M, Guerrero J M, Chériti A, et al. A survey on control of electric power distributed generation systems for microgrid applications[J]. Renewable and Sustainable Energy Reviews, 2015,44:751-766.
+    \bibitem{5} Virtanen P, Gommers R, Oliphant T E, et al. SciPy 1.0: Fundamental algorithms for scientific computing in python[J]. Nature Methods, 2020,17(3):261-272.
+\end{thebibliography}
+
+\clearpage
+\appendix
+\section{题目要求表格与指定日期结果}
+题目要求在论文中呈现的结果表格统一列于本附录；正文仅保留模型、分析和关键结论。
+\subsection{问题一：表1与表2}
+\begin{table}[htbp]\centering\scriptsize
+\caption{问题一指定时间段购电量及全天汇总}
+\begin{tabular}{cc|cc|cc}\toprule 时间段&购电量/kWh&时间段&购电量/kWh&时间段&购电量/kWh\\\midrule
+10:00--10:10&0.00&12:00--12:10&486.40&14:00--14:10&0.00\\
+16:00--16:10&394.93&18:00--18:10&636.98&20:00--20:10&0.00\\\midrule
+全天购电量&59482.70&&&全天购电费/元&35126.95\\\bottomrule\end{tabular}\end{table}
+\begin{table}[htbp]\centering\scriptsize
+\caption{问题一分段充放电量及始末储电量}
+\begin{tabular}{ccc|ccc}\toprule 时间段&充电量/kWh&放电量/kWh&时间段&充电量/kWh&放电量/kWh\\\midrule
+0:00--4:00&4500.00&0.00&4:00--8:00&833.33&6365.84\\
+8:00--12:00&4787.96&1703.00&12:00--16:00&5286.04&91.10\\
+16:00--20:00&0.00&5780.13&20:00--24:00&5333.33&2859.87\\\midrule
+0:00储电量&\multicolumn{2}{c|}{6000.00 kWh}&24:00储电量&\multicolumn{2}{c}{6000.00 kWh}\\\bottomrule\end{tabular}\end{table}
+\input{sections/appendix_required_tables.tex}
+
+\clearpage
+\section{完整程序代码}
+本附录嵌入支撑材料中用于结果复现的全部Python源代码。
+\begingroup
+\setlength{\columnsep}{10pt}
+\lstset{basicstyle=\ttfamily\tiny,breaklines=true,breakatwhitespace=false,columns=fullflexible,numbers=none,frame=none,aboveskip=0pt,belowskip=0pt,showspaces=false,showstringspaces=false,showtabs=false}
+\begin{multicols}{2}
+\lstinputlisting[caption={run\_lite.py}]{code_appendix/run_lite.py}
+\lstinputlisting[caption={microgrid\_core.py}]{code_appendix/microgrid_core.py}
+\lstinputlisting[caption={solution\_lib.py}]{code_appendix/solution_lib.py}
+\lstinputlisting[caption={问题1\_求解.py}]{code_appendix/问题1_求解.py}
+\lstinputlisting[caption={问题2\_求解.py}]{code_appendix/问题2_求解.py}
+\lstinputlisting[caption={问题3\_求解.py}]{code_appendix/问题3_求解.py}
+\lstinputlisting[caption={问题4\_求解.py}]{code_appendix/问题4_求解.py}
+\lstinputlisting[caption={问题3\_其他时刻增量.py}]{code_appendix/问题3_其他时刻增量.py}
+\lstinputlisting[caption={补充敏感性计算.py}]{code_appendix/补充敏感性计算.py}
+\lstinputlisting[caption={终端价值敏感性.py}]{code_appendix/终端价值敏感性.py}
+\lstinputlisting[caption={收口计算.py}]{code_appendix/收口计算.py}
+\lstinputlisting[caption={汇总结果.py}]{code_appendix/汇总结果.py}
+\end{multicols}
+\endgroup
+
+
+\end{document}

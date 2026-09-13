@@ -1,0 +1,258 @@
+% sections/problem2.tex
+
+\subsection{问题分析与模型构建：源荷预测不确定性下的日前购电调度}\label{subsec:q2-analysis}
+问题一在典型日全信息条件下给出确定性最优调度，为全文物理模型提供基准；问题二将该模型推广到全年连续运行，并增加一条关键交易约束：微网只允许在每日0:00依据当时可得的预测签订全天购电合同$p_t$，日内不得修改合同，实测缺口只能按5倍电价应急购电。因此本问题的难点不再是峰谷套利，而是在只掌握历史信息的条件下确定合同电量：合同购电量偏低会产生高价应急购电，偏高则已付费用无法退回。
+
+全部决策严格服从因果信息边界。设第$d$日第$t$个10分钟时隙的可用信息集为
+\begin{equation}
+I_{d,t}=\{\text{时隙}t\text{之前已完成的源荷观测},\ S_{d,t},\ \text{当前生效合同},\ \text{截至}t\text{已发布的预测}\},
+\label{eq:q2-info}
+\end{equation}
+则购电计划与储能动作均为$I_{d,t}$的函数。调度日尚未发生的真实负荷与光伏出力不参与任何优化计算，真实值只在该时隙动作确定之后用于可行性裁剪、功率平衡校验与费用结算。
+
+储能不再施加日闭环约束，荷电状态按跨日连续方式传递。仿真以2025年1月为预热期完成初始状态过渡，正式统计周期取2月1日至12月31日共334天。
+
+本文对问题二的处理分为五个环节：先比较两组只使用历史数据的点预测方案并确定预测器；再对同一预测版本下的净负荷残差作逐槽经验分位修正，得到安全轨迹；随后以安全轨迹、真实日初储电量与分时电价求解0:00日前合同线性规划；日内以预测驱动的滚动时域线性规划（MPC执行器）执行储能动作；最后代入真实源荷完成裁剪、平衡与结算。需要说明的是，本问题的风险建模不构造场景树，也不依赖任何场景生成步骤，而是直接对同一预测版本下的逐槽净负荷残差作经验分位修正，风险信息以单条安全轨迹的形式进入合同优化。技术流程如图\ref{fig:q2_flow}所示。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{figures/q2-flow.png}
+\caption{问题二预测驱动日前购电与MPC执行流程}
+\label{fig:q2_flow}
+\end{figure}
+
+\subsection{基于历史数据的候选预测模型与误差评价}\label{subsec:q2-forecast}
+所有预测只使用目标日之前已经完成的历史观测，记目标日为$d$、时段为$t$。F1利用负荷的周周期与光伏的近期平均水平：
+\begin{align}
+\widehat L^{F1}_{d,t} &= L_{d-7,t}, \label{eq:q2-f1l}\\
+\widehat V^{F1}_{d,t} &= \frac{1}{7}\sum_{k=1}^{7}V_{d-k,t}. \label{eq:q2-f1v}
+\end{align}
+F2只把负荷部分改为三个滞后周的中位数，以抑制单周异常，光伏预测与F1完全相同：
+\begin{equation}
+\widehat L^{F2}_{d,t}=\operatorname{median}\left(L_{d-7,t},L_{d-14,t},L_{d-21,t}\right).
+\label{eq:q2-f2l}
+\end{equation}
+另设基于90日历史加权平均的模拟日模型F0作为历史基线，用于说明既有方案的误差水平。历史样本不足时按实际可用数据构造预测。
+
+点预测精度用平均绝对误差与均方根误差衡量：
+\begin{equation}
+\mathrm{MAE}=\frac{1}{n}\sum_{i=1}^{n}\left|z_i-\widehat z_i\right|,\qquad
+\mathrm{RMSE}=\sqrt{\frac{1}{n}\sum_{i=1}^{n}\left(z_i-\widehat z_i\right)^2}.
+\label{eq:q2-metrics}
+\end{equation}
+三个候选方案在2025年2月1日至12月31日上的误差如表\ref{tab:q2_forecast_error}所示。
+
+\begin{table}[htbp]
+\centering
+\caption{候选预测方案的误差对比}
+\label{tab:q2_forecast_error}
+\small
+\begin{tabular}{lrrrr}
+\toprule
+预测器 & 负荷MAE & 光伏MAE & 净负荷MAE & 净负荷RMSE \\
+\midrule
+F0 & 722.57 & 335.92 & 804.08 & 1074.83 \\
+F1 & 176.80 & 153.40 & 273.35 & 389.97 \\
+F2 & 187.90 & 153.40 & 284.35 & 403.25 \\
+\bottomrule
+\multicolumn{5}{c}{单位：kW；F0为历史基线。}\\
+\end{tabular}
+\end{table}
+
+由表\ref{tab:q2_forecast_error}可得，F1的净负荷MAE为273.35 kW，比F2低11.00 kW；净负荷RMSE为389.97 kW，比F2低13.28 kW。F1与F2的唯一差别是负荷预测的构造方式，光伏部分完全一致，因此该差值可以单独归因于负荷预测方法。F0的净负荷MAE为804.08 kW，接近F1的三倍，说明长窗口加权平滑会同时削弱负荷的星期效应与光伏的天气效应，故仅保留为历史基线。基于以上点预测误差，本文以F1作为主预测器，并在第\ref{subsec:q2-result}节用统一执行与结算口径下的闭环现金费用复核该选择。F1与F2净负荷预测值与实际值的散点对比如图\ref{fig:q2-diagnostics}所示，散点越接近对角参考线表示预测越准确。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/q2-diagnostics.png}
+\caption{F1与F2基础预测的净负荷预测值与实际值对比}
+\label{fig:q2-diagnostics}
+\end{figure}
+
+\subsection{净负荷残差的经验分位风险修正}\label{subsec:q2-risk}
+记中心净负荷预测为$\widehat N_{d,t}=\widehat L_{d,t}-\widehat V_{d,t}$，同一预测版本下已完成日$j<d$的逐槽残差定义为
+\begin{equation}
+e^N_{j,t}=N_{j,t}-\widehat N_{j,t},\qquad j<d .
+\label{eq:q2-resid}
+\end{equation}
+使用目标日之前最近$W$个已完成日的同槽残差经验分位构造安全净负荷：
+\begin{equation}
+\widetilde N_{d,t}=\widehat N_{d,t}+Q_\alpha\left\{e^N_{j,t}:\ d-W\le j<d\right\}.
+\label{eq:q2-safe}
+\end{equation}
+式\eqref{eq:q2-safe}直接对残差的经验分布取分位，不要求残差服从正态分布，也不需要额外的场景生成步骤；$W$控制所使用历史误差的时间范围，$\alpha$控制风险裕度的位置。加入分位裕度后净负荷可能出现负值，为保持重构后的负荷与光伏非负，按
+\begin{equation}
+\widetilde V_{d,t}=\max\left(\widehat V_{d,t},-\widetilde N_{d,t},0\right),\qquad
+\widetilde L_{d,t}=\widetilde V_{d,t}+\widetilde N_{d,t}
+\label{eq:q2-reconstruct}
+\end{equation}
+将其重新表示为非负的负荷预测与光伏预测。该处理只改变净负荷的分解方式，不改变$\widetilde N_{d,t}$本身，因而不影响供需缺口的计算。
+
+分位水平$\alpha$由计划电价与应急购电价格的比值确定。考虑单个时段，计划购电价格为$c>0$、计划购电量为$p$，该时段净负荷$N$为随机变量，剩余缺口按$5c$应急购电，则该时段的期望费用为
+\begin{equation}
+J(p)=cp+5c\,\mathbb E\left[(N-p)^+\right],\qquad (N-p)^+=\max(N-p,0).
+\label{eq:q2-newsboy}
+\end{equation}
+
+\noindent\textbf{命题 2（5倍应急价格对应的报童临界分位）}　在合同单位成本为$c>0$、缺电应急购电单价为$5c$、富余合同不退款的条件下，使式\eqref{eq:q2-newsboy}最小的计划购电量为$N$的$0.8$分位，即$p^*=Q_{0.8}(N)$。
+
+\noindent\textbf{证明}　记$N$的分布函数为$F(\cdot)$。对式\eqref{eq:q2-newsboy}关于$p$求导，
+\[
+J'(p)=c-5c\,\mathbb P(N>p)=c\left[1-5\left(1-F(p)\right)\right].
+\]
+令$J'(p)=0$得$F(p)=1-c/(5c)=0.8$，即$p^*=Q_{0.8}(N)$。再对$J'(p)$求导得$J''(p)=5c\,f(p)\ge0$，故$J(p)$为凸函数，该驻点即全局最小值点；$N$取离散分布时按次梯度理解，结论不变。证毕。
+
+命题2的边际含义是：多购1 kWh计划电需支付$c$，少购1 kWh计划电则以$1-\alpha$的概率支付$5c$，两种边际代价相等时分位水平为$1-1/5=0.8$。实际计算中净负荷的分布未知，本文用最近$W=35$个已完成日的同槽历史残差经验分位数实现该分位水平；受有限样本影响，分位取值与理论值存在小幅差别，主配置取$\alpha=0.805$。需要明确该分位的适用边界：命题2针对单个时段的边际分布，$0.8$是单槽风险基准，并不表示整日供电可靠度为$80\%$，也不保证计入储能跨时段耦合后合同量随分位单调变化，因此$W$与$\alpha$的最终取值由第\ref{subsec:q2-result}节的参数敏感性确定。以夏至日为例，分位风险修正前后的净负荷预测与实际净负荷对比如图\ref{fig:q2-safe}所示。
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.80\textwidth]{figures/q2-safe.png}
+\caption{分位风险修正预测、风险裕量与实际净负荷（以2025-06-21为例）}
+\label{fig:q2-safe}
+\end{figure}
+
+\subsection{日前合同优化与MPC滚动执行规则}\label{subsec:q2-model}
+每天0:00以真实日初储电量为初值、以安全轨迹为输入求解日前合同：
+\begin{equation}
+\min\ \sum_{t=1}^{144}c_tp_t-\lambda\left(S^{P}_{145}-S_{\min}\right),
+\label{eq:q2-contract}
+\end{equation}
+约束沿用前文通用微网物理模型，并令$g_t=p_t$。式\eqref{eq:q2-contract}第一项是当天必须支付的合同费用；第二项赋予有限时域末储电量机会价值，用于抑制时域截断引起的过度放空，$\lambda$仅用于求解引导，不计入实际现金费用。问题二的实际现金费用为
+\begin{equation}
+C_2=\sum_{t=1}^{144}\left(c_tp_t+5c_tu_t\right).
+\label{eq:q2-cash}
+\end{equation}
+计划购电量无论最终是否全部消纳都要按合同计费，弃购成本已包含在$c_tp_t$中，不能再次计费；$5c_tu_t$只在实际供电缺口发生时产生。此处需要说明一个建模边界：题目未设并网功率上限，若在单条确定性安全轨迹上再加入可自由替代的应急变量，模型将倾向于用5倍高价电填补全部缺口，该写法不能称为风险联合优化；因此本文让风险通过安全轨迹进入合同决策，再由真实闭环结算评价5倍费用的影响。
+
+合同签订后日内不可调整，储能动作由预测驱动的滚动时域线性规划（MPC执行器，下文简称滚动LP）给出。在时隙$t$，滚动LP以$\mathcal H_t=\{t,\dots,\min(t+H-1,144)\}$为范围，取$H=49$（约8小时10分钟），在$I_{d,t}$给定的信息下联合安排充放电、光伏利用、弃购、应急购电与储电量：
+\begin{equation}
+\min\ \sum_{\tau\in\mathcal H_t}5\widehat c_\tau u_\tau
++\varepsilon\sum_{\tau\in\mathcal H_t}\left(x_\tau+y_\tau\right)-\lambda S_{\mathrm{end}},
+\label{eq:q2-rolling-obj}
+\end{equation}
+约束为通用能量平衡、储能递推与设备运行边界。合同费用在日内已成为沉没成本，滚动目标只需最小化预测的应急购电费用；$\varepsilon$为极小罚项，用于在多重最优解中抑制储能同时充放电的数值伪解。每次求解只执行当前时隙动作，下一时隙用更新后的真实储电量重新计算。
+
+设滚动LP给出的当前时隙动作记为$(x_t^M,y_t^M)$。本时隙真实负荷与光伏到达后，只允许在已决定动作的基础上缩减：
+\begin{align}
+x_t^E&=\min\left\{x_t^M,\ \left(g_t+V_t-L_t\right)^+\right\}, \label{eq:q2-clip-charge}\\
+y_t^E&=\min\left\{y_t^M,\ \left(L_t-g_t-V_t+x_t^E\right)^+\right\}, \label{eq:q2-clip-discharge}\\
+b_t&=L_t+x_t^E-y_t^E-g_t-V_t. \label{eq:q2-clip-gap}
+\end{align}
+若$b_t\ge0$，则$u_t=b_t$、$w_t=0$；若$b_t<0$，则$u_t=0$，并将$-b_t$依次解释为未利用合同电量与弃光电量。式\eqref{eq:q2-clip-charge}至式\eqref{eq:q2-clip-gap}保证应急电只补实际缺口、不用于主动充电，同时禁止执行层依据本时隙实测缺口临时增加放电，使两种执行器在同一信息集下可比。时隙末真实储电量由储能递推关系传入下一时隙。
+
+作为同信息集对照，本文另设预测驱动贪心执行器。令预测盈余
+\[
+A_t=g_t+\widetilde V_{d,t}-\widetilde L_{d,t},
+\]
+若$A_t\ge0$，则盈余用于充电：
+\[
+x_t=\min\left\{A_t,\ B_{\max},\ \frac{S_{\max}-S_t^E}{\eta_c}\right\},\qquad y_t=u_t=0;
+\]
+若$A_t<0$，则先放电、缺口再应急：
+\[
+y_t=\min\left\{-A_t,\ B_{\max},\ \left(S_t^E-S_{\min}\right)\eta_d\right\},\qquad u_t=-A_t-y_t,\qquad x_t=w_t=0.
+\]
+贪心只依据当前一个时隙的安全轨迹决定动作，同样在动作确定之后才读取实测值并调用式\eqref{eq:q2-clip-charge}至式\eqref{eq:q2-clip-gap}的统一裁剪器。两种执行器共享同一合同、预测方法、风险裕度、储能约束与结算规则，唯一差别是滚动LP额外利用了未来$H$个时隙的价格与安全轨迹信息。贪心的作用在于提供唯一、可行、可审计的基线，不承诺跨时段执行最优性；年度正式结果以滚动LP为主执行器。
+
+\subsection{年度仿真结果与对比分析}\label{subsec:q2-result}
+334天仿真结束后，年度关键指标如表\ref{tab:q2_result_sum}所示。
+
+\begin{table}[htbp]
+\centering
+\caption{问题二年度运行汇总结果（2--12月）}
+\label{tab:q2_result_sum}
+\begin{tabular}{lr}
+\toprule
+指标 & 数值 \\
+\midrule
+计划购电量 & 22382650.65 $\mathrm{kWh}$ \\
+计划购电费用 & 13665855.74 元 \\
+应急购电量 & 245483.29 $\mathrm{kWh}$ \\
+应急购电费用 & 1120245.61 元 \\
+应急购电发生槽数 & 6822 \\
+闲置合同电量 & 1596110.94 $\mathrm{kWh}$ \\
+弃光电量 & 1741589.34 $\mathrm{kWh}$ \\
+储能充电量 & 7112133.95 $\mathrm{kWh}$ \\
+储能放电量 & 5760889.78 $\mathrm{kWh}$ \\
+期末储电量 & 10731.91 $\mathrm{kWh}$ \\
+年度现金总费用 & 14786101.35 元 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+由表\ref{tab:q2_result_sum}可得，全年计划购电量22382650.65 kWh，现金总费用14786101.35元，其中计划购电费用13665855.74元、应急购电费用1120245.61元。应急购电量仅占合同电量的$1.10\%$，但按5倍价格结算，对总费用的贡献达到$7.58\%$，说明风险修正的主要作用是把预测误差的尾部损失从高价应急购电转移到可控的合同冗余上。全年弃购1596110.94 kWh、弃光1741589.34 kWh，二者同时出现说明安全轨迹在部分时隙偏保守而另一些时隙光伏出力高于预期：前者表现为已付费但未消纳的合同电量，后者表现为可用而未利用的光伏电量。储能全年充电7112133.95 kWh、放电5760889.78 kWh、期末储电量10731.91 kWh，全程满足$1200\le S_t\le10800\ \mathrm{kWh}$。日费用的$95\%$分位VaR为66075.35元、CVaR为70048.64元，最坏单日为2025-06-01的88726.19元；按月统计，12月费用最高（1788158.05元），6月应急购电量最高（45846.13 kWh），4月费用最低（1050872.88元），说明年度成本同时受负荷水平、光伏季节性、合同冗余与缺口分布的影响。
+
+为检验主配置的稳健性，对预测器、残差窗口、分位水平与滚动时域逐一重跑全年闭环仿真，结果如表\ref{tab:q2_sensitivity}所示。
+
+\begin{table}[htbp]
+\centering
+\caption{问题二参数与执行器敏感性结果（2--12月）}
+\label{tab:q2_sensitivity}
+\scriptsize
+\begin{tabular}{lrrr}
+\toprule
+方案 & 年度现金费用/元 & 应急购电量/kWh & 相对主配置/元 \\
+\midrule
+主配置 F1-W35-$\alpha$0.805-H49 & 14786101.35 & 245483.29 & 0.00 \\
+分位 $\alpha=0.800$ & 14820043.34 & 289390.70 & +33941.99 \\
+分位 $\alpha=0.810$ & 14786818.42 & 245477.85 & +717.07 \\
+窗口 $W=30$ & 14837364.77 & 247334.59 & +51263.42 \\
+窗口 $W=45$ & 14815783.49 & 260994.56 & +29682.14 \\
+时域 $H=48$ & 14786354.19 & 245523.92 & +252.84 \\
+时域 $H=50$ & 14786319.50 & 245518.43 & +218.15 \\
+预测器 F2 & 14788842.58 & 249032.38 & +2741.23 \\
+预测器 F0 & 17345539.63 & 403927.41 & +2559438.28 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+由表\ref{tab:q2_sensitivity}可得，分位水平取0.800至0.810、残差窗口取30至45日、滚动时域取48至50个时隙时，年度现金费用相对主配置的变化均不超过$0.35\%$，其中时域长度在48至50之间变化时费用差异不足300元，表明主结论对参数设置并不敏感。分位由0.805降到理论值0.800时，应急购电量由245483.29 kWh升至289390.70 kWh、费用上升33941.99元，说明理论分位在有限样本条件下略偏激进；分位提高到0.810时费用基本不变，说明继续增厚裕度的边际收益已趋近于零。预测器的选择影响远大于参数微调：改用F2使费用上升2741.23元，改用F0则上升2559438.28元（约$17.3\%$），与表\ref{tab:q2_forecast_error}的点预测误差排序一致，说明预测质量而非风险参数是本问题的主要误差来源。
+
+为评价风险修正策略的相对水平，另设两组参照方案开展全周期对照：理想信息参照假设调度日0:00完全已知真实源荷，仅作为事后不可实施的理论下界；无储能基线在相同预测与结算口径下关闭储能。结果如表\ref{tab:q2_baseline_compare}所示。
+
+\begin{table}[htbp]
+\centering
+\caption{不同参照方案年度运行指标对比（2--12月）}
+\label{tab:q2_baseline_compare}
+\scriptsize
+\begin{tabular}{lrrr}
+\toprule
+方案 & 年度现金费用/元 & 应急购电费用/元 & 应急购电量/kWh \\
+\midrule
+主配置 F1-W35-$\alpha$0.805-H49 & 14786101.35 & 1120245.61 & 245483.29 \\
+理想信息参照（事后下界，不可实施） & 12291024.77 & 0.00 & 0.00 \\
+无储能基线 & 16407319.63 & 0.00 & 0.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+理想信息参照与主配置的差额2495076.58元，度量了全年源荷预测不确定性带来的总经济代价。无储能基线为规避缺口必须按更保守的口径采购合同电量，全年不产生应急购电，但现金费用高出主配置1621218.28元（约$11.0\%$）。该对比说明储能的削峰填谷收益只有在合理预测与风险裕度配合下才能实现：储能本身并不能消除预测误差，它把误差从高价应急购电转移到合同冗余与储能吞吐两侧，而这一转移是否盈利取决于分位裕度设置是否合理。
+
+四个代表日的运行结果如表\ref{tab:q2_repday}与图\ref{fig:q2-days}所示。
+
+\begin{table}[htbp]
+\centering
+\caption{问题二四个代表日（春分、夏至、秋分、冬至）运行结果}
+\label{tab:q2_repday}
+\scriptsize
+\begin{tabular}{lrrrr}
+\toprule
+日期 & 日购电费用/元 & 计划购电量/kWh & 应急购电量/kWh & 日初--日末储电量/kWh \\
+\midrule
+2025-03-20 & 45158.05 & 70894.49 & 542.74 & 10800.00--10795.24 \\
+2025-06-21 & 24282.59 & 41689.27 & 9.36 & 10800.00--10800.00 \\
+2025-09-23 & 47616.38 & 72083.06 & 600.29 & 10760.83--10793.77 \\
+2025-12-21 & 66632.03 & 101642.57 & 234.75 & 10756.53--10800.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.90\textwidth]{figures/q2-days.png}
+\caption{春分、夏至、秋分、冬至四个代表日的购电功率与储电量}
+\label{fig:q2-days}
+\end{figure}
+
+代表日结果与光伏季节性一致：12月21日负荷高、光伏弱，日费用最高（66632.03元）；6月21日光伏充足，日费用最低（24282.59元）；3月20日与9月23日的应急购电分别集中在凌晨与清晨的连续缺口时段，说明应急购电风险与日内源荷时序密切相关，而非由全天平均工况决定。上述代表日按题目要求整理的指定时段购电量、4小时充放电与储电量、应急购电区间见附录。
+
+最后需要说明风险裕度的工程折中关系：裕度设置过高会抬高合同采购成本并增加弃购，裕度设置过低则应急购电风险上升。仿真中可以观察到同一日既有弃购$w_t>0$、又有应急购电$u_t>0$的情形，这是日内源荷条件逐时隙变化的结果：部分时隙合同电量富余，另一些时隙的供给缺口无法由合同与储能覆盖，两类现象在同一日内可以并存。主配置在计入该折中关系后，于表\ref{tab:q2_sensitivity}的参数网格内取得最低现金费用，年度结果稳定可行。
